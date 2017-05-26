@@ -26,7 +26,7 @@ public class User implements Serializable{
 	@Column(name ="mail")
 	private String mail;
 	
-	@Column(name ="userid", unique=true)
+	@Column(name ="user_id", unique=true)
 	private String userId;
 	
 	public User() {
