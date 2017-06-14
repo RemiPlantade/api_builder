@@ -32,14 +32,14 @@ User will be able to appropriate the system for itself and use it in his own sys
 
 Contributors :
 
--Plantade Rémi,
--Lariau-Labree Joshua
+- Plantade Rémi,
+- Lariau-Labree Joshua
 
 
 Tech :
--Langage : Java
--Plateform : J2EE
--IDE : Eclipse
--JDK version : Java 1.8
+- Langage : Java
+- Plateform : J2EE
+- IDE : Eclipse
+- JDK version : Java 1.8
 
 
