@@ -2,12 +2,12 @@
 
 
 
-The aim of this project is to create a web platform for automatic generation 
-of RESTFULL API from datamodel or datasource (commonly database).
-The generated API would be be link to the datasource to expose entity from it.
+###### The aim of this project is to create a web platform for automatic generation 
+###### of RESTFULL API from datamodel or datasource (commonly database).
+###### The generated API would be be link to the datasource to expose entity from it.
 
 
-This project can be divided into several parts :
+###### This project can be divided into several parts :
 
 - Datamodel analyse from datasource
 
@@ -30,13 +30,13 @@ This system will be able to transform an uri to a SQL query to get entities from
 
 User will be able to appropriate the system for itself and use it in his own system.
 
-Contributors :
+###### Contributors :
 
 - Plantade Rémi,
 - Lariau-Labree Joshua
 
 
-Tech :
+###### Tech :
 - Langage : Java
 - Plateform : J2EE
 - IDE : Eclipse
