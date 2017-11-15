@@ -12,6 +12,7 @@
   <property name="hibernate.connection.autocommit">false</property>
   <property name="hibernate.hbm2ddl.auto">create-drop</property>
   <property name="hibernate.default_entity_mode">pojo</property>
+  <property name="hibernate.connection.password">D0r3Mu52012</property>
   <mapping package="org.api_builder.beans"/>
   <mapping class="org.api_builder.beans.User"/>
   <mapping class="org.api_builder.beans.Api"/>
