@@ -1,23 +1,28 @@
 package org.api_builder.misc;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.nio.charset.Charset;
-import java.util.List;
-
 public class UriTools {
 
 	public static String getUserIdFromURI(String uri){
-		return uri.split("/")[3];
+		String[] tokens = uri.split("/");
+		if(tokens.length < 4) {
+			return null;
+		}
+		return tokens[3];
 	}
 	
 	public static String getApiNameFromURI(String uri){
-		return uri.split("/")[4];
+		String[] tokens = uri.split("/");
+		if(tokens.length < 5) {
+			return null;
+		}
+		return tokens[4];
 	}
 	
 	public static String getRequestFromURI(String uri){
-		return uri.split("/")[5];
+		String[] tokens = uri.split("/");
+		if(tokens.length < 6) {
+			return null;
+		}
+		return tokens[5];
 	}
 }
