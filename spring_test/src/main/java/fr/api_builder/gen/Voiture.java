@@ -1,4 +1,4 @@
-package api_builder.bean;
+package fr.api_builder.gen;
 // Generated 16 nov. 2017 12:00:50 by Hibernate Tools 4.3.2-SNAPSHOT
 
 
