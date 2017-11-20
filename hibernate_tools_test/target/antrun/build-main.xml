@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="maven-antrun-" default="main"  >
+<target name="main">
+  <echo message="Start generating entities .."/>
+  <taskdef classname="org.hibernate.tool.ant.HibernateToolTask" name="hibernatetool"/>
+  <hibernatetool>
+    <jdbcconfiguration configurationfile="src/hibernate.cfg.xml" detectmanytomany="true" packagename="api_builder.bean"/>
+    <hbm2java jdk5="true" destdir="src/" ejb3="true"/>
+  </hibernatetool>
+  <echo message="End generating entities"/>
+</target>
+</project>
