@@ -42,7 +42,7 @@ public class VoitureController {
         	    return new ResponseEntity<Void>(HttpStatus.CONFLICT);
                 }
                 HttpHeaders headers = new HttpHeaders();
-                headers.setLocation(builder.path("/voiture/{id}").buildAndExpand(voiture.getIdVoiture()).toUri());
+                headers.setLocation(builder.path("/voiture/{id}").buildAndExpand(voiture.getIdvoiture()).toUri());
                 return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
 	}
 	@PutMapping("voiture")
