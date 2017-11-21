@@ -5,7 +5,6 @@
 	<artifactId>hibernate_test</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<build>
-		<sourceDirectory>src</sourceDirectory>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -28,8 +27,12 @@
 								<taskdef name="hibernatetool" classname="org.hibernate.tool.ant.HibernateToolTask" />
 								<hibernatetool>
 									<jdbcconfiguration packagename="api_builder.bean"
-										detectmanytomany="true" configurationfile="src/hibernate.cfg.xml" />
-									<hbm2java destdir="src/" jdk5="true" ejb3="true" />
+										detectmanytomany="true" configurationfile="hibernate.cfg.xml"
+										revengfile="hibernate.reveng.xml" />
+									<hbm2java destdir="src/main/java" jdk5="false" ejb3="true" />
+									<hbmtemplate destdir="src/main/java"
+										templateprefix="pojo/" template="pojo/Pojo.ftl"
+										filepattern="api_builder.bean/{class-name}.java" />
 								</hibernatetool>
 								<echo message="End generating entities" />
 							</target>
@@ -89,6 +92,12 @@
 						<artifactId>mysql-connector-java</artifactId>
 						<version>6.0.6</version>
 					</dependency>
+					<!-- slf4j-log4j -->
+					<dependency>
+						<groupId>org.slf4j</groupId>
+						<artifactId>slf4j-log4j12</artifactId>
+						<version>1.6.1</version>
+					</dependency>
 					<dependency>
 						<groupId>org.hibernate</groupId>
 						<artifactId>hibernate-tools</artifactId>
@@ -126,6 +135,11 @@
 			<artifactId>maven-invoker</artifactId>
 			<version>3.0.0</version>
 		</dependency>
-
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>2.9.2</version>
+		</dependency>
 	</dependencies>
 </project>

@@ -1,5 +1,5 @@
 package api_builder.bean;
-// Generated 20 nov. 2017 11:07:17 by Hibernate Tools 5.2.6.Final
+// Generated 21 nov. 2017 17:06:39 by Hibernate Tools 5.2.6.Final
 
 
 import java.util.HashSet;
@@ -23,7 +23,7 @@ public class Roue  implements java.io.Serializable {
      private int idroue;
      private Long rayon;
      private Double largeur;
-     private Set<VoitureRoue> voitureRoues = new HashSet<VoitureRoue>(0);
+     private Set voitureRoues = new HashSet(0);
 
     public Roue() {
     }
@@ -32,7 +32,7 @@ public class Roue  implements java.io.Serializable {
     public Roue(int idroue) {
         this.idroue = idroue;
     }
-    public Roue(int idroue, Long rayon, Double largeur, Set<VoitureRoue> voitureRoues) {
+    public Roue(int idroue, Long rayon, Double largeur, Set voitureRoues) {
        this.idroue = idroue;
        this.rayon = rayon;
        this.largeur = largeur;
@@ -72,11 +72,11 @@ public class Roue  implements java.io.Serializable {
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="roue")
-    public Set<VoitureRoue> getVoitureRoues() {
+    public Set getVoitureRoues() {
         return this.voitureRoues;
     }
     
-    public void setVoitureRoues(Set<VoitureRoue> voitureRoues) {
+    public void setVoitureRoues(Set voitureRoues) {
         this.voitureRoues = voitureRoues;
     }
 
