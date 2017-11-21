@@ -1,5 +1,6 @@
-D:\git\api_builder\hibernate_tools_test\src\api_builder\bean\Roue.java
-D:\git\api_builder\hibernate_tools_test\src\api_builder\app\Runner.java
-D:\git\api_builder\hibernate_tools_test\src\api_builder\bean\Voiture.java
-D:\git\api_builder\hibernate_tools_test\src\api_builder\bean\Conducteur.java
-D:\git\api_builder\hibernate_tools_test\src\api_builder\bean\ReverseStrategy.java
+C:\Users\remi_\git\api_builder\hibernate_tools_test\src\main\java\api_builder\bean\VoitureRoueId.java
+C:\Users\remi_\git\api_builder\hibernate_tools_test\src\main\java\api_builder\app\Runner.java
+C:\Users\remi_\git\api_builder\hibernate_tools_test\src\main\java\api_builder\bean\Conducteur.java
+C:\Users\remi_\git\api_builder\hibernate_tools_test\src\main\java\api_builder\bean\VoitureRoue.java
+C:\Users\remi_\git\api_builder\hibernate_tools_test\src\main\java\api_builder\bean\Roue.java
+C:\Users\remi_\git\api_builder\hibernate_tools_test\src\main\java\api_builder\bean\Voiture.java
