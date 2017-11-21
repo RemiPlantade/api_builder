@@ -1,5 +1,5 @@
 package api_builder.bean;
-// Generated 20 nov. 2017 11:07:17 by Hibernate Tools 5.2.6.Final
+// Generated 21 nov. 2017 17:06:39 by Hibernate Tools 5.2.6.Final
 
 
 import java.util.Date;
@@ -27,7 +27,7 @@ public class Conducteur  implements java.io.Serializable {
      private String nom;
      private String prenom;
      private Date age;
-     private Set<Voiture> voitures = new HashSet<Voiture>(0);
+     private Set voitures = new HashSet(0);
 
     public Conducteur() {
     }
@@ -36,7 +36,7 @@ public class Conducteur  implements java.io.Serializable {
     public Conducteur(int idconducteur) {
         this.idconducteur = idconducteur;
     }
-    public Conducteur(int idconducteur, String nom, String prenom, Date age, Set<Voiture> voitures) {
+    public Conducteur(int idconducteur, String nom, String prenom, Date age, Set voitures) {
        this.idconducteur = idconducteur;
        this.nom = nom;
        this.prenom = prenom;
@@ -87,11 +87,11 @@ public class Conducteur  implements java.io.Serializable {
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="conducteur")
-    public Set<Voiture> getVoitures() {
+    public Set getVoitures() {
         return this.voitures;
     }
     
-    public void setVoitures(Set<Voiture> voitures) {
+    public void setVoitures(Set voitures) {
         this.voitures = voitures;
     }
 

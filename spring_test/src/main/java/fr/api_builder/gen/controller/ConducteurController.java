@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import fr.api_builder.Views;
 import fr.api_builder.gen.model.Conducteur;
 import fr.api_builder.gen.service.iface.ConducteurService;
 
@@ -26,16 +29,19 @@ public class ConducteurController {
 	@Autowired
 	private ConducteurService conducteurService;
 	
+	@JsonView(Views.Test.class)
 	@GetMapping("conducteur/{id}")
 	public ResponseEntity<Conducteur> getArticleById(@PathVariable("id") Integer id) {
 		Conducteur conducteur = conducteurService.getConducteurById(id);
 		return new ResponseEntity<Conducteur>(conducteur, HttpStatus.OK);
 	}
+	@JsonView(Views.Test.class)
 	@GetMapping("conducteur/all")
 	public ResponseEntity<List<Conducteur>> getAllArticles() {
 		List<Conducteur> list = conducteurService.getAll();
 		return new ResponseEntity<List<Conducteur>>(list, HttpStatus.OK);
 	}
+	@JsonView(Views.Test.class)
 	@PostMapping("conducteur")
 	public ResponseEntity<Void> addArticle(@RequestBody Conducteur conducteur, UriComponentsBuilder builder) {
                 boolean flag = conducteurService.addConducteur(conducteur);
@@ -46,11 +52,13 @@ public class ConducteurController {
                 headers.setLocation(builder.path("/conducteur/{id}").buildAndExpand(conducteur.getIdconducteur()).toUri());
                 return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
 	}
+	@JsonView(Views.Test.class)
 	@PutMapping("conducteur")
 	public ResponseEntity<Conducteur> updateArticle(@RequestBody Conducteur conducteur) {
 		conducteurService.updateConducteur(conducteur);
 		return new ResponseEntity<Conducteur>(conducteur, HttpStatus.OK);
 	}
+	@JsonView(Views.Test.class)
 	@DeleteMapping("conducteur/{id}")
 	public ResponseEntity<Void> deleteArticle(@PathVariable("id") Integer id) {
 		conducteurService.deleteConducteur(id);

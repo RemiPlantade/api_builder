@@ -16,25 +16,30 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import fr.api_builder.Views;
 import fr.api_builder.gen.model.Voiture;
 import fr.api_builder.gen.service.iface.VoitureService;
 
 @Controller
-@RequestMapping("voiture")
+@RequestMapping("test")
 public class VoitureController {
 	@Autowired
 	private VoitureService voitureService;
-
+	@JsonView(Views.Test.class)
 	@GetMapping("voiture/{id}")
 	public ResponseEntity<Voiture> getArticleById(@PathVariable("id") Integer id) {
 		Voiture voiture = voitureService.getVoitureById(id);
 		return new ResponseEntity<Voiture>(voiture, HttpStatus.OK);
 	}
+	@JsonView(Views.Test.class)
 	@GetMapping("voiture/all")
 	public ResponseEntity<List<Voiture>> getAllArticles() {
 		List<Voiture> list = voitureService.getAll();
 		return new ResponseEntity<List<Voiture>>(list, HttpStatus.OK);
 	}
+	@JsonView(Views.Test.class)
 	@PostMapping("voiture")
 	public ResponseEntity<Void> addArticle(@RequestBody Voiture voiture, UriComponentsBuilder builder) {
                 boolean flag = voitureService.addVoiture(voiture);
@@ -45,11 +50,13 @@ public class VoitureController {
                 headers.setLocation(builder.path("/voiture/{id}").buildAndExpand(voiture.getIdvoiture()).toUri());
                 return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
 	}
+	@JsonView(Views.Test.class)
 	@PutMapping("voiture")
 	public ResponseEntity<Voiture> updateArticle(@RequestBody Voiture voiture) {
 		voitureService.updateVoiture(voiture);
 		return new ResponseEntity<Voiture>(voiture, HttpStatus.OK);
 	}
+	@JsonView(Views.Test.class)
 	@DeleteMapping("voiture/{id}")
 	public ResponseEntity<Void> deleteArticle(@PathVariable("id") Integer id) {
 		voitureService.deleteVoiture(id);

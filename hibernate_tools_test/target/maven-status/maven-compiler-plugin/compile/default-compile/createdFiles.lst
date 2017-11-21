@@ -1,5 +1,6 @@
 api_builder\bean\Conducteur.class
 api_builder\app\Runner.class
-api_builder\bean\ReverseStrategy.class
+api_builder\bean\VoitureRoue.class
 api_builder\bean\Voiture.class
 api_builder\bean\Roue.class
+api_builder\bean\VoitureRoueId.class

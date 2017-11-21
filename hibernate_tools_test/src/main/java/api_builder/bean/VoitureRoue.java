@@ -1,5 +1,5 @@
 package api_builder.bean;
-// Generated 20 nov. 2017 11:07:17 by Hibernate Tools 5.2.6.Final
+// Generated 21 nov. 2017 17:06:39 by Hibernate Tools 5.2.6.Final
 
 
 import javax.persistence.AttributeOverride;
@@ -34,7 +34,9 @@ public class VoitureRoue  implements java.io.Serializable {
        this.voiture = voiture;
     }
    
-    @EmbeddedId
+     @EmbeddedId
+
+    
     @AttributeOverrides( {
         @AttributeOverride(name="idVoiture", column=@Column(name="id_voiture", nullable=false) ), 
         @AttributeOverride(name="idRoue", column=@Column(name="id_roue", nullable=false) ) } )
