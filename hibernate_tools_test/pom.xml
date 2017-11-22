@@ -26,13 +26,12 @@
 								<echo message="Start generating entities .." />
 								<taskdef name="hibernatetool" classname="org.hibernate.tool.ant.HibernateToolTask" />
 								<hibernatetool>
-									<jdbcconfiguration packagename="api_builder.bean"
-										detectmanytomany="true" configurationfile="hibernate.cfg.xml"
-										revengfile="hibernate.reveng.xml" />
-									<hbm2java destdir="src/main/java" jdk5="false" ejb3="true" />
-									<hbmtemplate destdir="src/main/java"
+									<jdbcconfiguration packagename="api_builder.bean" 
+										detectmanytomany="true" configurationfile="hibernate.cfg.xml" />
+									<!-- <hbm2java destdir="src/main/java" jdk5="true" ejb3="true" /> -->
+ 									<hbmtemplate destdir="src/main/java/api_builder/bean"
 										templateprefix="pojo/" template="pojo/Pojo.ftl"
-										filepattern="api_builder.bean/{class-name}.java" />
+										filepattern="{class-name}.java" />
 								</hibernatetool>
 								<echo message="End generating entities" />
 							</target>
@@ -74,7 +73,7 @@
 					<dependency>
 						<groupId>org.freemarker</groupId>
 						<artifactId>freemarker</artifactId>
-						<version>2.3.23</version>
+						<version>2.3.20</version>
 					</dependency>
 
 					<dependency>
@@ -98,6 +97,13 @@
 						<artifactId>slf4j-log4j12</artifactId>
 						<version>1.6.1</version>
 					</dependency>
+					<!-- https://mvnrepository.com/artifact/org.apache.ant/ant -->
+					<dependency>
+						<groupId>org.apache.ant</groupId>
+						<artifactId>ant</artifactId>
+						<version>1.10.1</version>
+					</dependency>
+
 					<dependency>
 						<groupId>org.hibernate</groupId>
 						<artifactId>hibernate-tools</artifactId>
