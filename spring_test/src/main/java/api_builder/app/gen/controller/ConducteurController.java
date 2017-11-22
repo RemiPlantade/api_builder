@@ -1,4 +1,4 @@
-package api_builder.gen.controller;
+package api_builder.app.gen.controller;
 
 import java.util.List;
 
@@ -18,48 +18,50 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import api_builder.app.gen.model.Conducteur;
+import api_builder.app.gen.service.iface.ConducteurService;
 import api_builder.app.jackson.Views;
-import api_builder.gen.model.Voiture;
-import api_builder.gen.service.iface.VoitureService;
 
 @Controller
 @RequestMapping("test")
-public class VoitureController {
+public class ConducteurController {
+	
 	@Autowired
-	private VoitureService voitureService;
+	private ConducteurService conducteurService;
+	
 	@JsonView(Views.Public.class)
-	@GetMapping("voiture/{id}")
-	public ResponseEntity<Voiture> getArticleById(@PathVariable("id") Integer id) {
-		Voiture voiture = voitureService.getVoitureById(id);
-		return new ResponseEntity<Voiture>(voiture, HttpStatus.OK);
+	@GetMapping("conducteur/{id}")
+	public ResponseEntity<Conducteur> getArticleById(@PathVariable("id") Integer id) {
+		Conducteur conducteur = conducteurService.getConducteurById(id);
+		return new ResponseEntity<Conducteur>(conducteur, HttpStatus.OK);
 	}
 	@JsonView(Views.Public.class)
-	@GetMapping("voiture/all")
-	public ResponseEntity<List<Voiture>> getAllArticles() {
-		List<Voiture> list = voitureService.getAll();
-		return new ResponseEntity<List<Voiture>>(list, HttpStatus.OK);
+	@GetMapping("conducteur/all")
+	public ResponseEntity<List<Conducteur>> getAllArticles() {
+		List<Conducteur> list = conducteurService.getAll();
+		return new ResponseEntity<List<Conducteur>>(list, HttpStatus.OK);
 	}
 	@JsonView(Views.Public.class)
-	@PostMapping("voiture")
-	public ResponseEntity<Void> addArticle(@RequestBody Voiture voiture, UriComponentsBuilder builder) {
-                boolean flag = voitureService.addVoiture(voiture);
+	@PostMapping("conducteur")
+	public ResponseEntity<Void> addArticle(@RequestBody Conducteur conducteur, UriComponentsBuilder builder) {
+                boolean flag = conducteurService.addConducteur(conducteur);
                 if (flag == false) {
         	    return new ResponseEntity<Void>(HttpStatus.CONFLICT);
                 }
                 HttpHeaders headers = new HttpHeaders();
-                headers.setLocation(builder.path("/voiture/{id}").buildAndExpand(voiture.getIdvoiture()).toUri());
+                headers.setLocation(builder.path("/conducteur/{id}").buildAndExpand(conducteur.getIdconducteur()).toUri());
                 return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
 	}
 	@JsonView(Views.Public.class)
-	@PutMapping("voiture")
-	public ResponseEntity<Voiture> updateArticle(@RequestBody Voiture voiture) {
-		voitureService.updateVoiture(voiture);
-		return new ResponseEntity<Voiture>(voiture, HttpStatus.OK);
+	@PutMapping("conducteur")
+	public ResponseEntity<Conducteur> updateArticle(@RequestBody Conducteur conducteur) {
+		conducteurService.updateConducteur(conducteur);
+		return new ResponseEntity<Conducteur>(conducteur, HttpStatus.OK);
 	}
 	@JsonView(Views.Public.class)
-	@DeleteMapping("voiture/{id}")
+	@DeleteMapping("conducteur/{id}")
 	public ResponseEntity<Void> deleteArticle(@PathVariable("id") Integer id) {
-		voitureService.deleteVoiture(id);
+		conducteurService.deleteConducteur(id);
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}	
 }

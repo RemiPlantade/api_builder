@@ -27,5 +27,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="libs/hibernate-tools-5.2.6.Final_Custom.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

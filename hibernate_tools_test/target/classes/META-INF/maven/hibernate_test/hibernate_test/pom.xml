@@ -103,18 +103,6 @@
 						<artifactId>ant</artifactId>
 						<version>1.10.1</version>
 					</dependency>
-
-					<dependency>
-						<groupId>org.hibernate</groupId>
-						<artifactId>hibernate-tools</artifactId>
-						<version>5.2.6.Final</version>
-						<exclusions>
-							<exclusion>
-								<groupId>*</groupId>
-								<artifactId>*</artifactId>
-							</exclusion>
-						</exclusions>
-					</dependency>
 				</dependencies>
 			</plugin>
 		</plugins>
@@ -124,11 +112,6 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
 			<version>5.2.12.Final</version>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-tools</artifactId>
-			<version>5.2.6.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
