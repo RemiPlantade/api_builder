@@ -4,9 +4,8 @@
   <echo message="Start generating entities .."/>
   <taskdef classname="org.hibernate.tool.ant.HibernateToolTask" name="hibernatetool"/>
   <hibernatetool>
-    <jdbcconfiguration configurationfile="hibernate.cfg.xml" revengfile="hibernate.reveng.xml" detectmanytomany="true" packagename="api_builder.bean"/>
-    <hbm2java jdk5="false" destdir="src/main/java" ejb3="true"/>
-    <hbmtemplate template="pojo/Pojo.ftl" templateprefix="pojo/" destdir="src/main/java" filepattern="api_builder.bean/{class-name}.java"/>
+    <jdbcconfiguration configurationfile="hibernate.cfg.xml" detectmanytomany="true" packagename="api_builder.bean"/>
+    <hbmtemplate template="pojo/Pojo.ftl" templateprefix="pojo/" destdir="src/main/java/api_builder/bean" filepattern="{class-name}.java"/>
   </hibernatetool>
   <echo message="End generating entities"/>
 </target>
