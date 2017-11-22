@@ -1,0 +1,16 @@
+package api_builder.gen.dao.iface;
+
+import java.util.List;
+
+import api_builder.gen.model.Voiture;
+
+
+public interface VoitureDAO {
+	public void addVoiture(Voiture c);
+	public void updateVoiture(Voiture c);
+	public List<Voiture> getAll();
+	public Voiture getVoitureById(int id);
+	public List<Voiture> getVoitureByAttr(String attrName,String value);
+	public void deleteVoiture(int id);
+	public boolean voitureExists(Voiture v);
+}
