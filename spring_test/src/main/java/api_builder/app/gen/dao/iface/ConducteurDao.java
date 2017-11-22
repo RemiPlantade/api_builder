@@ -1,14 +1,15 @@
-package api_builder.gen.service.iface;
+package api_builder.app.gen.dao.iface;
 
 import java.util.List;
 
-import api_builder.gen.model.Conducteur;
+import api_builder.app.gen.model.Conducteur;
 
-public interface ConducteurService {
-	public boolean addConducteur(Conducteur c);
+public interface ConducteurDao {
+	public void addConducteur(Conducteur c);
 	public void updateConducteur(Conducteur c);
 	public List<Conducteur> getAll();
 	public Conducteur getConducteurById(int id);
 	public List<Conducteur> getConducteurByAttr(String attrName,String value);
 	public void deleteConducteur(int id);
+	public boolean conducteurExists(Conducteur c);
 }
