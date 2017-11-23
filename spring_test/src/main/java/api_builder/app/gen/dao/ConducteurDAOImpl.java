@@ -1,4 +1,4 @@
-package api_builder.gen.dao;
+package api_builder.app.gen.dao;
 
 import java.util.List;
 
@@ -8,8 +8,8 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import api_builder.gen.dao.iface.ConducteurDao;
-import api_builder.gen.model.Conducteur;
+import api_builder.app.gen.dao.iface.ConducteurDao;
+import api_builder.app.gen.model.Conducteur;
 
 @Transactional
 @Repository
