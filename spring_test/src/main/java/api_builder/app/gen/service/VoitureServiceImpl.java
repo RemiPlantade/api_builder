@@ -1,13 +1,13 @@
-package api_builder.gen.service;
+package api_builder.app.gen.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import api_builder.gen.dao.iface.VoitureDAO;
-import api_builder.gen.model.Voiture;
-import api_builder.gen.service.iface.VoitureService;
+import api_builder.app.gen.dao.iface.VoitureDAO;
+import api_builder.app.gen.model.Voiture;
+import api_builder.app.gen.service.iface.VoitureService;
 
 @Service
 public class VoitureServiceImpl implements VoitureService {

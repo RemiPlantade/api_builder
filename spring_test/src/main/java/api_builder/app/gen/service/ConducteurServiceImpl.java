@@ -1,13 +1,13 @@
-package api_builder.gen.service;
+package api_builder.app.gen.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import api_builder.gen.dao.iface.ConducteurDao;
-import api_builder.gen.model.Conducteur;
-import api_builder.gen.service.iface.ConducteurService;
+import api_builder.app.gen.dao.iface.ConducteurDao;
+import api_builder.app.gen.model.Conducteur;
+import api_builder.app.gen.service.iface.ConducteurService;
 
 @Service
 public class ConducteurServiceImpl implements ConducteurService{
