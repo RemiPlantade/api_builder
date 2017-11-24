@@ -35,6 +35,11 @@
 										<property key="jdk5" value="true" />
 										<property key="ejb3" value="true" />
 									</hbmtemplate>
+									<hbmtemplate destdir="src/main/java/api_builder/dao"
+										templateprefix="pojo/" template="dao/daohome.ftl" filepattern="{class-name}.java">
+										<property key="jdk5" value="true" />
+										<property key="ejb3" value="true" />
+									</hbmtemplate>
 								</hibernatetool>
 								<echo message="End generating entities" />
 							</target>
