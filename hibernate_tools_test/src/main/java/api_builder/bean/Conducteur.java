@@ -1,5 +1,5 @@
 package api_builder.bean;
-// Generated 24 nov. 2017 10:50:33 by Hibernate Tools 6.0.0-SNAPSHOT
+// Generated 24 nov. 2017 15:32:28 by Hibernate Tools 6.0.0-SNAPSHOT
 
 import api_builder.app.jackson.Views;
 import com.fasterxml.jackson.annotation.JsonView;
