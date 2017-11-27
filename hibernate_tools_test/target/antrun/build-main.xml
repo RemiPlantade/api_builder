@@ -4,14 +4,25 @@
   <echo message="Start generating entities .."/>
   <taskdef classname="org.hibernate.tool.ant.HibernateToolTask" name="hibernatetool"/>
   <hibernatetool>
-    <jdbcconfiguration configurationfile="src/hibernate.cfg.xml" propertyfile="hibernate.properties" detectmanytomany="true" packagename="api_builder.bean"/>
-    <hbmtemplate template="pojo/Pojo.ftl" templateprefix="pojo/" destdir="src/main/java/api_builder/bean" filepattern="{class-name}.java">
+    <jdbcconfiguration configurationfile="src/hibernate.cfg.xml" propertyfile="hibernate.properties" detectmanytomany="true" packagename="api_builder.gen.api.bean"/>
+    <hbmtemplate template="pojo/Pojo.ftl" templateprefix="pojo/" destdir="src/main/java/api_builder/gen/api/bean" filepattern="{class-name}.java">
       <property value="true" key="jdk5"/>
       <property value="true" key="ejb3"/>
     </hbmtemplate>
-    <hbmtemplate template="dao/daohome.ftl" templateprefix="pojo/" destdir="src/main/java/api_builder/dao" filepattern="{class-name}.java">
-      <property value="true" key="jdk5"/>
-      <property value="true" key="ejb3"/>
+    <hbmtemplate template="api/controller.ftl" templateprefix="pojo/" destdir="src/main/java/api_builder/gen/api/controller" filepattern="{class-name}Controller.java">
+      <property value="api_builder.gen.api.controller" key="apipackage"/>
+    </hbmtemplate>
+    <hbmtemplate template="api/dao.ftl" templateprefix="pojo/" destdir="src/main/java/api_builder/gen/api/dao" filepattern="{class-name}Dao.java">
+      <property value="api_builder.gen.api.dao" key="apipackage"/>
+    </hbmtemplate>
+    <hbmtemplate template="api/daoImpl.ftl" templateprefix="pojo/" destdir="src/main/java/api_builder/gen/api/dao/impl" filepattern="{class-name}DaoImpl.java">
+      <property value="api_builder.gen.api.dao.impl" key="apipackage"/>
+    </hbmtemplate>
+    <hbmtemplate template="api/service.ftl" templateprefix="pojo/" destdir="src/main/java/api_builder/gen/api/service" filepattern="{class-name}Service.java">
+      <property value="api_builder.gen.api.service" key="apipackage"/>
+    </hbmtemplate>
+    <hbmtemplate template="api/serviceImpl.ftl" templateprefix="pojo/" destdir="src/main/java/api_builder/gen/api/service/impl" filepattern="{class-name}ServiceImpl.java">
+      <property value="api_builder.gen.api.service.impl" key="apipackage"/>
     </hbmtemplate>
   </hibernatetool>
   <echo message="End generating entities"/>
