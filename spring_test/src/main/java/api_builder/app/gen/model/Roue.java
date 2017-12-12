@@ -79,7 +79,7 @@ public class Roue  implements java.io.Serializable {
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="roue")
-    @JsonView(Views.Public.class)
+// TODO interdire la back reference
     public Set<VoitureRoue> getVoitureRoues() {
         return this.voitureRoues;
     }
