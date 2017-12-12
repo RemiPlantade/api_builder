@@ -48,9 +48,7 @@ public class Conducteur  implements java.io.Serializable {
        this.voitures = voitures;
     }
    
-     @Id 
-
-    
+    @Id 
     @Column(name="idconducteur", unique=true, nullable=false)
     @JsonView(Views.Public.class)
     public int getIdconducteur() {
@@ -63,7 +61,6 @@ public class Conducteur  implements java.io.Serializable {
 
     
     @Column(name="nom", length=45)
-    @JsonView(Views.Public.class)
     public String getNom() {
         return this.nom;
     }
@@ -74,7 +71,6 @@ public class Conducteur  implements java.io.Serializable {
 
     
     @Column(name="prenom", length=45)
-    @JsonView(Views.Public.class)
     public String getPrenom() {
         return this.prenom;
     }
@@ -85,7 +81,6 @@ public class Conducteur  implements java.io.Serializable {
 
     @Temporal(TemporalType.DATE)
     @Column(name="age", length=10)
-    @JsonView(Views.Public.class)
     public Date getAge() {
         return this.age;
     }
@@ -94,8 +89,7 @@ public class Conducteur  implements java.io.Serializable {
         this.age = age;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="conducteur")
-    @JsonView(Views.Public.class)
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="conducteur")
     public Set<Voiture> getVoitures() {
         return this.voitures;
     }
