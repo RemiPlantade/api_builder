@@ -16,5 +16,4 @@ public class FXMLController implements Initializable{
 		listview = new ListView<String>();
 		
 	}
-
 }
