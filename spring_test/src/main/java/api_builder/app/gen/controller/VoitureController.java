@@ -18,28 +18,28 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import api_builder.app.gen.jackson.Views;
 import api_builder.app.gen.model.Voiture;
 import api_builder.app.gen.service.iface.VoitureService;
-import api_builder.app.jackson.Views;
 
 @Controller
 @RequestMapping("test")
 public class VoitureController {
 	@Autowired
 	private VoitureService voitureService;
-	@JsonView(Views.VoitureView.class)
+	@JsonView(Views.Public.class)
 	@GetMapping("voiture/{id}")
 	public ResponseEntity<Voiture> getArticleById(@PathVariable("id") Integer id) {
 		Voiture voiture = voitureService.getVoitureById(id);
 		return new ResponseEntity<Voiture>(voiture, HttpStatus.OK);
 	}
-	@JsonView(Views.VoitureView.class)
+	@JsonView(Views.Public.class)
 	@GetMapping("voiture/all")
 	public ResponseEntity<List<Voiture>> getAllArticles() {
 		List<Voiture> list = voitureService.getAll();
 		return new ResponseEntity<List<Voiture>>(list, HttpStatus.OK);
 	}
-	@JsonView(Views.VoitureView.class)
+	@JsonView(Views.Public.class)
 	@PostMapping("voiture")
 	public ResponseEntity<Void> addArticle(@RequestBody Voiture voiture, UriComponentsBuilder builder) {
                 boolean flag = voitureService.addVoiture(voiture);
@@ -50,13 +50,13 @@ public class VoitureController {
                 headers.setLocation(builder.path("/voiture/{id}").buildAndExpand(voiture.getIdvoiture()).toUri());
                 return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
 	}
-	@JsonView(Views.VoitureView.class)
+	@JsonView(Views.Public.class)
 	@PutMapping("voiture")
 	public ResponseEntity<Voiture> updateArticle(@RequestBody Voiture voiture) {
 		voitureService.updateVoiture(voiture);
 		return new ResponseEntity<Voiture>(voiture, HttpStatus.OK);
 	}
-	@JsonView(Views.VoitureView.class)
+	@JsonView(Views.Public.class)
 	@DeleteMapping("voiture/{id}")
 	public ResponseEntity<Void> deleteArticle(@PathVariable("id") Integer id) {
 		voitureService.deleteVoiture(id);
