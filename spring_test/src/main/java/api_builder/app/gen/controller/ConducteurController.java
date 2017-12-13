@@ -18,9 +18,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import api_builder.app.gen.jackson.Views;
 import api_builder.app.gen.model.Conducteur;
 import api_builder.app.gen.service.iface.ConducteurService;
-import api_builder.app.jackson.Views;
 
 @Controller
 @RequestMapping("test")

@@ -36,11 +36,11 @@
 										<property key="jdk5" value="true" />
 										<property key="ejb3" value="true" />
 									</hbmtemplate>
- 									<controller destdir="src/main/java/api_builder/gen/api/controller"
+ 									<hbmtemplate destdir="src/main/java/api_builder/gen/api/controller"
 										templateprefix="pojo/" template="api/controller.ftl"
 										filepattern="{class-name}Controller.java">
 										<property key="apipackage" value="api_builder.gen.api.controller" />
-									</controller>
+									</hbmtemplate>
 									<hbmtemplate destdir="src/main/java/api_builder/gen/api/dao"
 										templateprefix="pojo/" template="api/dao.ftl" filepattern="{class-name}Dao.java">
 										<property key="apipackage" value="api_builder.gen.api.dao" />
