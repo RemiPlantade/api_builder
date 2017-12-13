@@ -1,4 +1,4 @@
-package api_builder.app.jackson;
+package api_builder.app.gen.jackson;
 
 public class Views {
 	public static class Public {
