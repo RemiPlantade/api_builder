@@ -5,14 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import api_builder.app.gen.dao.iface.VoitureDAO;
+import api_builder.app.gen.dao.iface.VoitureDao;
 import api_builder.app.gen.model.Voiture;
 import api_builder.app.gen.service.iface.VoitureService;
 
 @Service
 public class VoitureServiceImpl implements VoitureService {
 	@Autowired
-	private VoitureDAO voitureDAO;
+	private VoitureDao voitureDAO;
 	
 	@Override
 	public synchronized boolean addVoiture(Voiture v) {
@@ -49,11 +49,11 @@ public class VoitureServiceImpl implements VoitureService {
 		this.voitureDAO.deleteVoiture(id);
 	}
 
-	public VoitureDAO getVoitDAO() {
+	public VoitureDao getVoitDAO() {
 		return voitureDAO;
 	}
 
-	public void setVoitDAO(VoitureDAO voitDAO) {
+	public void setVoitDAO(VoitureDao voitDAO) {
 		this.voitureDAO = voitDAO;
 	}
 

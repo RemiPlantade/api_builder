@@ -1,8 +1,6 @@
 package api_builder.app.gen.model;
 // Generated 13 d�c. 2017 13:42:17 by Hibernate Tools 6.0.0-SNAPSHOT
 
-import com.fasterxml.jackson.annotation.JsonView;
-
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
