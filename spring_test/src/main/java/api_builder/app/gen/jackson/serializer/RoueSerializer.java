@@ -8,9 +8,10 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 
 import api_builder.app.gen.jackson.Views;
+import api_builder.app.gen.model.Roue;
 import api_builder.app.gen.model.Voiture;
 
-public class RoueSerializer extends StdSerializer<Voiture> {
+public class RoueSerializer extends StdSerializer<Roue> {
 
 	public JsonSerializer<Object> defaultSerializer;
 
@@ -18,16 +19,16 @@ public class RoueSerializer extends StdSerializer<Voiture> {
 		this(null);
 	}
 
-	public RoueSerializer(Class<Voiture> t) {
+	public RoueSerializer(Class<Roue> t) {
 		super(t);
 	}
 
 	@Override
-	public void serialize(Voiture voit, JsonGenerator jg, SerializerProvider sp) throws IOException {
+	public void serialize(Roue roue, JsonGenerator jg, SerializerProvider sp) throws IOException {
 		if(sp.getActiveView().equals(Views.RoueView.class)) {
-			defaultSerializer.serialize(voit, jg, sp);
+			defaultSerializer.serialize(roue, jg, sp);
 		}else {
-			jg.writeString("/voiture/id/" + voit.getIdvoiture());
+			jg.writeString("/roue/id/" + roue.getIdroue());
 		}
 	}
 	public void setDefaultSerializer(JsonSerializer<Object> serializer) {

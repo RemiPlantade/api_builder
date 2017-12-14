@@ -1,12 +1,16 @@
 package api_builder.app.gen.jackson;
 
 public class Views {
-	public static class Public {
+	public interface  VoitureView {
 	}
-	public static class VoitureView {
+	public interface  VoitureRoueView extends VoitureView{
 	}
-	public static class ConducteurView {
+	public interface  VoitureRoueIdView {		
 	}
-	public static class RoueView {
+	public interface  Public {
+	}
+	public interface  ConducteurView {
+	}
+	public interface  RoueView {
 	}
 }

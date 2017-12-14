@@ -8,12 +8,12 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import api_builder.app.gen.dao.iface.VoitureDAO;
+import api_builder.app.gen.dao.iface.VoitureDao;
 import api_builder.app.gen.model.Voiture;
 
 @Transactional
 @Repository
-public class VoitureDAOImpl implements VoitureDAO{
+public class VoitureDAOImpl implements VoitureDao{
 
 	@PersistenceContext	
 	private EntityManager entityManager;

@@ -29,7 +29,7 @@ public class ConducteurDAOImpl implements ConducteurDao{
 		updConducter.setAge(c.getAge());
 		updConducter.setNom(c.getNom());
 		updConducter.setPrenom(c.getPrenom());
-//		updConducter.setVoitures(c.getVoitures());
+		//updConducter.setVoitures(c.getVoitures());
 		entityManager.flush();
 
 	}
@@ -64,11 +64,9 @@ public class ConducteurDAOImpl implements ConducteurDao{
 
 	@Override
 	public boolean conducteurExists(Conducteur c) {
-		String hql = "FROM Conducteur as cond WHERE cond.prenom = :prenom and cond.nom = :nom and cond.age = :age";
+		String hql = "FROM Conducteur as cond WHERE cond.idconducteur = :id";
 		int count = entityManager.createQuery(hql)
-				.setParameter(":prenom", c.getPrenom())
-				.setParameter(":nom", c.getNom())
-				.setParameter(":age", c.getAge())
+				.setParameter("id", c.getIdconducteur())
 		        .getResultList().size();
 		return count > 0 ? true : false;
 	}

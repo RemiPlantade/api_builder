@@ -1,11 +1,10 @@
 package api_builder.app.gen.model;
 // Generated 13 d�c. 2017 13:42:17 by Hibernate Tools 6.0.0-SNAPSHOT
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import api_builder.app.gen.jackson.Views;
-import api_builder.app.gen.jackson.Views.VoitureView;
-
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
@@ -44,7 +43,7 @@ public class VoitureRoue  implements java.io.Serializable {
     @AttributeOverrides( {
         @AttributeOverride(name="idVoiture", column=@Column(name="id_voiture", nullable=false) ), 
         @AttributeOverride(name="idRoue", column=@Column(name="id_roue", nullable=false) ) } )
-    
+    @JsonBackReference
     public VoitureRoueId getId() {
         return this.id;
     }
@@ -53,9 +52,9 @@ public class VoitureRoue  implements java.io.Serializable {
         this.id = id;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
+@ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="id_roue", nullable=false, insertable=false, updatable=false)
-	@JsonView(VoitureView.class)
+	@JsonView(Views.VoitureRoueView.class)
     public Roue getRoue() {
         return this.roue;
     }
@@ -64,8 +63,9 @@ public class VoitureRoue  implements java.io.Serializable {
         this.roue = roue;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
+@ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="id_voiture", nullable=false, insertable=false, updatable=false)
+@JsonBackReference
     public Voiture getVoiture() {
         return this.voiture;
     }
