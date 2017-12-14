@@ -17,11 +17,11 @@ public class Application {
 		SpringApplication.run(Application.class, args);
 	}
 	
-//	@Bean
-//	@Primary
-//	ObjectMapper objectMapper() {
-//		return new ObjectMapper()
-//			    .registerModule(new SimpleModule()
-//			            .setSerializerModifier(new CustomBeanSerializerModifier()));
-//	}
+	@Bean
+	@Primary
+	ObjectMapper objectMapper() {
+		return new ObjectMapper()
+			    .registerModule(new SimpleModule()
+			            .setSerializerModifier(new CustomBeanSerializerModifier()));
+	}
 }

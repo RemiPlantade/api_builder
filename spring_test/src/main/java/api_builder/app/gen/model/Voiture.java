@@ -1,6 +1,7 @@
 package api_builder.app.gen.model;
 // Generated 13 déc. 2017 13:42:17 by Hibernate Tools 6.0.0-SNAPSHOT
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import api_builder.app.gen.jackson.Views;
@@ -63,7 +64,7 @@ public class Voiture  implements java.io.Serializable {
         this.idvoiture = idvoiture;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
+@ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="idconducteur")
     @JsonView(Views.VoitureView.class)
     public Conducteur getConducteur() {
@@ -107,7 +108,7 @@ public class Voiture  implements java.io.Serializable {
         this.datecircul = datecircul;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="voiture")
+@OneToMany(fetch=FetchType.EAGER, mappedBy="voiture")
     @JsonView(Views.VoitureView.class)
     public Set<VoitureRoue> getVoitureRoues() {
         return this.voitureRoues;
