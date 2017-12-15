@@ -54,7 +54,7 @@ public class VoitureRoue  implements java.io.Serializable {
 
 @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="id_roue", nullable=false, insertable=false, updatable=false)
-	@JsonView(Views.VoitureRoueView.class)
+	@JsonView(Views.VoitureView.class)
     public Roue getRoue() {
         return this.roue;
     }
