@@ -40,7 +40,7 @@ public class VoitureRoueDAOImpl implements VoitureRoueDao{
 	}
 
 	@Override
-	public VoitureRoue getVoitureRoueById(VoitureRoueId id) {
+	public VoitureRoue getVoitureRoueById(Object id) {
 		return entityManager.find(VoitureRoue.class, id);
 	}
 	
