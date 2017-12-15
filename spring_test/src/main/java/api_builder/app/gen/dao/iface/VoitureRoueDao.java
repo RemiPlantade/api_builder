@@ -9,7 +9,7 @@ public interface VoitureRoueDao {
 	public void addVoitureRoue(VoitureRoue c);
 	public void updateVoitureRoue(VoitureRoue c);
 	public List<VoitureRoue> getAll();
-	public VoitureRoue getVoitureRoueById(VoitureRoueId id);
+	public VoitureRoue getVoitureRoueById(Object id);
 	public List<VoitureRoue> getVoitureRoueByAttr(String attrName,String value);
 	public void deleteVoitureRoue(VoitureRoueId id);
 	public boolean voitureRoueExists(VoitureRoue c);
