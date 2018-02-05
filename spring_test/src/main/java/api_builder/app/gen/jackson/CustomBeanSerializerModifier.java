@@ -7,12 +7,10 @@ import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
 
 import api_builder.app.gen.jackson.serializer.ConducteurSerializer;
 import api_builder.app.gen.jackson.serializer.RoueSerializer;
-import api_builder.app.gen.jackson.serializer.VoitureRoueSerializer;
 import api_builder.app.gen.jackson.serializer.VoitureSerializer;
 import api_builder.app.gen.model.Conducteur;
 import api_builder.app.gen.model.Roue;
 import api_builder.app.gen.model.Voiture;
-import api_builder.app.gen.model.VoitureRoue;
 
 public class CustomBeanSerializerModifier extends BeanSerializerModifier {
 	@Override

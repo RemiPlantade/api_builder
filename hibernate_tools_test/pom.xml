@@ -4,19 +4,61 @@
 	<groupId>hibernate_test</groupId>
 	<artifactId>hibernate_test</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.8.RELEASE</version>
+	</parent>
+	<properties>
+		<java.version>1.8</java.version>
+	</properties>
+
 	<build>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.7.0</version>
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
 				</configuration>
 			</plugin>
 			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>api_builder.app.Runner</mainClass>
+						</manifest>
+					</archive>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+					<finalName>api_builder_generator</finalName>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+						<configuration>
+							<sourceDirectory>src/main/java/src</sourceDirectory>
+							<archive>
+								<manifest>
+									<mainClass>api_builder.gen.Application</mainClass>
+								</manifest>
+							</archive>
+							<finalName>api_builder_runner</finalName>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<artifactId>maven-antrun-plugin</artifactId>
-				<version>1.8</version>
 				<executions>
 					<execution> <!--mvn antrun:run@hbm2java -->
 						<id>hbm2java</id>
@@ -36,7 +78,7 @@
 										<property key="jdk5" value="true" />
 										<property key="ejb3" value="true" />
 									</hbmtemplate>
- 									<hbmtemplate destdir="src/main/java/api_builder/gen/api/controller"
+									<hbmtemplate destdir="src/main/java/api_builder/gen/api/controller"
 										templateprefix="pojo/" template="api/controller.ftl"
 										filepattern="{class-name}Controller.java">
 										<property key="apipackage" value="api_builder.gen.api.controller" />
@@ -67,6 +109,27 @@
 										<property key="jdk5" value="true" />
 										<property key="ejb3" value="true" />
 										<property key="apipackage" value="api_builder.gen.api.service.impl" />
+									</hbmtemplate>
+									<hbmtemplate destdir="src/main/java/api_builder/gen/jackson/serializer"
+										templateprefix="pojo/" template="api/serializer.ftl"
+										filepattern="{class-name}Serializer.java">
+										<property key="jdk5" value="true" />
+										<property key="ejb3" value="true" />
+										<property key="apipackage" value="api_builder.gen.jackson.serializer" />
+									</hbmtemplate>
+									<hbmtemplate destdir="src/main/java/api_builder/gen/jackson/"
+										templateprefix="pojo/" template="api/views_single.ftl"
+										filepattern="Views.java">
+										<property key="jdk5" value="true" />
+										<property key="ejb3" value="true" />
+										<property key="apipackage" value="api_builder.gen.jackson" />
+									</hbmtemplate>
+									<hbmtemplate destdir="src/main/java/api_builder/gen/jackson/"
+										templateprefix="pojo/" template="api/customSerializer_single.ftl"
+										filepattern="CustomBeanSerializerModifier.java">
+										<property key="jdk5" value="true" />
+										<property key="ejb3" value="true" />
+										<property key="apipackage" value="api_builder.gen.jackson" />
 									</hbmtemplate>
 								</hibernatetool>
 								<echo message="End generating entities" />
@@ -111,7 +174,6 @@
 						<artifactId>freemarker</artifactId>
 						<version>2.3.23</version>
 					</dependency>
-
 					<dependency>
 						<groupId>commons-logging</groupId>
 						<artifactId>commons-logging</artifactId>
@@ -137,12 +199,6 @@
 						<groupId>fr.aboucorp</groupId>
 						<artifactId>hibernate-tools</artifactId>
 						<version>6.1.0-SNAPSHOT</version>
-						<exclusions>
-							<exclusion>
-								<groupId>*</groupId>
-								<artifactId>*</artifactId>
-							</exclusion>
-						</exclusions>
 					</dependency>
 				</dependencies>
 				<configuration></configuration>
@@ -151,14 +207,36 @@
 	</build>
 	<dependencies>
 		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.5</version>
+		</dependency>
+		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
-			<version>5.2.12.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>6.0.6</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.apache.maven.shared/maven-invoker -->
 		<dependency>
@@ -170,12 +248,36 @@
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-annotations</artifactId>
-			<version>2.9.2</version>
 		</dependency>
 		<dependency>
 			<groupId>fr.aboucorp</groupId>
 			<artifactId>hibernate-tools</artifactId>
 			<version>6.1.0-SNAPSHOT</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations -->
+		<!-- <dependency> <groupId>com.fasterxml.jackson.core</groupId> <artifactId>jackson-annotations</artifactId> 
+			<version>2.9.3</version> </dependency> -->
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-embedder</artifactId>
+			<version>3.1.1</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.ant/ant -->
+		<dependency>
+			<groupId>org.apache.ant</groupId>
+			<artifactId>ant</artifactId>
+			<version>1.10.1</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.ivy/ivy -->
+		<dependency>
+			<groupId>org.apache.ivy</groupId>
+			<artifactId>ivy</artifactId>
+			<version>2.4.0</version>
 		</dependency>
 	</dependencies>
 	<repositories>
@@ -183,5 +285,10 @@
 			<id>global</id>
 			<url>http://maven.aboucipu.fr/repository/global</url>
 		</repository>
+		<repository>
+			<id>spring-releases</id>
+			<url>https://repo.spring.io/libs-release</url>
+		</repository>
+
 	</repositories>
 </project>
