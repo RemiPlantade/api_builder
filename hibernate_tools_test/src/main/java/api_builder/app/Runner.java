@@ -4,10 +4,16 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 import org.apache.maven.cli.MavenCli;
+import org.apache.maven.shared.invoker.DefaultInvocationRequest;
+import org.apache.maven.shared.invoker.DefaultInvoker;
+import org.apache.maven.shared.invoker.InvocationRequest;
+import org.apache.maven.shared.invoker.Invoker;
+import org.apache.maven.shared.invoker.MavenInvocationException;
 
 public class Runner {
 
@@ -16,40 +22,19 @@ public class Runner {
 
 	public static void main(String[] args) {
 		
-		MavenCli cli = new MavenCli();
-		int result = cli.doMain(new String[]{"clean"," antrun:run@hbm2java"},
-		        "C:\\Users\\remi_\\git\\api_builder\\hibernate_tools_test",
-		        System.out, System.out);
-		System.out.println("result: " + result);
-
-//		try {
-//			unzip("maven.zip",OUTPUT_FOLDER);
-//		} catch (IOException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
-//		System.out.println("Yolo");
-//
-//		InvocationRequest request = new DefaultInvocationRequest();
-//		request.setPomFile( new File( Runner.class.getClassLoader().getResource("pom.xml").getFile()) );
-//		//request.setGoals( Arrays.asList( "clean"," antrun:run@hbm2java" ) );
-//		request.setGoals( Arrays.asList("antrun:run@hbm2java -X"));
-////		InvocationRequest requestTwo = new DefaultInvocationRequest();
-////		requestTwo.setPomFile( new File( "pom.xml" ) );
-//		//		requestTwo.setGoals( Arrays.asList( "repackage" ) );
-//
-//		Invoker invoker = new DefaultInvoker();
-//		invoker.setMavenHome(new File("maven"));
-//		invoker.setMavenExecutable(new File("mvn.cmd"));
-//
-//		try {
-//			invoker.execute( request );
-//			System.out.println("yolo2");
-//			//			invoker.execute( requestTwo );
-//		} catch (MavenInvocationException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		InvocationRequest request = new DefaultInvocationRequest();
+		request.setPomFile( new File( "pom.xml" ) );
+		request.setGoals( Arrays.asList( "clean"," antrun:run@hbm2java -X" ) );
+		
+		Invoker invoker = new DefaultInvoker();
+		invoker.setMavenExecutable(new File("mvn.cmd"));
+		invoker.setMavenHome(new File("maven"));
+		try {
+			invoker.execute( request );
+		} catch (MavenInvocationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**

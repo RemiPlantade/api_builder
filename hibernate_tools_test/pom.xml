@@ -131,6 +131,13 @@
 										<property key="ejb3" value="true" />
 										<property key="apipackage" value="api_builder.gen.jackson" />
 									</hbmtemplate>
+									<hbmtemplate destdir="src/main/java/api_builder/gen/"
+										templateprefix="pojo/" template="api/application_single.ftl"
+										filepattern="Application.java">
+										<property key="jdk5" value="true" />
+										<property key="ejb3" value="true" />
+										<property key="apipackage" value="api_builder.gen" />
+									</hbmtemplate>
 								</hibernatetool>
 								<echo message="End generating entities" />
 							</target>
@@ -283,7 +290,7 @@
 	<repositories>
 		<repository>
 			<id>global</id>
-			<url>http://maven.aboucipu.fr/repository/global</url>
+			<url>http://maven.aboucipu.fr:8080/repository/global</url>
 		</repository>
 		<repository>
 			<id>spring-releases</id>

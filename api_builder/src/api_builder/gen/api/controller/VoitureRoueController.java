@@ -22,7 +22,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.fasterxml.jackson.annotation.JsonView;
 import api_builder.gen.jackson.Views;
 
-// Generated 5 févr. 2018 14:01:44 by Hibernate Tools 6.0.0-SNAPSHOT
+// Generated 7 févr. 2018 16:17:48 by Hibernate Tools 6.0.0-SNAPSHOT
 // Improved by AbouCorp
 
 

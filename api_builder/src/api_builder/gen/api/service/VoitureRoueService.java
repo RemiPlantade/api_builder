@@ -2,7 +2,7 @@ package api_builder.gen.api.service;
 import api_builder.gen.api.bean.VoitureRoueId;
 import api_builder.gen.api.bean.VoitureRoue;
 import java.util.List;
-// Generated 5 févr. 2018 14:01:45 by Hibernate Tools 6.0.0-SNAPSHOT
+// Generated 7 févr. 2018 16:17:49 by Hibernate Tools 6.0.0-SNAPSHOT
 // Improved by AbouCorp
 
 
