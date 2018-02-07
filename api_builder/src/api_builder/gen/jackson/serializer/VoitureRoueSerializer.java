@@ -11,7 +11,7 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import api_builder.gen.jackson.Views;
 import api_builder.gen.api.bean.VoitureRoue;
 
-// Generated 7 févr. 2018 16:17:49 by Hibernate Tools 6.0.0-SNAPSHOT
+// Generated 8 févr. 2018 00:41:34 by Hibernate Tools 6.0.0-SNAPSHOT
 // Improved by AbouCorp
 
 

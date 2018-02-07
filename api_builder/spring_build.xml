@@ -18,19 +18,26 @@
 	</target>
 
 	<target name="init" depends="classpaths">
+		<delete dir="build" />
 		<mkdir dir="build/classes" />
 	</target>
 
 	<target name="compile" depends="init" description="compile">
 		<javac srcdir="src" destdir="build/classes" classpath="classpath"
-			source="1.8" target="1.8" />
-	</target>
-	
-	<target name="clean" description="cleans all created files/dirs">
-		<delete dir="target" />
+			source="1.8" target="1.8">
+		</javac>
 	</target>
 
-	<target name="build" depends="compile">
+	<target name="clean" description="cleans all created files/dirs" depends="compile">
+		<delete dir="target" />
+ 		<copy todir="build/classes">
+			<fileset dir="config">
+				<exclude name="**/*.java" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="build" depends="clean">
 		<spring-boot:findmainclass mainclass="api_builder.gen.Application"
 			property="main-class" />
 
@@ -38,7 +45,9 @@
 			start-class="api_builder.gen.Application" classes="build/classes">
 
 			<spring-boot:lib>
-				<fileset dir="lib" />
+				<fileset dir="lib">
+					<!-- <include name="config/*.properties" /> -->
+				</fileset>
 			</spring-boot:lib>
 		</spring-boot:exejar>
 	</target>
