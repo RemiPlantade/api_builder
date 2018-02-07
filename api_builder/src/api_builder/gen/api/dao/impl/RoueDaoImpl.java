@@ -4,13 +4,18 @@ import api_builder.gen.api.bean.Roue;
 import java.util.List;
 import javax.persistence.Query;
 import javax.persistence.EntityExistsException;
-// Generated 5 févr. 2018 14:01:45 by Hibernate Tools 6.0.0-SNAPSHOT
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+// Generated 7 févr. 2018 16:17:49 by Hibernate Tools 6.0.0-SNAPSHOT
 // Improved by AbouCorp
 
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+@Transactional
+@Repository
 /**
  * Home object for domain model class Roue.
  * @see api_builder.gen.api.bean.Roue
@@ -18,14 +23,14 @@ import javax.persistence.PersistenceContext;
  */
 public class RoueDaoImpl implements RoueDao{
     
-    @PersistenceContext private EntityManager entityManager;
+    @PersistenceContext 
+    private EntityManager entityManager;
     
-        public boolean addRoue(Roue transientInstance) {
-        
-        try {
-            entityManager.persist(transientInstance);
-            entityManager.getTransaction().commit();
-            return true;
+    public boolean addRoue(Roue transientInstance) {
+       	try {
+           entityManager.persist(transientInstance);
+           entityManager.getTransaction().commit();
+           return true;
         }
         catch (EntityExistsException re) {
             return false;

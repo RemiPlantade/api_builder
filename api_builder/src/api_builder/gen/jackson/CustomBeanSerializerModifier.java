@@ -13,7 +13,7 @@ import api_builder.gen.api.bean.Roue;
 import api_builder.gen.jackson.serializer.ConducteurSerializer;
 import api_builder.gen.api.bean.Conducteur;
 
-// Generated 5 févr. 2018 14:01:45 by Hibernate Tools 6.0.0-SNAPSHOT
+// Generated 7 févr. 2018 16:17:49 by Hibernate Tools 6.0.0-SNAPSHOT
 // Improved by AbouCorp
 
 public class CustomBeanSerializerModifier extends BeanSerializerModifier {

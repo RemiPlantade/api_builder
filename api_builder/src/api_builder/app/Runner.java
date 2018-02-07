@@ -9,15 +9,23 @@ import org.apache.tools.ant.ProjectHelper;
 public class Runner {
 
 	public static void main(String[] args) {
-		Project project = new Project();
-        ProjectHelper.configureProject(project, new File("build.xml"));
+		Project beanGen = new Project();
+        ProjectHelper.configureProject(beanGen, new File("build.xml"));
         DefaultLogger consoleLogger = new DefaultLogger();
         consoleLogger.setErrorPrintStream(System.err);
         consoleLogger.setOutputPrintStream(System.out);
-        consoleLogger.setMessageOutputLevel(Project.MSG_INFO);
-        project.addBuildListener(consoleLogger);
-        project.init();
-        project.executeTarget("gen_hibernate");
+        consoleLogger.setMessageOutputLevel(Project.MSG_ERR);
+        beanGen.addBuildListener(consoleLogger);
+        beanGen.init();
+        beanGen.executeTarget("gen_hibernate");
+        System.out.println("End of Bean generation process");
+		Project springGen = new Project();
+        ProjectHelper.configureProject(springGen, new File("spring_build.xml"));
+        springGen.addBuildListener(consoleLogger);
+        springGen.init();
+        springGen.executeTarget("build");
+        System.out.println("End of Spring jar generation process");
+        System.exit(0);
 
 	}
 

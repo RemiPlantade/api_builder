@@ -2,26 +2,26 @@ package api_builder.gen.api.service.impl;
 import api_builder.gen.api.bean.VoitureRoueId;
 import api_builder.gen.api.bean.VoitureRoue;
 import api_builder.gen.api.service.VoitureRoueService;
-import api_builder.gen.api.dao.impl.VoitureRoueDaoImpl;
+import api_builder.gen.api.dao.VoitureRoueDao;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-// Generated 5 févr. 2018 14:01:45 by Hibernate Tools 6.0.0-SNAPSHOT
+
+// Generated 7 févr. 2018 16:17:49 by Hibernate Tools 6.0.0-SNAPSHOT
 // Improved by AbouCorp
 
 
 
+@Service
 /**
  * Home object for domain model class VoitureRoue.
  * @see api_builder.gen.api.bean.VoitureRoue
  * @author Hibernate Tools
  */
 public class VoitureRoueServiceImpl implements VoitureRoueService {
-
-		private VoitureRoueDaoImpl dao;
-    
-    	public VoitureRoueServiceImpl(){
-    		dao = new VoitureRoueDaoImpl();
-    	}
+		@Autowired
+		private VoitureRoueDao dao;
     	
 	    public boolean addVoitureRoue(VoitureRoue e){
 	    	return dao.addVoitureRoue(e);
