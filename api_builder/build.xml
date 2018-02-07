@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project basedir="." name="HibernateAntGenerator">
-	<!-- <path id="toolslib"> <path location="lib/hibernate-tools.jar" /> <path 
-		location="lib/hibernate3.jar" /> <path location="lib/freemarker.jar" /> <path 
-		location="${jdbc.driver.jar}" /> </path> -->
 	<path id="toolslib">
 		<path location="lib/hibernate-tools.6.1.0-SNAPSHOT.jar" />
 		<path location="lib/hibernate-core-5.2.12.Final.jar" />
 		<path location="lib/hibernate-commons-annotation-5.0.1.Final.jar" />
-		<!-- <path location="lib/hibernate-jpa-2.0-api-1.0.1.Final.jar" /> <path 
-			location="lib/hibernate-annotation-3.5.6.Final.jar" /> -->
-		<!--<path location="lib/hibernate-entitymanager-5.2.12.Final.jar" />-->
+
 		<path location="lib/freemarker.jar" />
 		<path location="lib/mysql-connector-java-8.0.9-rc.jar" />
 		
@@ -80,6 +75,13 @@
 				<property key="jdk5" value="true" />
 				<property key="ejb3" value="true" />
 				<property key="apipackage" value="api_builder.gen.jackson" />
+			</hbmtemplate>
+			<hbmtemplate destdir="src/api_builder/gen/"
+				templateprefix="pojo/" template="api/application_single.ftl"
+				filepattern="Application.java">
+				<property key="jdk5" value="true" />
+				<property key="ejb3" value="true" />
+				<property key="apipackage" value="api_builder.gen" />
 			</hbmtemplate>
 		</hibernatetool>
 	</target>

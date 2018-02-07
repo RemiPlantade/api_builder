@@ -1,26 +1,26 @@
 package api_builder.gen.api.service.impl;
 import api_builder.gen.api.bean.Roue;
 import api_builder.gen.api.service.RoueService;
-import api_builder.gen.api.dao.impl.RoueDaoImpl;
+import api_builder.gen.api.dao.RoueDao;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-// Generated 5 févr. 2018 14:01:45 by Hibernate Tools 6.0.0-SNAPSHOT
+
+// Generated 7 févr. 2018 16:17:49 by Hibernate Tools 6.0.0-SNAPSHOT
 // Improved by AbouCorp
 
 
 
+@Service
 /**
  * Home object for domain model class Roue.
  * @see api_builder.gen.api.bean.Roue
  * @author Hibernate Tools
  */
 public class RoueServiceImpl implements RoueService {
-
-		private RoueDaoImpl dao;
-    
-    	public RoueServiceImpl(){
-    		dao = new RoueDaoImpl();
-    	}
+		@Autowired
+		private RoueDao dao;
     	
 	    public boolean addRoue(Roue e){
 	    	return dao.addRoue(e);
