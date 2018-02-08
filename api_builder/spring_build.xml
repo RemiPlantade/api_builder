@@ -38,11 +38,11 @@
 	</target>
 
 	<target name="build" depends="clean">
-		<spring-boot:findmainclass mainclass="api_builder.gen.Application"
+		<spring-boot:findmainclass mainclass="api_builder.Application"
 			property="main-class" />
 
 		<spring-boot:exejar destfile="target/spring_final.jar"
-			start-class="api_builder.gen.Application" classes="build/classes">
+			start-class="api_builder.Application" classes="build/classes">
 
 			<spring-boot:lib>
 				<fileset dir="lib">

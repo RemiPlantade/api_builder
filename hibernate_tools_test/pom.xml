@@ -49,7 +49,7 @@
 							<sourceDirectory>src/main/java/src</sourceDirectory>
 							<archive>
 								<manifest>
-									<mainClass>api_builder.gen.Application</mainClass>
+									<mainClass>api_builder.Application</mainClass>
 								</manifest>
 							</archive>
 							<finalName>api_builder_runner</finalName>
@@ -69,74 +69,74 @@
 								<echo message="Start generating entities .." />
 								<taskdef name="hibernatetool" classname="org.hibernate.tool.ant.HibernateToolTask" />
 								<hibernatetool>
-									<jdbcconfiguration packagename="api_builder.gen.api.bean"
+									<jdbcconfiguration packagename="api_builder.bean"
 										detectmanytomany="true" configurationfile="src/hibernate.cfg.xml"
 										propertyfile="hibernate.properties" />
 									<!-- <hbm2java destdir="src/main/java" jdk5="true" ejb3="true" /> -->
-									<hbmtemplate destdir="src/main/java/api_builder/gen/api/bean"
+									<hbmtemplate destdir="src/main/java/api_builder/bean"
 										templateprefix="pojo/" template="pojo/Pojo.ftl" filepattern="{class-name}.java">
 										<property key="jdk5" value="true" />
 										<property key="ejb3" value="true" />
 									</hbmtemplate>
-									<hbmtemplate destdir="src/main/java/api_builder/gen/api/controller"
+									<hbmtemplate destdir="src/main/java/api_builder/controller"
 										templateprefix="pojo/" template="api/controller.ftl"
 										filepattern="{class-name}Controller.java">
-										<property key="apipackage" value="api_builder.gen.api.controller" />
+										<property key="apipackage" value="api_builder.controller" />
 										<property key="jdk5" value="true" />
 										<property key="ejb3" value="true" />
 									</hbmtemplate>
-									<hbmtemplate destdir="src/main/java/api_builder/gen/api/dao"
+									<hbmtemplate destdir="src/main/java/api_builder/dao"
 										templateprefix="pojo/" template="api/dao.ftl" filepattern="{class-name}Dao.java">
-										<property key="apipackage" value="api_builder.gen.api.dao" />
+										<property key="apipackage" value="api_builder.dao" />
 										<property key="jdk5" value="true" />
 										<property key="ejb3" value="true" />
 									</hbmtemplate>
-									<hbmtemplate destdir="src/main/java/api_builder/gen/api/dao/impl"
+									<hbmtemplate destdir="src/main/java/api_builder/dao/impl"
 										templateprefix="pojo/" template="api/daoImpl.ftl" filepattern="{class-name}DaoImpl.java">
-										<property key="apipackage" value="api_builder.gen.api.dao.impl" />
+										<property key="apipackage" value="api_builder.dao.impl" />
 										<property key="jdk5" value="true" />
 										<property key="ejb3" value="true" />
 									</hbmtemplate>
-									<hbmtemplate destdir="src/main/java/api_builder/gen/api/service"
+									<hbmtemplate destdir="src/main/java/api_builder/service"
 										templateprefix="pojo/" template="api/service.ftl" filepattern="{class-name}Service.java">
-										<property key="apipackage" value="api_builder.gen.api.service" />
+										<property key="apipackage" value="api_builder.service" />
 										<property key="jdk5" value="true" />
 										<property key="ejb3" value="true" />
 									</hbmtemplate>
-									<hbmtemplate destdir="src/main/java/api_builder/gen/api/service/impl"
+									<hbmtemplate destdir="src/main/java/api_builder/service/impl"
 										templateprefix="pojo/" template="api/serviceImpl.ftl"
 										filepattern="{class-name}ServiceImpl.java">
 										<property key="jdk5" value="true" />
 										<property key="ejb3" value="true" />
-										<property key="apipackage" value="api_builder.gen.api.service.impl" />
+										<property key="apipackage" value="api_builder.service.impl" />
 									</hbmtemplate>
-									<hbmtemplate destdir="src/main/java/api_builder/gen/jackson/serializer"
+									<hbmtemplate destdir="src/main/java/api_builder/jackson/serializer"
 										templateprefix="pojo/" template="api/serializer.ftl"
 										filepattern="{class-name}Serializer.java">
 										<property key="jdk5" value="true" />
 										<property key="ejb3" value="true" />
-										<property key="apipackage" value="api_builder.gen.jackson.serializer" />
+										<property key="apipackage" value="api_builder.jackson.serializer" />
 									</hbmtemplate>
-									<hbmtemplate destdir="src/main/java/api_builder/gen/jackson/"
+									<hbmtemplate destdir="src/main/java/api_builder/jackson/"
 										templateprefix="pojo/" template="api/views_single.ftl"
 										filepattern="Views.java">
 										<property key="jdk5" value="true" />
 										<property key="ejb3" value="true" />
-										<property key="apipackage" value="api_builder.gen.jackson" />
+										<property key="apipackage" value="api_builder.jackson" />
 									</hbmtemplate>
-									<hbmtemplate destdir="src/main/java/api_builder/gen/jackson/"
+									<hbmtemplate destdir="src/main/java/api_builder/jackson/"
 										templateprefix="pojo/" template="api/customSerializer_single.ftl"
 										filepattern="CustomBeanSerializerModifier.java">
 										<property key="jdk5" value="true" />
 										<property key="ejb3" value="true" />
-										<property key="apipackage" value="api_builder.gen.jackson" />
+										<property key="apipackage" value="api_builder.jackson" />
 									</hbmtemplate>
-									<hbmtemplate destdir="src/main/java/api_builder/gen/"
+									<hbmtemplate destdir="src/main/java/api_builder/"
 										templateprefix="pojo/" template="api/application_single.ftl"
 										filepattern="Application.java">
 										<property key="jdk5" value="true" />
 										<property key="ejb3" value="true" />
-										<property key="apipackage" value="api_builder.gen" />
+										<property key="apipackage" value="api_builder" />
 									</hbmtemplate>
 								</hibernatetool>
 								<echo message="End generating entities" />
