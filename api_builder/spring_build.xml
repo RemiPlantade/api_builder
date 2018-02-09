@@ -28,9 +28,10 @@
 		</javac>
 	</target>
 
-	<target name="clean" description="cleans all created files/dirs" depends="compile">
+	<target name="clean" description="cleans all created files/dirs"
+		depends="compile">
 		<delete dir="target" />
- 		<copy todir="build/classes">
+		<copy todir="build/classes">
 			<fileset dir="config">
 				<exclude name="**/*.java" />
 			</fileset>

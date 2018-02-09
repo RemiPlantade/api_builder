@@ -85,5 +85,6 @@
 	<classpathentry kind="lib" path="lib/spring-beans-4.3.12.RELEASE.jar"/>
 	<classpathentry kind="lib" path="lib/spring-boot-1.5.8.RELEASE.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-core-5.2.10.Final.jar"/>
+	<classpathentry kind="lib" path="lib/commons-httpclient-3.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
