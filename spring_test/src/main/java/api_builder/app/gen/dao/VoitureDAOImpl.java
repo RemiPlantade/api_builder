@@ -25,7 +25,7 @@ public class VoitureDAOImpl implements VoitureDao{
 
 	@Override
 	public void updateVoiture(Voiture v) {
-		Voiture updVoiture = getVoitureById(v.getIdvoiture());
+		Voiture updVoiture = getVoitureById(v.getId());
 		updVoiture.setConducteur(v.getConducteur());
 		updVoiture.setDatecircul(v.getDatecircul());
 		updVoiture.setImmat(v.getImmat());

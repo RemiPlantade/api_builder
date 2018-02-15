@@ -1,8 +1,10 @@
 package api_builder.app.gen.model;
 // Generated 13 déc. 2017 13:42:17 by Hibernate Tools 6.0.0-SNAPSHOT
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import api_builder.app.gen.jackson.Views;
 
@@ -28,95 +30,96 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity
 @Table(name="voiture"
-    , uniqueConstraints = @UniqueConstraint(columnNames="immat") 
-)
+, uniqueConstraints = @UniqueConstraint(columnNames= {"id","immat"}) 
+		)
+@JsonIdentityInfo(
+		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+		  property = "id")
 public class Voiture  implements java.io.Serializable {
 
+	private Integer id;
+	private Conducteur conducteur;
+	private String marque;
+	private String immat;
+	private Date datecircul;
+	private Set<VoitureRoue> voitureRoues = new HashSet<VoitureRoue>(0);
 
-     private Integer idvoiture;
-     private Conducteur conducteur;
-     private String marque;
-     private String immat;
-     private Date datecircul;
-     private Set<VoitureRoue> voitureRoues = new HashSet<VoitureRoue>(0);
+	public Voiture() {
+	}
 
-    public Voiture() {
-    }
+	public Voiture(Conducteur conducteur, String marque, String immat, Date datecircul, Set<VoitureRoue> voitureRoues) {
+		this.conducteur = conducteur;
+		this.marque = marque;
+		this.immat = immat;
+		this.datecircul = datecircul;
+		this.voitureRoues = voitureRoues;
+	}
 
-    public Voiture(Conducteur conducteur, String marque, String immat, Date datecircul, Set<VoitureRoue> voitureRoues) {
-       this.conducteur = conducteur;
-       this.marque = marque;
-       this.immat = immat;
-       this.datecircul = datecircul;
-       this.voitureRoues = voitureRoues;
-    }
-   
-     @Id @GeneratedValue(strategy=IDENTITY)
+	@Id 
+	@GeneratedValue(strategy=IDENTITY)
+	@Column(name="id", unique=true, nullable=false)
+	//@JsonView(Views.VoitureView.class)
+	public Integer getId() {
+		return this.id;
+	}
 
-    
-    @Column(name="idvoiture", unique=true, nullable=false)
-    @JsonView(Views.VoitureView.class)
-    public Integer getIdvoiture() {
-        return this.idvoiture;
-    }
-    
-    public void setIdvoiture(Integer idvoiture) {
-        this.idvoiture = idvoiture;
-    }
+	public void setId(Integer idvoiture) {
+		this.id = idvoiture;
+	}
 
-@ManyToOne(fetch=FetchType.EAGER)
-    @JoinColumn(name="idconducteur")
-    @JsonView(Views.VoitureView.class)
-    public Conducteur getConducteur() {
-        return this.conducteur;
-    }
-    
-    public void setConducteur(Conducteur conducteur) {
-        this.conducteur = conducteur;
-    }
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="idconducteur")
+	//@JsonView(Views.VoitureView.class)
+	public Conducteur getConducteur() {
+		return this.conducteur;
+	}
 
-    
-    @Column(name="marque", length=45)
-    @JsonView(Views.VoitureView.class)
-    public String getMarque() {
-        return this.marque;
-    }
-    
-    public void setMarque(String marque) {
-        this.marque = marque;
-    }
+	public void setConducteur(Conducteur conducteur) {
+		this.conducteur = conducteur;
+	}
 
-    
-    @Column(name="immat", unique=true, length=45)
-    @JsonView(Views.VoitureView.class)
-    public String getImmat() {
-        return this.immat;
-    }
-    
-    public void setImmat(String immat) {
-        this.immat = immat;
-    }
 
-    @Temporal(TemporalType.DATE)
-    @Column(name="datecircul", length=10)
-    @JsonView(Views.VoitureView.class)
-    public Date getDatecircul() {
-        return this.datecircul;
-    }
-    
-    public void setDatecircul(Date datecircul) {
-        this.datecircul = datecircul;
-    }
+	@Column(name="marque", length=45)
+	//@JsonView(Views.VoitureView.class)
+	public String getMarque() {
+		return this.marque;
+	}
 
-@OneToMany(fetch=FetchType.EAGER, mappedBy="voiture")
-    @JsonView(Views.VoitureView.class)
-    public Set<VoitureRoue> getVoitureRoues() {
-        return this.voitureRoues;
-    }
-    
-    public void setVoitureRoues(Set<VoitureRoue> voitureRoues) {
-        this.voitureRoues = voitureRoues;
-    }
+	public void setMarque(String marque) {
+		this.marque = marque;
+	}
+
+
+	@Column(name="immat", unique=true, length=45)
+	//@JsonView(Views.VoitureView.class)
+	public String getImmat() {
+		return this.immat;
+	}
+
+	public void setImmat(String immat) {
+		this.immat = immat;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name="datecircul", length=10)
+	//@JsonView(Views.VoitureView.class)
+	public Date getDatecircul() {
+		return this.datecircul;
+	}
+
+	public void setDatecircul(Date datecircul) {
+		this.datecircul = datecircul;
+	}
+
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="voiture")
+	//@JsonView(Views.VoitureView.class)
+	public Set<VoitureRoue> getVoitureRoues() {
+		return this.voitureRoues;
+	}
+
+	public void setVoitureRoues(Set<VoitureRoue> voitureRoues) {
+		this.voitureRoues = voitureRoues;
+	}
 
 
 
