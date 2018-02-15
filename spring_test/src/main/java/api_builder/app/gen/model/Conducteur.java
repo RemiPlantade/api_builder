@@ -28,7 +28,7 @@ import javax.persistence.TemporalType;
 public class Conducteur  implements java.io.Serializable {
 
 
-     private Integer idconducteur;
+     private Integer id;
      private String nom;
      private String prenom;
      private Date age;
@@ -47,19 +47,19 @@ public class Conducteur  implements java.io.Serializable {
      @Id @GeneratedValue(strategy=IDENTITY)
 
     
-    @Column(name="idconducteur", unique=true, nullable=false)
-    @JsonView(Views.ConducteurView.class)
-    public Integer getIdconducteur() {
-        return this.idconducteur;
+    @Column(name="id", unique=true, nullable=false)
+//    @JsonView(Views.ConducteurView.class)
+    public Integer getId() {
+        return this.id;
     }
     
-    public void setIdconducteur(Integer idconducteur) {
-        this.idconducteur = idconducteur;
+    public void setId(Integer idconducteur) {
+        this.id = idconducteur;
     }
 
     
     @Column(name="nom", length=45)
-    @JsonView(Views.ConducteurView.class)
+//    @JsonView(Views.ConducteurView.class)
     public String getNom() {
         return this.nom;
     }
@@ -70,7 +70,7 @@ public class Conducteur  implements java.io.Serializable {
 
     
     @Column(name="prenom", length=45)
-    @JsonView(Views.ConducteurView.class)
+//    @JsonView(Views.ConducteurView.class)
     public String getPrenom() {
         return this.prenom;
     }
@@ -81,7 +81,7 @@ public class Conducteur  implements java.io.Serializable {
 
     @Temporal(TemporalType.DATE)
     @Column(name="age", length=10)
-    @JsonView(Views.ConducteurView.class)
+//    @JsonView(Views.ConducteurView.class)
     public Date getAge() {
         return this.age;
     }
@@ -91,7 +91,7 @@ public class Conducteur  implements java.io.Serializable {
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="conducteur")
-    @JsonView(Views.ConducteurView.class)
+//    @JsonView(Views.ConducteurView.class)
     public Set<Voiture> getVoitures() {
         return this.voitures;
     }

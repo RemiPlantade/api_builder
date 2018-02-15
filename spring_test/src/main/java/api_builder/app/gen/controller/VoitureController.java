@@ -27,19 +27,19 @@ import api_builder.app.gen.service.iface.VoitureService;
 public class VoitureController {
 	@Autowired
 	private VoitureService voitureService;
-	@JsonView(Views.VoitureView.class)
+//	@JsonView(Views.VoitureView.class)
 	@GetMapping("voiture/{id}")
 	public ResponseEntity<Voiture> getArticleById(@PathVariable("id") Integer id) {
 		Voiture voiture = voitureService.getVoitureById(id);
 		return new ResponseEntity<Voiture>(voiture, HttpStatus.OK);
 	}
-	@JsonView(Views.VoitureView.class)
+//	@JsonView(Views.VoitureView.class)
 	@GetMapping("voiture/all")
 	public ResponseEntity<List<Voiture>> getAllArticles() {
 		List<Voiture> list = voitureService.getAll();
 		return new ResponseEntity<List<Voiture>>(list, HttpStatus.OK);
 	}
-	@JsonView(Views.VoitureView.class)
+//	@JsonView(Views.VoitureView.class)
 	@PostMapping("voiture")
 	public ResponseEntity<Void> addArticle(@RequestBody Voiture voiture, UriComponentsBuilder builder) {
                 boolean flag = voitureService.addVoiture(voiture);
@@ -47,16 +47,16 @@ public class VoitureController {
         	    return new ResponseEntity<Void>(HttpStatus.CONFLICT);
                 }
                 HttpHeaders headers = new HttpHeaders();
-                headers.setLocation(builder.path("/voiture/{id}").buildAndExpand(voiture.getIdvoiture()).toUri());
+                headers.setLocation(builder.path("/voiture/{id}").buildAndExpand(voiture.getId()).toUri());
                 return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
 	}
-	@JsonView(Views.VoitureView.class)
+//	@JsonView(Views.VoitureView.class)
 	@PutMapping("voiture")
 	public ResponseEntity<Voiture> updateArticle(@RequestBody Voiture voiture) {
 		voitureService.updateVoiture(voiture);
 		return new ResponseEntity<Voiture>(voiture, HttpStatus.OK);
 	}
-	@JsonView(Views.VoitureView.class)
+//	@JsonView(Views.VoitureView.class)
 	@DeleteMapping("voiture/{id}")
 	public ResponseEntity<Void> deleteArticle(@PathVariable("id") Integer id) {
 		voitureService.deleteVoiture(id);

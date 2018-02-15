@@ -2,7 +2,9 @@ package api_builder.app.gen.model;
 // Generated 13 d�c. 2017 13:42:17 by Hibernate Tools 6.0.0-SNAPSHOT
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import api_builder.app.gen.jackson.Views;
 
@@ -23,10 +25,13 @@ import javax.persistence.Table;
 @Entity
 @Table(name="roue"
 )
+@JsonIdentityInfo(
+		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+		  property = "id")
 public class Roue  implements java.io.Serializable {
 
 
-     private Integer idroue;
+     private Integer id;
      private Long rayon;
      private Double largeur;
      private Set<VoitureRoue> voitureRoues = new HashSet<VoitureRoue>(0);
@@ -43,19 +48,19 @@ public class Roue  implements java.io.Serializable {
      @Id @GeneratedValue(strategy=IDENTITY)
 
     
-    @Column(name="idroue", unique=true, nullable=false)
-    @JsonView(Views.RoueView.class)
-    public Integer getIdroue() {
-        return this.idroue;
+    @Column(name="id", unique=true, nullable=false)
+//    @JsonView(Views.RoueView.class)
+    public Integer getId() {
+        return this.id;
     }
     
-    public void setIdroue(Integer idroue) {
-        this.idroue = idroue;
+    public void setId(Integer idroue) {
+        this.id = idroue;
     }
 
     
     @Column(name="rayon", precision=10, scale=0)
-    @JsonView(Views.RoueView.class)
+//    @JsonView(Views.RoueView.class)
     public Long getRayon() {
         return this.rayon;
     }
@@ -66,7 +71,7 @@ public class Roue  implements java.io.Serializable {
 
     
     @Column(name="largeur", precision=22, scale=0)
-    @JsonView(Views.RoueView.class)
+//    @JsonView(Views.RoueView.class)
     public Double getLargeur() {
         return this.largeur;
     }

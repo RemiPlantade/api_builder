@@ -30,19 +30,19 @@ import api_builder.app.gen.service.iface.VoitureService;
 public class VoitureRoueController {
 	@Autowired
 	private VoitureRoueService voitureRoueService;
-	@JsonView(Views.VoitureRoueView.class)
+//	@JsonView(Views.VoitureRoueView.class)
 	@GetMapping("voitureroue/{id}")
 	public ResponseEntity<VoitureRoue> getArticleById(@PathVariable("id") VoitureRoueId id) {
 		VoitureRoue voitureroue = voitureRoueService.getVoitureRoueById(id);
 		return new ResponseEntity<VoitureRoue>(voitureroue, HttpStatus.OK);
 	}
-	@JsonView(Views.VoitureRoueView.class)
+//	@JsonView(Views.VoitureRoueView.class)
 	@GetMapping("voitureroue/all")
 	public ResponseEntity<List<VoitureRoue>> getAllArticles() {
 		List<VoitureRoue> list = voitureRoueService.getAll();
 		return new ResponseEntity<List<VoitureRoue>>(list, HttpStatus.OK);
 	}
-	@JsonView(Views.VoitureRoueView.class)
+//	@JsonView(Views.VoitureRoueView.class)
 	@PostMapping("voitureroue")
 	public ResponseEntity<Void> addArticle(@RequestBody VoitureRoue voitureroue, UriComponentsBuilder builder) {
                 boolean flag = voitureRoueService.addVoitureRoue(voitureroue);
@@ -53,13 +53,13 @@ public class VoitureRoueController {
                 headers.setLocation(builder.path("/voitureroue/{id}").buildAndExpand(voitureroue.getId()).toUri());
                 return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
 	}
-	@JsonView(Views.VoitureRoueView.class)
+//	@JsonView(Views.VoitureRoueView.class)
 	@PutMapping("voitureroue")
 	public ResponseEntity<VoitureRoue> updateArticle(@RequestBody VoitureRoue voitureroue) {
 		voitureRoueService.updateVoitureRoue(voitureroue);
 		return new ResponseEntity<VoitureRoue>(voitureroue, HttpStatus.OK);
 	}
-	@JsonView(Views.VoitureRoueView.class)
+//	@JsonView(Views.VoitureRoueView.class)
 	@DeleteMapping("voitureroue/{id}")
 	public ResponseEntity<Void> deleteArticle(@PathVariable("id") VoitureRoueId id) {
 		voitureRoueService.deleteVoitureRoue(id);

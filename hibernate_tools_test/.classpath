@@ -27,5 +27,7 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry combineaccessrules="false" kind="src" path="/hibernate-tools"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/hibernate-tools-parent"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

@@ -25,7 +25,7 @@ public class ConducteurDAOImpl implements ConducteurDao{
 
 	@Override
 	public void updateConducteur(Conducteur c) {
-		Conducteur updConducter = getConducteurById(c.getIdconducteur());
+		Conducteur updConducter = getConducteurById(c.getId());
 		updConducter.setAge(c.getAge());
 		updConducter.setNom(c.getNom());
 		updConducter.setPrenom(c.getPrenom());
@@ -66,7 +66,7 @@ public class ConducteurDAOImpl implements ConducteurDao{
 	public boolean conducteurExists(Conducteur c) {
 		String hql = "FROM Conducteur as cond WHERE cond.idconducteur = :id";
 		int count = entityManager.createQuery(hql)
-				.setParameter("id", c.getIdconducteur())
+				.setParameter("id", c.getId())
 		        .getResultList().size();
 		return count > 0 ? true : false;
 	}

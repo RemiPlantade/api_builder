@@ -28,7 +28,7 @@ public class RoueSerializer extends StdSerializer<Roue> {
 		if(sp.getActiveView().equals(Views.RoueView.class)) {
 			defaultSerializer.serialize(roue, jg, sp);
 		}else {
-			jg.writeString("/roue/id/" + roue.getIdroue());
+			jg.writeString("/roue/id/" + roue.getId());
 		}
 	}
 	public void setDefaultSerializer(JsonSerializer<Object> serializer) {

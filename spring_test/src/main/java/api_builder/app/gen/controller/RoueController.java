@@ -29,19 +29,19 @@ public class RoueController {
 	@Autowired
 	private RoueService roueService;
 
-	@JsonView(Views.RoueView.class)
+//	@JsonView(Views.RoueView.class)
 	@GetMapping("roue/{id}")
 	public ResponseEntity<Roue> getArticleById(@PathVariable("id") Integer id) {
 		Roue roue = roueService.getRoueById(id);
 		return new ResponseEntity<Roue>(roue, HttpStatus.OK);
 	}
-	@JsonView(Views.RoueView.class)
+//	@JsonView(Views.RoueView.class)
 	@GetMapping("roue/all")
 	public ResponseEntity<List<Roue>> getAllArticles() {
 		List<Roue> list = roueService.getAll();
 		return new ResponseEntity<List<Roue>>(list, HttpStatus.OK);
 	}
-	@JsonView(Views.RoueView.class)
+//	@JsonView(Views.RoueView.class)
 	@PostMapping("roue")
 	public ResponseEntity<Void> addArticle(@RequestBody Roue roue, UriComponentsBuilder builder) {
 		boolean flag = roueService.addRoue(roue);
@@ -49,16 +49,16 @@ public class RoueController {
 			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
 		}
 		HttpHeaders headers = new HttpHeaders();
-		headers.setLocation(builder.path("/roue/{id}").buildAndExpand(roue.getIdroue()).toUri());
+		headers.setLocation(builder.path("/roue/{id}").buildAndExpand(roue.getId()).toUri());
 		return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
 	}
-	@JsonView(Views.RoueView.class)
+//	@JsonView(Views.RoueView.class)
 	@PutMapping("roue")
 	public ResponseEntity<Roue> updateArticle(@RequestBody Roue roue) {
 		roueService.updateRoue(roue);
 		return new ResponseEntity<Roue>(roue, HttpStatus.OK);
 	}
-	@JsonView(Views.RoueView.class)
+//	@JsonView(Views.RoueView.class)
 	@DeleteMapping("roue/{id}")
 	public ResponseEntity<Void> deleteArticle(@PathVariable("id") Integer id) {
 		roueService.deleteRoue(id);

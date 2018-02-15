@@ -25,7 +25,7 @@ public class RoueDAOImpl implements RoueDao{
 
 	@Override
 	public void updateRoue(Roue c) {
-		Roue roue = getRoueById(c.getIdroue());
+		Roue roue = getRoueById(c.getId());
 		roue.setLargeur(c.getLargeur());
 		roue.setRayon(c.getRayon());
 		roue.setVoitureRoues(c.getVoitureRoues());
@@ -65,7 +65,7 @@ public class RoueDAOImpl implements RoueDao{
 	public boolean roueExists(Roue c) {
 		String hql = "FROM Roue as cond WHERE idroue = :idroue";
 		int count = entityManager.createQuery(hql)
-				.setParameter(":idroue", c.getIdroue())
+				.setParameter(":idroue", c.getId())
 				.getResultList().size();
 		return count > 0 ? true : false;
 	}
