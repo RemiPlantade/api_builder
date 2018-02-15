@@ -35,7 +35,7 @@ public class VoitureDAOImpl implements VoitureDao{
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Voiture> getAll() {
-		String hql = "FROM Voiture as voit ORDER BY voit.idvoiture";
+		String hql = "FROM Voiture as voit ORDER BY voit.id";
 		return (List<Voiture>) entityManager.createQuery(hql).getResultList();
 	}
 

@@ -11,7 +11,7 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 
 import api_builder.app.gen.jackson.Views;
-import api_builder.app.gen.model.VoitureRoue;
+import api_builder.app.gen.model.VoitureRoueId;
 import java.util.Iterator;
 
 // Generated 15 f�vr. 2018 21:56:02 by Hibernate Tools 6.0.0-SNAPSHOT
@@ -19,46 +19,26 @@ import java.util.Iterator;
 
 
 /**
- * Home object for domain model class VoitureRoue.
- * @see api_builder.bean.VoitureRoue
+ * Home object for domain model class VoitureRoueId.
+ * @see api_builder.bean.VoitureRoueId
  * @author Hibernate Tools
  */
-public class VoitureRoueSerializer extends StdSerializer<VoitureRoue>{
+public class VoitureRoueIdSerializer extends StdSerializer<VoitureRoueId>{
 
 	public JsonSerializer<Object> defaultSerializer;
 	
 	private SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
 
-	public VoitureRoueSerializer() {
+	public VoitureRoueIdSerializer() {
 		this(null);
 	}
 
-	public VoitureRoueSerializer(Class<VoitureRoue> t) {
+	public VoitureRoueIdSerializer(Class<VoitureRoueId> t) {
 		super(t);
 	}
 
 	@Override
-	public void serialize(VoitureRoue voitureroue, JsonGenerator jg, SerializerProvider sp) throws IOException {
-		jg.writeStartObject();
-				if(voitureroue.getId() == null){
-					jg.writeNullField("id");
-				}else{
-				
-				
-				
-				
-				}
-			if(voitureroue.getRoue() == null){
-				jg.writeNullField("roue");
-			}else{
-				jg.writeNumberField("roue",  voitureroue.getRoue().getId());
-			}
-			if(voitureroue.getVoiture() == null){
-				jg.writeNullField("voiture");
-			}else{
-				jg.writeNumberField("voiture",  voitureroue.getVoiture().getId());
-			}
-		jg.writeEndObject();
+	public void serialize(VoitureRoueId voitureroueid, JsonGenerator jg, SerializerProvider sp) throws IOException {
 	}
 	
 	public void setDefaultSerializer(JsonSerializer<Object> serializer) {
