@@ -36,7 +36,7 @@ public class ConducteurDAOImpl implements ConducteurDao{
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Conducteur> getAll() {
-		String hql = "FROM Conducteur as cond ORDER BY cond.idconducteur";
+		String hql = "FROM Conducteur as cond ORDER BY cond.id";
 		return (List<Conducteur>) entityManager.createQuery(hql).getResultList();
 	}
 

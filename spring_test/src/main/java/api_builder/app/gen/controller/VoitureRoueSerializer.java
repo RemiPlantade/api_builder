@@ -1,5 +1,5 @@
 
-package api_builder.app.gen.jackson.serializer;
+package api_builder.app.gen.controller;
 import api_builder.app.gen.model.*;
 
 import java.io.IOException;
