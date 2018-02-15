@@ -1,5 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project basedir="." name="HibernateAntGenerator">
+<project basedir="." name="HibernateAntGenerator" xmlns:fx="javafx:com.sun.javafx.tools.ant">
+	
+	<!-- ==================== JavaFX launch Task ================== -->
+	<!-- ========================================================== -->
+	<property name="JAVA_HOME" value="C:\\Program Files\\Java\\jdk1.8.0_65"/>
+	<property name="build.src.dir" value="src"/>
+	<property name="build.classes.dir" value="classes"/>
+	<property name="build.dist.dir" value="dist"/>
+	
+	<path id="CLASSPATH">
+	    <pathelement location="lib/hibernate-tools-6.1.1.SNAPSHOT.jar"/>
+	    <pathelement path="classes"/>
+	  </path>
+	
+	<target name="javafx_run" depends="cleanfx,compilefx">
+	    <taskdef resource="com/sun/javafx/tools/ant/antlib.xml"
+	      uri="javafx:com.sun.javafx.tools.ant"
+	      classpath="${JAVA_HOME}/lib/ant-javafx.jar"/>
+	 
+	      <fx:application id="HelloWorldID"
+	        name="JavaFXHelloWorldApp"
+	        mainClass="HelloWorld"/>
+	 
+	      <fx:resources id="appRes">
+	        <fx:fileset dir="${build.dist.dir}" includes="HelloWorld.jar"/>
+	      </fx:resources>
+	 
+	      <fx:jar destfile="${build.dist.dir}/HelloWorld.jar">
+	        <fx:application refid="HelloWorldID"/>
+	        <fx:resources refid="appRes"/>
+	        <fileset dir="${build.classes.dir}"/>
+	      </fx:jar>
+	 
+	      <fx:deploy width="300" height="250"
+	        outdir="." embedJNLP="true"
+	        outfile="helloworld"
+	      	nativeBundles="all">
+	 
+	        <fx:application refId="HelloWorldID"/>
+	 
+	        <fx:resources refid="appRes"/>
+	 
+	        <fx:info title="JavaFX Hello World Application"
+	          vendor="Oracle Corporation"/>
+	 
+	      </fx:deploy>
+	 
+	  </target>
+	 
+	  <target name="cleanfx">
+	    <mkdir dir="${build.classes.dir}"/>
+	    <mkdir dir="${build.dist.dir}"/>
+
+	    <delete>
+	      <fileset dir="${build.classes.dir}" includes="**/*"/>
+	      <fileset dir="${build.dist.dir}" includes="**/*"/>
+	    </delete>
+	 
+	  </target>
+	 
+	  <target name="compilefx" depends="cleanfx">
+	 
+	    <javac includeantruntime="false"
+	      srcdir="${build.src.dir}"
+	      destdir="${build.classes.dir}"
+	      fork="yes"
+	      executable="${JAVA_HOME}/bin/javac"
+	      source="1.8"
+	      debug="on">
+	    </javac>
+	  </target>
+	
+	<!-- ================ HibernateToolTask =================== -->
+	<!-- ====================================================== -->
 	<path id="toolslib">
 		<path location="lib/hibernate-tools.6.1.0-SNAPSHOT.jar" />
 		<path location="lib/hibernate-core-5.2.12.Final.jar" />

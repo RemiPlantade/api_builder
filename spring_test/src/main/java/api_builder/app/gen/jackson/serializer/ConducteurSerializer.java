@@ -27,7 +27,7 @@ public class ConducteurSerializer extends StdSerializer<Conducteur> {
 		if(sp.getActiveView().equals(Views.ConducteurView.class)) {
 			defaultSerializer.serialize(cond, jg, sp);
 		}else {
-			jg.writeString("/coducteur/id/" + cond.getIdconducteur());
+			jg.writeString("/coducteur/id/" + cond.getId());
 		}
 	}
 	public void setDefaultSerializer(JsonSerializer<Object> serializer) {
