@@ -3,6 +3,7 @@ package api_builder.app.gen.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import api_builder.app.gen.dao.iface.VoitureDao;

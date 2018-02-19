@@ -11,11 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 import api_builder.app.gen.dao.iface.RoueDao;
 import api_builder.app.gen.model.Roue;
 
-@Transactional
+@Transactional("tm1")
 @Repository
 public class RoueDAOImpl implements RoueDao{
 
-	@PersistenceContext	
+	@PersistenceContext(unitName="apiEntityManager")
 	private EntityManager entityManager;
 
 	@Override

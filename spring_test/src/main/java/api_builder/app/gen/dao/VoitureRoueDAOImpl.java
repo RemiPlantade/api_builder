@@ -12,11 +12,11 @@ import api_builder.app.gen.dao.iface.VoitureRoueDao;
 import api_builder.app.gen.model.VoitureRoue;
 import api_builder.app.gen.model.VoitureRoueId;
 
-@Transactional
+@Transactional("tm1")
 @Repository
 public class VoitureRoueDAOImpl implements VoitureRoueDao{
 
-	@PersistenceContext	
+	@PersistenceContext(name="apiEntityManager")	
 	private EntityManager entityManager;
 
 	@Override
