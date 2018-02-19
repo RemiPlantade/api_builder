@@ -5,17 +5,20 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import api_builder.app.gen.dao.iface.ConducteurDao;
 import api_builder.app.gen.model.Conducteur;
 
-@Transactional
+@Transactional("tm1")
 @Repository
 public class ConducteurDAOImpl implements ConducteurDao{
 
-	@PersistenceContext	
+	@PersistenceContext
+	@Qualifier("apiEntityManager")
 	private EntityManager entityManager;
 
 	@Override

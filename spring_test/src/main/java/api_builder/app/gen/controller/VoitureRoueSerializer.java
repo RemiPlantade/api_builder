@@ -1,7 +1,5 @@
 
 package api_builder.app.gen.controller;
-import api_builder.app.gen.model.*;
-
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 
@@ -11,7 +9,8 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 
 import api_builder.app.gen.jackson.Views;
-import api_builder.app.gen.model.VoitureRoue;
+import api_builder.app.gen.model.*;
+
 import java.util.Iterator;
 
 // Generated 15 f�vr. 2018 21:56:02 by Hibernate Tools 6.0.0-SNAPSHOT

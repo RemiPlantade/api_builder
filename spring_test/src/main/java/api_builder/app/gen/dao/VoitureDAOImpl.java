@@ -11,11 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 import api_builder.app.gen.dao.iface.VoitureDao;
 import api_builder.app.gen.model.Voiture;
 
-@Transactional
+@Transactional("tm1")
 @Repository
 public class VoitureDAOImpl implements VoitureDao{
 
-	@PersistenceContext	
+	@PersistenceContext(name="apiEntityManager")	
 	private EntityManager entityManager;
 
 	@Override
