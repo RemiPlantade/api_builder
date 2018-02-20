@@ -9,23 +9,18 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="entity_conf")
-public class EntityConf {
-	
+@Table(name="group_conf")
+public class GroupConf {
 	private Integer id;
 	private String name;
-	private Boolean managed;
 	
-	
-	public EntityConf() {
+	public GroupConf() {
 		super();
 	}
-
-	public EntityConf(Integer id, String name, Boolean managed) {
+	public GroupConf(Integer id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.managed = managed;
 	}
 	@Id @GeneratedValue(strategy=IDENTITY)
 	@Column(name="id", unique=true, nullable=false)
@@ -35,19 +30,12 @@ public class EntityConf {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	@Column(name="name", length=45)
+	@Column(name="name",length=255)
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-	@Column(name="managed")
-	public Boolean getManaged() {
-		return managed;
-	}
-	public void setManaged(Boolean managed) {
-		this.managed = managed;
 	}
 	
 	

@@ -17,18 +17,18 @@ public class UserConfServiceImpl implements UserConfService{
 	private UserConfDao userconfDAO;
 	
 	@Override
-	public synchronized boolean addUser(UserConf c) {
-		if (userconfDAO.userExists(c)) {
+	public synchronized boolean addUserConf(UserConf c) {
+		if (userconfDAO.userConfExists(c)) {
             return false;
         } else {
-        	userconfDAO.addUser(c);
+        	userconfDAO.addUserConf(c);
             return true;
         }
 	}
 
 	@Override
-	public void updateUser(UserConf c) {
-		this.userconfDAO.updateUser(c);
+	public void updateUserConf(UserConf c) {
+		this.userconfDAO.updateUserConf(c);
 	}
 
 	@Override
@@ -37,18 +37,18 @@ public class UserConfServiceImpl implements UserConfService{
 	}
 
 	@Override
-	public UserConf getUserById(int id) {
-		return this.userconfDAO.getUserById(id);
+	public UserConf getUserConfById(int id) {
+		return this.userconfDAO.getUserConfById(id);
 	}
 
 	@Override
-	public List<UserConf> getUserByAttr(String attrName, String value) {
-		return this.userconfDAO.getUserByAttr(attrName, value);
+	public List<UserConf> getUserConfByAttr(String attrName, String value) {
+		return this.userconfDAO.getUserConfByAttr(attrName, value);
 	}
 
 	@Override
-	public void deleteUser(int id) {
-		this.userconfDAO.deleteUser(id);
+	public void deleteUserConf(int id) {
+		this.userconfDAO.deleteUserConf(id);
 		
 	}
 
