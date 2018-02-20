@@ -16,49 +16,49 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import api_builder.app.conf.model.User;
-import api_builder.app.conf.service.UserService;
+import api_builder.app.conf.model.UserConf;
+import api_builder.app.conf.service.UserConfService;
 
 @Controller
 @RequestMapping("test")
-public class UserController {
+public class UserConfController {
 
 	@Autowired
-	private UserService userService;
+	private UserConfService userconfService;
 
 //	@JsonView(Views.UserView.class)
-	@GetMapping("user/{id}")
-	public ResponseEntity<User> getArticleById(@PathVariable("id") Integer id) {
-		User user = userService.getUserById(id);
-		return new ResponseEntity<User>(user, HttpStatus.OK);
+	@GetMapping("userconf/{id}")
+	public ResponseEntity<UserConf> getArticleById(@PathVariable("id") Integer id) {
+		UserConf userconf = userconfService.getUserById(id);
+		return new ResponseEntity<UserConf>(userconf, HttpStatus.OK);
 	}
 //	@JsonView(Views.UserView.class)
-	@GetMapping("user/all")
-	public ResponseEntity<List<User>> getAllArticles() {
-		List<User> list = userService.getAll();
-		return new ResponseEntity<List<User>>(list, HttpStatus.OK);
+	@GetMapping("userconf/all")
+	public ResponseEntity<List<UserConf>> getAllArticles() {
+		List<UserConf> list = userconfService.getAll();
+		return new ResponseEntity<List<UserConf>>(list, HttpStatus.OK);
 	}
 //	@JsonView(Views.UserView.class)
-	@PostMapping("user")
-	public ResponseEntity<Void> addArticle(@RequestBody User user, UriComponentsBuilder builder) {
-		boolean flag = userService.addUser(user);
+	@PostMapping("userconf")
+	public ResponseEntity<Void> addArticle(@RequestBody UserConf userconf, UriComponentsBuilder builder) {
+		boolean flag = userconfService.addUser(userconf);
 		if (flag == false) {
 			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
 		}
 		HttpHeaders headers = new HttpHeaders();
-		headers.setLocation(builder.path("/user/{id}").buildAndExpand(user.getId()).toUri());
+		headers.setLocation(builder.path("/userconf/{id}").buildAndExpand(userconf.getId()).toUri());
 		return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
 	}
 //	@JsonView(Views.UserView.class)
-	@PutMapping("user")
-	public ResponseEntity<User> updateArticle(@RequestBody User user) {
-		userService.updateUser(user);
-		return new ResponseEntity<User>(user, HttpStatus.OK);
+	@PutMapping("userconf")
+	public ResponseEntity<UserConf> updateArticle(@RequestBody UserConf userconf) {
+		userconfService.updateUser(userconf);
+		return new ResponseEntity<UserConf>(userconf, HttpStatus.OK);
 	}
 //	@JsonView(Views.UserView.class)
-	@DeleteMapping("user/{id}")
+	@DeleteMapping("userconf/{id}")
 	public ResponseEntity<Void> deleteArticle(@PathVariable("id") Integer id) {
-		userService.deleteUser(id);
+		userconfService.deleteUser(id);
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}	
 }

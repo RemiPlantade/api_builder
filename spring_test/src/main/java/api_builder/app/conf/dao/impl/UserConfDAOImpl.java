@@ -9,24 +9,24 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import api_builder.app.conf.dao.UserDao;
-import api_builder.app.conf.model.User;
+import api_builder.app.conf.dao.UserConfDao;
+import api_builder.app.conf.model.UserConf;
 
 @Transactional("tm2")
 @Repository
-public class UserDAOImpl implements UserDao{
+public class UserConfDAOImpl implements UserConfDao{
 
 	@PersistenceContext(unitName="confEntityManager")
 	private EntityManager entityManager;
 
 	@Override
-	public void addUser(User c) {
+	public void addUser(UserConf c) {
 		entityManager.persist(c);
 	}
 
 	@Override
-	public void updateUser(User c) {
-		User updConducter = getUserById(c.getId());
+	public void updateUser(UserConf c) {
+		UserConf updConducter = getUserById(c.getId());
 		updConducter.setFirstname(c.getFirstname());
 		updConducter.setLastname(c.getLastname());
 		updConducter.setToken(c.getToken());
@@ -35,19 +35,19 @@ public class UserDAOImpl implements UserDao{
 	}
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<User> getAll() {
-		String hql = "FROM User as cond ORDER BY cond.id";
-		return (List<User>) entityManager.createQuery(hql).getResultList();
+	public List<UserConf> getAll() {
+		String hql = "FROM UserConf as cond ORDER BY cond.id";
+		return (List<UserConf>) entityManager.createQuery(hql).getResultList();
 	}
 
 	@Override
-	public User getUserById(int id) {
-		return entityManager.find(User.class, id);
+	public UserConf getUserById(int id) {
+		return entityManager.find(UserConf.class, id);
 	}
 	
 	@Override
-	public List<User> getUserByAttr(String attrName, String value) {
-		List<User> conducteurList = entityManager.createQuery("from User where :attrNAme = :value",User.class)
+	public List<UserConf> getUserByAttr(String attrName, String value) {
+		List<UserConf> conducteurList = entityManager.createQuery("from UserConf where :attrNAme = :value",UserConf.class)
 				.setParameter("atrName", attrName)
 				.setParameter("value", value)
 				.getResultList();
@@ -56,15 +56,15 @@ public class UserDAOImpl implements UserDao{
 
 	@Override
 	public void deleteUser(int id) {
-		User c = getUserById(id);
+		UserConf c = getUserById(id);
 		if(c != null) {
 			entityManager.remove(c);
 		}
 	}
 
 	@Override
-	public boolean userExists(User c) {
-		String hql = "FROM User as cond WHERE cond.idconducteur = :id";
+	public boolean userExists(UserConf c) {
+		String hql = "FROM UserConf as cond WHERE cond.idconducteur = :id";
 		int count = entityManager.createQuery(hql)
 				.setParameter("id", c.getId())
 		        .getResultList().size();
