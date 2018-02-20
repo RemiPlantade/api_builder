@@ -11,8 +11,8 @@ import javax.persistence.Table;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 @Entity
-@Table(name="user")
-public class User {
+@Table(name="user_conf")
+public class UserConf {
 	private  Integer id;
 	private String firstname;
 	private String lastname;
@@ -20,11 +20,11 @@ public class User {
 	private Integer maxquota;
 	private Integer actualquota;
 
-	public User() {
+	public UserConf() {
 		super();
 	}
 
-	public User(Integer id, String firstname, String lastname, String token, Integer maxquota, Integer actualquota) {
+	public UserConf(Integer id, String firstname, String lastname, String token, Integer maxquota, Integer actualquota) {
 		super();
 		this.id = id;
 		this.firstname = firstname;
