@@ -29,7 +29,7 @@ public class UserConfController {
 //	@JsonView(Views.UserView.class)
 	@GetMapping("userconf/{id}")
 	public ResponseEntity<UserConf> getArticleById(@PathVariable("id") Integer id) {
-		UserConf userconf = userconfService.getUserById(id);
+		UserConf userconf = userconfService.getUserConfById(id);
 		return new ResponseEntity<UserConf>(userconf, HttpStatus.OK);
 	}
 //	@JsonView(Views.UserView.class)
@@ -41,7 +41,7 @@ public class UserConfController {
 //	@JsonView(Views.UserView.class)
 	@PostMapping("userconf")
 	public ResponseEntity<Void> addArticle(@RequestBody UserConf userconf, UriComponentsBuilder builder) {
-		boolean flag = userconfService.addUser(userconf);
+		boolean flag = userconfService.addUserConf(userconf);
 		if (flag == false) {
 			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
 		}
@@ -52,13 +52,13 @@ public class UserConfController {
 //	@JsonView(Views.UserView.class)
 	@PutMapping("userconf")
 	public ResponseEntity<UserConf> updateArticle(@RequestBody UserConf userconf) {
-		userconfService.updateUser(userconf);
+		userconfService.updateUserConf(userconf);
 		return new ResponseEntity<UserConf>(userconf, HttpStatus.OK);
 	}
 //	@JsonView(Views.UserView.class)
 	@DeleteMapping("userconf/{id}")
 	public ResponseEntity<Void> deleteArticle(@PathVariable("id") Integer id) {
-		userconfService.deleteUser(id);
+		userconfService.deleteUserConf(id);
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}	
 }

@@ -20,13 +20,13 @@ public class UserConfDAOImpl implements UserConfDao{
 	private EntityManager entityManager;
 
 	@Override
-	public void addUser(UserConf c) {
+	public void addUserConf(UserConf c) {
 		entityManager.persist(c);
 	}
 
 	@Override
-	public void updateUser(UserConf c) {
-		UserConf updConducter = getUserById(c.getId());
+	public void updateUserConf(UserConf c) {
+		UserConf updConducter = getUserConfById(c.getId());
 		updConducter.setFirstname(c.getFirstname());
 		updConducter.setLastname(c.getLastname());
 		updConducter.setToken(c.getToken());
@@ -36,35 +36,35 @@ public class UserConfDAOImpl implements UserConfDao{
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<UserConf> getAll() {
-		String hql = "FROM UserConf as cond ORDER BY cond.id";
+		String hql = "FROM UserConf as userconf ORDER BY userconf.id";
 		return (List<UserConf>) entityManager.createQuery(hql).getResultList();
 	}
 
 	@Override
-	public UserConf getUserById(int id) {
+	public UserConf getUserConfById(int id) {
 		return entityManager.find(UserConf.class, id);
 	}
 	
 	@Override
-	public List<UserConf> getUserByAttr(String attrName, String value) {
+	public List<UserConf> getUserConfByAttr(String attrName, String value) {
 		List<UserConf> conducteurList = entityManager.createQuery("from UserConf where :attrNAme = :value",UserConf.class)
-				.setParameter("atrName", attrName)
+				.setParameter("attrName", attrName)
 				.setParameter("value", value)
 				.getResultList();
 		return conducteurList;
 	}
 
 	@Override
-	public void deleteUser(int id) {
-		UserConf c = getUserById(id);
+	public void deleteUserConf(int id) {
+		UserConf c = getUserConfById(id);
 		if(c != null) {
 			entityManager.remove(c);
 		}
 	}
 
 	@Override
-	public boolean userExists(UserConf c) {
-		String hql = "FROM UserConf as cond WHERE cond.idconducteur = :id";
+	public boolean userConfExists(UserConf c) {
+		String hql = "FROM UserConf as userconf WHERE userconf.id = :id";
 		int count = entityManager.createQuery(hql)
 				.setParameter("id", c.getId())
 		        .getResultList().size();
