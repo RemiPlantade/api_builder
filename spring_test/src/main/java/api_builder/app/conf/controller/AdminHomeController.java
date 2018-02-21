@@ -13,21 +13,23 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import api_builder.app.conf.service.ApiConfService;
 
 @Controller
-@RequestMapping("/test")
+//@RequestMapping("/test")
 public class AdminHomeController {
 
 	@Autowired
 	private ApiConfService apiConfService;
 
-	@GetMapping("/admin")
+	@GetMapping("/login")
 	public String displayLogin() {
-		return "adminlogin";
+		return "login";
 	}
 	
-	@GetMapping("/admin/home")
-	public String displayAdminHome() {
-		return "adminhome";
-	}
+	
+	
+//	@GetMapping("/admin/home")
+//	public String displayAdminHome() {
+//		return "adminhome";
+//	}
 	
 	@PostMapping("/login")
 	public ModelAndView login(@RequestParam(defaultValue="") String mail, @RequestParam(defaultValue="") String password,ModelMap modelMap,RedirectAttributes redir) {

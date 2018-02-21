@@ -18,17 +18,23 @@
 								<div class="field">
 									<label class="label">Mail</label>
 									<div class="control">
-										<input type="text" name="mail" /><br />
+										<input type="text" name="username" id="username"/><br />
 									</div>
 								</div>
 								<div class="field">
 									<label class="label">Password</label>
 									<div class="control">
-										<input type="password" name="password" /><br />
+										<input type="password" name="password" id="password"/><br />
 									</div>
 								</div>
 								<div class="field">
-									<label class="label"><#if message_erreur??> ${message_erreur}</#if></label>
+									<label class="label">
+									<#if param ??>
+									<#if param.error??> ${param.error}</#if>
+									<#if param.logout??> ${param.logout}</#if>
+									<#if param.error??> ${param.error}</#if>
+									</#if>
+									</label>
 								</div>
 								<div class="field is-grouped">
 									<div class="control">
