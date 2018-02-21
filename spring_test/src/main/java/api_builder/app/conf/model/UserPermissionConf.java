@@ -47,9 +47,8 @@ public class UserPermissionConf {
 		this.id = id;
 	}
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="id")
-	@Column(name="id_entity_conf")
+	@OneToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="id_entity_conf")
 	public EntityConf getIdEntityConf() {
 		return idEntityConf;
 	}
@@ -58,9 +57,8 @@ public class UserPermissionConf {
 		this.idEntityConf = idEntityConf;
 	}
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@OneToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="id")
-	@Column(name="id_user_conf")
 	public UserConf getIdUserConf() {
 		return idUserConf;
 	}
