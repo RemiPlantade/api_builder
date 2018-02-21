@@ -24,6 +24,8 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
+import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
@@ -37,6 +39,7 @@ import api_builder.app.gen.jackson.CustomBeanSerializerModifier;
 @EnableAutoConfiguration 
 public class Application {
 	public static void main(String[] args) {
+		
 		SpringApplication.run(Application.class, args);
 	}
 
