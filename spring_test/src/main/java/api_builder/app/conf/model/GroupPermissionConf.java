@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -47,9 +48,8 @@ public class GroupPermissionConf {
 		this.id = id;
 	}
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="id")
-	@Column(name="id_entity_conf")
+	@OneToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="id_entity_conf")
 	public EntityConf getIdEntityConf() {
 		return idEntityConf;
 	}
@@ -58,9 +58,8 @@ public class GroupPermissionConf {
 		this.idEntityConf = idEntityConf;
 	}
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@OneToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="id")
-	@Column(name="id_group_conf")
 	public GroupConf getIdGroupConf() {
 		return idGroupConf;
 	}
