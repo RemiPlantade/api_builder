@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import api_builder.app.conf.service.ApiConfService;
 
 @Controller
@@ -17,19 +20,22 @@ public class AdminHomeController {
 	private ApiConfService apiConfService;
 
 	@GetMapping("/admin")
-	public String displayHome() {
+	public String displayLogin() {
 		return "adminlogin";
 	}
 	
+	@GetMapping("/admin/home")
+	public String displayAdminHome() {
+		return "adminhome";
+	}
+	
 	@PostMapping("/login")
-	public String login(@RequestParam(defaultValue="") String mail, @RequestParam(defaultValue="") String password,ModelMap modelMap) {
+	public ModelAndView login(@RequestParam(defaultValue="") String mail, @RequestParam(defaultValue="") String password,ModelMap modelMap,RedirectAttributes redir) {
 		if(mail.equals("") || mail.equals("")) {
-			modelMap.put("message_erreur", "Bad credentials");
-			System.out.println(mail + "" + password);
-			return "adminlogin";
+			redir.addFlashAttribute("message_erreur","Bad credentials");
+			return new ModelAndView("redirect:admin", modelMap);
 		}else {
-			return "adminhome";
+		   return new ModelAndView("redirect:admin/home", modelMap);
 		}
-		
 	}
 }

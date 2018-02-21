@@ -1,22 +1,46 @@
 <html>
 <head>
-  <title>Admin login page</title>
+<title>Admin login page</title>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
 </head>
 <body>
-  <h1> Please enter your login </h1>
-  <div id="content">
-  <fieldset>
-    <legend>Login</legend>
-    <form name="login" action="login" method="post">
-      Mail : <input type="text" name="mail" /><br/>
-      Password: <input type="password" name="password" /><br/>
-      <input type="submit" value="Login" />
-    </form>
-    <#if message_erreur??>
-    ${message_erreur}
-    </#if>
-  </fieldset>
-  <br/>
-</div>
+	<section class="section">
+		<div class="container">
+			<div id="content">
+				<div class="columns is-centered">
+					<div class="column is-4">
+						<div class="box">
+							<h1 class="title is-5 has-text-centered">Please enter your
+								login</h1>
+
+							<form name="login" action="login" method="post">
+								<div class="field">
+									<label class="label">Mail</label>
+									<div class="control">
+										<input type="text" name="mail" /><br />
+									</div>
+								</div>
+								<div class="field">
+									<label class="label">Password</label>
+									<div class="control">
+										<input type="password" name="password" /><br />
+									</div>
+								</div>
+								<div class="field">
+									<label class="label"><#if message_erreur??> ${message_erreur}</#if></label>
+								</div>
+								<div class="field is-grouped">
+									<div class="control">
+										<input class="button is-link" type="submit" value="Login" />
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 </body>
 </html>
