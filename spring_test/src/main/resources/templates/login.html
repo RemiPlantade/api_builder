@@ -1,4 +1,5 @@
-<html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>Admin login page</title>
 <link rel="stylesheet"
@@ -14,7 +15,7 @@
 							<h1 class="title is-5 has-text-centered">Please enter your
 								login</h1>
 
-							<form name="login" action="login" method="post">
+							<form name="login" th:action="@{/login}" method="post">
 								<div class="field">
 									<label class="label">Mail</label>
 									<div class="control">
@@ -26,16 +27,6 @@
 									<div class="control">
 										<input type="password" name="password" id="password"/><br />
 									</div>
-								</div>
-								<div class="field">
-									<label class="label">
-									<#if param ??>
-									<#if param.error??> ${param.error}</#if>
-									<#if param.logout??> ${param.logout}</#if>
-									<#if param.error??> ${param.error}</#if>
-									</#if>
-									</label>
-								</div>
 								<div class="field is-grouped">
 									<div class="control">
 										<input class="button is-link" type="submit" value="Login" />
