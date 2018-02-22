@@ -1,6 +1,7 @@
 package api_builder.app;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -9,24 +10,19 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 @Configuration
 @EnableWebSecurity
+@EnableAutoConfiguration 
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-//		http
-//			.authorizeRequests()
-//				.antMatchers("/css/**", "/index").permitAll()		
-//				.antMatchers("/admin/**").hasRole("ADMIN")			
-//				.and()
-//			.formLogin()
-//				.loginPage("/login").failureUrl("/login-error");	
+		System.out.println("Yolo ma couille !!!!!!!!!!!!!!!!!!!!!");
 		 http
          .authorizeRequests()
-             .antMatchers("/resources/**").permitAll()
-             //.antMatchers("/admin/**").hasRole("ADMIN")
+             //.antMatchers("/resources/**").permitAll()
+             .antMatchers("/resources/admin/**").hasRole("ADMIN")
              .anyRequest().authenticated()
              .and()
          .formLogin()
-             .loginPage("/login").failureUrl("/login-error")
+             .loginPage("/login").failureUrl("/unauth")
              .permitAll()
              .and()
          .logout()                                    
