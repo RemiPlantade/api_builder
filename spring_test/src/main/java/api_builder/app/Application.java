@@ -26,6 +26,9 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
+import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
+import org.thymeleaf.spring4.SpringTemplateEngine;
+import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
@@ -39,7 +42,7 @@ import api_builder.app.gen.jackson.CustomBeanSerializerModifier;
 @EnableAutoConfiguration 
 public class Application {
 	public static void main(String[] args) {
-		
+
 		SpringApplication.run(Application.class, args);
 	}
 
@@ -50,7 +53,7 @@ public class Application {
 				.registerModule(new SimpleModule()
 						.setSerializerModifier(new CustomBeanSerializerModifier()));
 	}
-	
+
 	@Primary
 	@Bean(name = "apiDatabase")
 	@ConfigurationProperties(prefix = "spring.api")
@@ -97,19 +100,19 @@ public class Application {
 
 		return emf;
 	}
-	
+
 	@Bean(name="tm1")
 	@Autowired
-	@Primary
+	@Primary 
 	DataSourceTransactionManager tm1(@Qualifier ("apiDatabase") DataSource datasource) {
-	    DataSourceTransactionManager txm  = new DataSourceTransactionManager(datasource);
-	    return txm;
+		DataSourceTransactionManager txm  = new DataSourceTransactionManager(datasource);
+		return txm;
 	}
 
 	@Bean(name="tm2")
 	@Autowired
 	DataSourceTransactionManager tm2(@Qualifier ("confDatabase") DataSource datasource) {
-	    DataSourceTransactionManager txm  = new DataSourceTransactionManager(datasource);
-	    return txm;
+		DataSourceTransactionManager txm  = new DataSourceTransactionManager(datasource);
+		return txm;
 	}
 }

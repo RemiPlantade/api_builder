@@ -1,36 +1,41 @@
-package api_builder.app;
+package api_builder.app.conf;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 
 @Configuration
 @EnableWebSecurity
-@EnableAutoConfiguration 
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		System.out.println("Yolo ma couille !!!!!!!!!!!!!!!!!!!!!");
 		 http
          .authorizeRequests()
-             //.antMatchers("/resources/**").permitAll()
-             .antMatchers("/resources/admin/**").hasRole("ADMIN")
+             .antMatchers("/resources/**").permitAll()
+             .antMatchers("/resources/templates/admin/**").hasRole("USER")
              .anyRequest().authenticated()
              .and()
          .formLogin()
-             .loginPage("/login").failureUrl("/unauth")
+             .loginPage("/login")
+//             .loginProcessingUrl("/login")
+//             .usernameParameter("username")
+//             .passwordParameter("password")
+             .failureUrl("/login-error")
              .permitAll()
              .and()
          .logout()                                    
-             .permitAll();
+             .permitAll().logoutSuccessUrl("/index");
 	}
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth.inMemoryAuthentication().withUser("user").password("password").roles("ADMIN");
+		auth.inMemoryAuthentication().withUser("user").password("user").roles("USER");
 	}
 }
