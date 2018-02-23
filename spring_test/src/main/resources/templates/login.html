@@ -3,7 +3,7 @@
 <head>
 <title>Admin login page</title>
 <link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+	href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css"/>
 </head>
 <body>
 	<section class="section">
@@ -14,7 +14,7 @@
 						<div class="box">
 							<h1 class="title is-5 has-text-centered">Please enter your
 								login</h1>
-
+							<p th:if="${loginError}" class="error">Wrong user or password</p>
 							<form name="login" th:action="@{/login}" method="post">
 								<div class="field">
 									<label class="label">Mail</label>
@@ -22,7 +22,6 @@
 										<input type="text" name="username" id="username"/><br />
 									</div>
 								</div>
-								<div class="field">
 									<label class="label">Password</label>
 									<div class="control">
 										<input type="password" name="password" id="password"/><br />
