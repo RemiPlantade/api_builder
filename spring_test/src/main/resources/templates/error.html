@@ -2,7 +2,7 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-<title>Admin login page</title>
+<title>Error page</title>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css" />
 </head>
@@ -13,11 +13,7 @@
 				<div class="columns is-centered">
 					<div class="column is-4">
 						<div class="box">
-							<h1 class="title is-5 has-text-centered">Welcome Home !</h1>
-							<div sec:authorize="hasRole('ROLE_ADMIN')">This content is
-								only shown to administrators.</div>
-							<div sec:authorize="isAuthenticated()">LOGGED IN</div>
-							<div sec:authorize="isAnonymous()">ANONYMOUS</div>
+							<h1 class="title is-5 has-text-centered">Some Errors occur !</h1>
 						</div>
 					</div>
 				</div>

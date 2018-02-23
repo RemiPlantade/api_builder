@@ -2,6 +2,7 @@ package api_builder.app.conf.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,7 +14,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import api_builder.app.conf.service.ApiConfService;
 
 @Controller
-@RequestMapping("/test")
 public class ApiController {
 
 	@Autowired
@@ -26,8 +26,19 @@ public class ApiController {
 
 	@GetMapping("/login")
 	public String displayLogin() {
-		return "login";
+		return "login.html";
 	}
+	// Login form with error
+	@GetMapping("/login-error")
+	  public String loginError(Model model) {
+	    model.addAttribute("loginError", true);
+	    return "login";
+	  }
+	  
+//	  @RequestMapping("/error")
+//	  public String error() {
+//	    return "error";
+//	  }
 	
 	@GetMapping("/admin")
 	public String displayAdminHome() {
