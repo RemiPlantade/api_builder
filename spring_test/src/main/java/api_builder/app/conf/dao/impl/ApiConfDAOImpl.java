@@ -5,12 +5,15 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.jpa.repository.JpaContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import api_builder.app.conf.dao.ApiConfDao;
 import api_builder.app.conf.model.ApiConf;
+import api_builder.app.conf.model.UserConf;
 
 @Transactional("tm2")
 @Repository
@@ -18,6 +21,11 @@ public class ApiConfDAOImpl implements ApiConfDao{
 
 	@PersistenceContext(unitName="confEntityManager")
 	private EntityManager entityManager;
+
+	@Autowired
+	public ApiConfDAOImpl(JpaContext context) {
+		this.entityManager = context.getEntityManagerByManagedType(ApiConf.class);
+	}
 
 	@Override
 	public void addApiConf(ApiConf c) {
@@ -44,7 +52,7 @@ public class ApiConfDAOImpl implements ApiConfDao{
 	public ApiConf getApiConfById(int id) {
 		return entityManager.find(ApiConf.class, id);
 	}
-	
+
 	@Override
 	public List<ApiConf> getApiConfByAttr(String attrName, String value) {
 		List<ApiConf> conducteurList = entityManager.createQuery("from ApiConf where :attrNAme = :value",ApiConf.class)
@@ -67,7 +75,7 @@ public class ApiConfDAOImpl implements ApiConfDao{
 		String hql = "FROM ApiConf as apiconf WHERE apiconf.id = :id";
 		int count = entityManager.createQuery(hql)
 				.setParameter("id", c.getId())
-		        .getResultList().size();
+				.getResultList().size();
 		return count > 0 ? true : false;
 	}
 
