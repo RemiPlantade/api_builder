@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import api_builder.app.conf.dao.UserConfDao;
 import api_builder.app.conf.model.UserConf;
 import api_builder.app.conf.service.ApiConfService;
+import api_builder.app.conf.service.GroupConfService;
 import api_builder.app.conf.service.UserConfService;
 
 @Controller
@@ -28,6 +29,9 @@ public class ApiController {
 
 	@Autowired
 	private ApiConfService apiConfService;
+	
+	@Autowired
+	private GroupConfService groupService;
 
 	@GetMapping("/")
 	public String displayIndex() {
@@ -59,6 +63,7 @@ public class ApiController {
 	public String displayUserConf(Model model) {
 		model.addAttribute("user", new UserConf());
 		model.addAttribute("users",userService.getAll());
+		model.addAttribute("groups",groupService.getAll());
 		return "admin/users";
 	}
 	
