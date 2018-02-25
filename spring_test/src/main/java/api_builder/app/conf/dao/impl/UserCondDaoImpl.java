@@ -5,19 +5,26 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import api_builder.app.conf.dao.UserConfDao;
 import api_builder.app.conf.model.UserConf;
 
-@Transactional("tm2")
 @Repository
-public class UserConfDAOImpl implements UserConfDao{
+@Transactional("tm2")
+public class UserCondDaoImpl implements UserConfDao{
 
 	@PersistenceContext(unitName="confEntityManager")
-	private EntityManager entityManager;
+	private final EntityManager entityManager;
+
+	@Autowired
+	public UserCondDaoImpl(JpaContext context) {
+		this.entityManager = context.getEntityManagerByManagedType(UserConf.class);
+	}
+
 
 	@Override
 	public void addUserConf(UserConf c) {
@@ -27,8 +34,8 @@ public class UserConfDAOImpl implements UserConfDao{
 	@Override
 	public void updateUserConf(UserConf c) {
 		UserConf updConducter = getUserConfById(c.getId());
-		updConducter.setFirstname(c.getFirstname());
-		updConducter.setLastname(c.getLastname());
+		updConducter.setUsername(c.getUsername());
+		updConducter.setMail(c.getMail());
 		updConducter.setToken(c.getToken());
 		entityManager.flush();
 
@@ -44,7 +51,7 @@ public class UserConfDAOImpl implements UserConfDao{
 	public UserConf getUserConfById(int id) {
 		return entityManager.find(UserConf.class, id);
 	}
-	
+
 	@Override
 	public List<UserConf> getUserConfByAttr(String attrName, String value) {
 		List<UserConf> conducteurList = entityManager.createQuery("from UserConf where :attrNAme = :value",UserConf.class)
@@ -64,11 +71,21 @@ public class UserConfDAOImpl implements UserConfDao{
 
 	@Override
 	public boolean userConfExists(UserConf c) {
-		String hql = "FROM UserConf as userconf WHERE userconf.id = :id";
+		String hql = "FROM UserConf as userconf WHERE userconf.id = :id OR userconf.mail = :mail";
 		int count = entityManager.createQuery(hql)
 				.setParameter("id", c.getId())
-		        .getResultList().size();
+				.setParameter("mail", c.getMail())
+				.getResultList().size();
 		return count > 0 ? true : false;
 	}
 
+
+	@Override
+	public boolean tokenExists(String token) {
+		String hql = "FROM UserConf as userconf WHERE userconf.token = :token";
+		int count = entityManager.createQuery(hql)
+				.setParameter("token", token)
+				.getResultList().size();
+		return count > 0 ? true : false;
+	}
 }

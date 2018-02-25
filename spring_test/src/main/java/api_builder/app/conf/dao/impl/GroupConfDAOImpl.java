@@ -5,11 +5,14 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.jpa.repository.JpaContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import api_builder.app.conf.dao.GroupConfDao;
+import api_builder.app.conf.model.EntityConf;
 import api_builder.app.conf.model.GroupConf;
 
 @Transactional("tm2")
@@ -18,6 +21,11 @@ public class GroupConfDAOImpl implements GroupConfDao{
 
 	@PersistenceContext(unitName="confEntityManager")
 	private EntityManager entityManager;
+	
+	@Autowired
+	public GroupConfDAOImpl(JpaContext context) {
+		this.entityManager = context.getEntityManagerByManagedType(GroupConf.class);
+	}
 
 	@Override
 	public void addGroupConf(GroupConf c) {

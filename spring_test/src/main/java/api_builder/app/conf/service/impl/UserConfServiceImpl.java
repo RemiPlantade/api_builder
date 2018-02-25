@@ -2,8 +2,13 @@ package api_builder.app.conf.service.impl;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import api_builder.app.conf.dao.UserConfDao;
@@ -13,7 +18,7 @@ import api_builder.app.conf.service.UserConfService;
 @Service
 public class UserConfServiceImpl implements UserConfService{
 	
-	@Autowired
+	@Resource
 	private UserConfDao userconfDAO;
 	
 	@Override
@@ -60,4 +65,9 @@ public class UserConfServiceImpl implements UserConfService{
 		this.userconfDAO = condDAO;
 	}
 
+	@Override
+	public boolean tokenExists(String token) {
+		// TODO Auto-generated method stub
+		return userconfDAO.tokenExists(token);
+	}
 }
