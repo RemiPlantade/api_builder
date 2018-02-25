@@ -22,8 +22,10 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
@@ -34,12 +36,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
 import api_builder.app.gen.jackson.CustomBeanSerializerModifier;
+import nz.net.ultraq.thymeleaf.LayoutDialect;
 
 @PropertySource({"classpath:application.properties"})
 @Configuration
-@ComponentScan(basePackages= {"api_builder.app.gen","api_builder.app.conf"})
-@EntityScan(basePackages= {"api_builder.app.gen.model","api_builder.app.conf.model"})
+@ComponentScan
 @EnableAutoConfiguration 
+@EnableTransactionManagement
 public class Application {
 	public static void main(String[] args) {
 
@@ -54,65 +57,9 @@ public class Application {
 						.setSerializerModifier(new CustomBeanSerializerModifier()));
 	}
 
-	@Primary
-	@Bean(name = "apiDatabase")
-	@ConfigurationProperties(prefix = "spring.api")
-	public DataSource apiDataSource() {
-		return  DataSourceBuilder.create().build();
-	}
-	@Primary
-	@Bean(name = "apiEntityManager")
-	public LocalContainerEntityManagerFactoryBean apiStoringEntityManagerFactory(
-			EntityManagerFactoryBuilder builder, @Qualifier("apiDatabase") DataSource ds) {
-		Properties properties = new Properties();
-		properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
-
-		LocalContainerEntityManagerFactoryBean emf = builder
-				.dataSource(ds)
-				.packages("api_builder.app.gen")
-				.persistenceUnit("primaryPU")
-				.build();
-
-		emf.setJpaProperties(properties);
-
-		return emf;
+	@Bean
+	public LayoutDialect layoutDialect() {
+		return new LayoutDialect();
 	}
 
-	@Bean(name = "confDatabase")
-	@ConfigurationProperties(prefix = "spring.conf")
-	public DataSource mysqlDataSource() {
-		return DataSourceBuilder.create().build();
-	}
-
-	@Bean(name = "confEntityManager")
-	public LocalContainerEntityManagerFactoryBean confStoringEntityManagerFactory(
-			EntityManagerFactoryBuilder builder, @Qualifier("confDatabase") DataSource ds) {
-		Properties properties = new Properties();
-		properties.setProperty("hibernate.dialect", "org.hibernate.dialect.SQLiteDialect");
-
-		LocalContainerEntityManagerFactoryBean emf = builder
-				.dataSource(ds)
-				.packages("api_builder.app.conf")
-				.persistenceUnit("secondaryPU")
-				.build();
-
-		emf.setJpaProperties(properties);
-
-		return emf;
-	}
-
-	@Bean(name="tm1")
-	@Autowired
-	@Primary 
-	DataSourceTransactionManager tm1(@Qualifier ("apiDatabase") DataSource datasource) {
-		DataSourceTransactionManager txm  = new DataSourceTransactionManager(datasource);
-		return txm;
-	}
-
-	@Bean(name="tm2")
-	@Autowired
-	DataSourceTransactionManager tm2(@Qualifier ("confDatabase") DataSource datasource) {
-		DataSourceTransactionManager txm  = new DataSourceTransactionManager(datasource);
-		return txm;
-	}
 }

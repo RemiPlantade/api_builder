@@ -1,24 +1,29 @@
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	layout:decorator="~{fragments/layout}">
 <head>
 <title>Error page</title>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css" />
 </head>
 <body>
-	<section class="section">
-		<div class="container">
-			<div id="content">
-				<div class="columns is-centered">
-					<div class="column is-4">
-						<div class="box">
-							<h1 class="title is-5 has-text-centered">Some Errors occur !</h1>
-						</div>
-					</div>
+	<div layout:fragment="content">
+		<div class="columns is-centered">
+			<div class="column is-4">
+				<div class="box">
+					<h1 class="title is-5 has-text-centered" th:text="${error_title}">Some
+						Errors occur !</h1>
+					<p class="has-text-centered" th:text="${error_message}">No
+						error message</p><br/>
+					<p class="control has-text-centered">
+						<a class="bd-tw-button button is-info" th:href="@{${redirect_url}}"> 
+						 <span>Back</span>
+						</a>
+					</p>
 				</div>
 			</div>
 		</div>
-	</section>
+	</div>
 </body>
 </html>

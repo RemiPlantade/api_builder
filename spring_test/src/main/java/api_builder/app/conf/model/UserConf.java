@@ -7,6 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -14,21 +19,27 @@ import org.springframework.beans.factory.annotation.Qualifier;
 @Table(name="user_conf")
 public class UserConf {
 	private  Integer id;
-	private String firstname;
-	private String lastname;
+	@NotNull
+	@Size(min=1, max=32, message="Username must be between 1 and 32 characters")
+	private String username;
+	@NotNull
+	@Pattern(regexp = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$", message="Email address is invalid")
+	private String mail;
 	private String token;
-	private Integer maxquota;
-	private Integer actualquota;
+	@Min(0)
+	@Max(Integer.MAX_VALUE)
+	private Integer maxquota = 0;
+	private Integer actualquota = 0;
 
 	public UserConf() {
 		super();
 	}
 
-	public UserConf(Integer id, String firstname, String lastname, String token, Integer maxquota, Integer actualquota) {
+	public UserConf(Integer id, String username, String mail, String token, Integer maxquota, Integer actualquota) {
 		super();
 		this.id = id;
-		this.firstname = firstname;
-		this.lastname = lastname;
+		this.username = username;
+		this.mail = mail;
 		this.token = token;
 		this.maxquota = maxquota;
 		this.actualquota = actualquota;
@@ -41,19 +52,19 @@ public class UserConf {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	@Column(name="firstname", length=45)
-	public String getFirstname() {
-		return firstname;
+	@Column(name="username", length=45)
+	public String getUsername() {
+		return username;
 	}
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
+	public void setUsername(String username) {
+		this.username = username;
 	}
-	@Column(name="lastname", length=45)
-	public String getLastname() {
-		return lastname;
+	@Column(name="mail", length=45)
+	public String getMail() {
+		return mail;
 	}
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+	public void setMail(String mail) {
+		this.mail = mail;
 	}
 	@Column(name="token",length=45)
 	public String getToken() {
@@ -76,7 +87,4 @@ public class UserConf {
 	public void setActualquota(Integer actualquota) {
 		this.actualquota = actualquota;
 	}
-
-
-
 }

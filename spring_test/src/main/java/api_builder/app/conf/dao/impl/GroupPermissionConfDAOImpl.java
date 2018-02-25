@@ -5,11 +5,14 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.jpa.repository.JpaContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import api_builder.app.conf.dao.GroupPermissionConfDao;
+import api_builder.app.conf.model.ApiConf;
 import api_builder.app.conf.model.GroupPermissionConf;
 
 @Transactional("tm2")
@@ -18,6 +21,11 @@ public class GroupPermissionConfDAOImpl implements GroupPermissionConfDao{
 
 	@PersistenceContext(unitName="confEntityManager")
 	private EntityManager entityManager;
+	
+	@Autowired
+	public GroupPermissionConfDAOImpl(JpaContext context) {
+		this.entityManager = context.getEntityManagerByManagedType(GroupPermissionConf.class);
+	}
 
 	@Override
 	public void addGroupPermissionConf(GroupPermissionConf c) {

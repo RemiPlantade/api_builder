@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<link type="text/css" rel="stylesheet" th:href="@{/css/bulma.css}"
+	href="/css/bulma.css" />
+<link type="text/css" rel="stylesheet" th:href="@{/css/style.css}"
+	href="/css/style.css" />
+<title>Spring Security Thymeleaf</title>
+</head>
+<body>
+	<th:block th:replace="fragments/header :: header" />
+	<section class="section" layout:fragment="content">
+		<div class="container">
+			<div id="content">
+				<div class="columns is-centered">
+						<th:block layout:fragment="content" />
+				</div>
+			</div>
+		</div>
+	</section>
+	<th:block th:replace="fragments/footer :: footer" />
+</body>
+</html>
