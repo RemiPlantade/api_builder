@@ -5,7 +5,9 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.jpa.repository.JpaContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +20,11 @@ public class UserPermissionConfDAOImpl implements UserPermissionConfDao{
 
 	@PersistenceContext(unitName="confEntityManager")
 	private EntityManager entityManager;
+	
+	@Autowired
+	public UserPermissionConfDAOImpl(JpaContext context) {
+		this.entityManager = context.getEntityManagerByManagedType(UserPermissionConf.class);
+	}
 
 	@Override
 	public void addUserPermissionConf(UserPermissionConf c) {

@@ -1,42 +1,39 @@
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{fragments/layout}">
 <head>
 <title>Admin login page</title>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css"/>
 </head>
 <body>
-	<section class="section">
-		<div class="container">
-			<div id="content">
-				<div class="columns is-centered">
-					<div class="column is-4">
-						<div class="box">
-							<h1 class="title is-5 has-text-centered">Please enter your
-								login</h1>
-							<p th:if="${loginError}" class="error">Wrong user or password</p>
-							<form name="login" th:action="@{/login}" method="post">
-								<div class="field">
-									<label class="label">Mail</label>
-									<div class="control">
-										<input type="text" name="username" id="username"/><br />
-									</div>
-								</div>
-									<label class="label">Password</label>
-									<div class="control">
-										<input type="password" name="password" id="password"/><br />
-									</div>
-								<div class="field is-grouped">
-									<div class="control">
-										<input class="button is-link" type="submit" value="Login" />
-									</div>
-								</div>
-							</form>
+	<div layout:fragment="content">
+		<div class="columns is-centered">
+			<div class="column is-3">
+				<div class="box ">
+					<h1 class="title is-5 has-text-centered">Please enter your
+						login</h1>
+					<p th:if="${loginError}" class="error">Wrong user or password</p>
+					<form name="login" th:action="@{/login}" method="post">
+						<div class="field">
+							<label class="label">Mail</label>
+							<div class="control">
+								<input type="text" name="username" id="username" class="input"/><br />
+							</div>
 						</div>
-					</div>
+						<div class="field">
+						<label class="label">Password</label>
+						<div class="control">
+							<input type="password" name="password" id="password" class="input"/><br />
+						</div>
+						</div>
+						<div class="field is-grouped">
+							<div class="control">
+								<input class="button is-link" type="submit" value="Login" />
+							</div>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>
-	</section>
+	</div>
 </body>
 </html>

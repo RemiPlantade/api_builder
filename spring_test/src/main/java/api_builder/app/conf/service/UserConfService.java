@@ -10,4 +10,5 @@ public interface UserConfService {
 	public UserConf getUserConfById(int id);
 	public List<UserConf> getUserConfByAttr(String attrName,String value);
 	public void deleteUserConf(int id);
+	public boolean tokenExists(String token);
 }
