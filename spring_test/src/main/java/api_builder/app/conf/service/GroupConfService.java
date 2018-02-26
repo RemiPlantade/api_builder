@@ -10,4 +10,6 @@ public interface GroupConfService {
 	public GroupConf getGroupConfById(int id);
 	public List<GroupConf> getGroupConfByAttr(String attrName,String value);
 	public void deleteGroupConf(int id);
+	public GroupConf getGroupConfByName(String name);
+	public void updateGroupConf(GroupConf group, Integer id);
 }
