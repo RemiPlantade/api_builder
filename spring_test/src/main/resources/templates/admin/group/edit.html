@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	layout:decorate="~{fragments/layout}">
+<head>
+<meta charset="ISO-8859-1">
+<title>Group Modification</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<h1 class="title is-4 has-text-centered">Group modification</h1>
+		<div class="box">
+			<div class="columns is-centered">
+				<div class="column is-4 is-centered">
+					<form name="group_edit" th:action="@{edit?id=__${group.id}__}"
+						method="post" th:object="${group}">
+						<div class="columns">
+							<div class="column is-centered">
+								<div class="field ">
+									<label class="label">Name</label>
+									<div class="control">
+										<input type="text" name="name" id="name"
+											class="input is-info" th:value=${group.name}
+											th:field="*{name}" /> <span
+											th:if="${#fields.hasErrors('name')}"
+											th:errors="*{name}" style="color: red;"></span>
+									</div>
+								</div>
+								<div class="field is-grouped">
+									<div class="control">
+										<input class="button is-link" type="submit" value="Submit" />
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import api_builder.app.conf.dao.GroupConfDao;
 import api_builder.app.conf.model.EntityConf;
 import api_builder.app.conf.model.GroupConf;
+import api_builder.app.conf.model.UserConf;
 
 @Transactional("tm2")
 @Repository
@@ -70,11 +71,28 @@ public class GroupConfDAOImpl implements GroupConfDao{
 
 	@Override
 	public boolean groupConfExists(GroupConf c) {
-		String hql = "FROM GroupConf as groupconf WHERE groupconf.id= = :id";
+		String hql = "FROM GroupConf as groupconf WHERE groupconf.id = :id OR groupconf.name = :name";
 		int count = entityManager.createQuery(hql)
 				.setParameter("id", c.getId())
+				.setParameter("name", c.getName())
 		        .getResultList().size();
 		return count > 0 ? true : false;
+	}
+
+	@Override
+	public GroupConf getGroupByName(String name) {
+		// TODO Auto-generated method stub
+		return (GroupConf) entityManager.createQuery("FROM GroupConf as groupconf WHERE groupconf.name = :name")
+				.setParameter("name", name)
+				.getSingleResult();
+	}
+
+	@Override
+	public void updateGroupConf(GroupConf group, Integer id) {
+		GroupConf original = entityManager.find(GroupConf.class, id);
+		original.setName(group.getName());
+		entityManager.merge(original);
+		entityManager.persist(original);
 	}
 
 }

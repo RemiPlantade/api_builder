@@ -2,19 +2,28 @@ package api_builder.app.conf.service.impl;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import api_builder.app.conf.dao.EntityConfDao;
 import api_builder.app.conf.dao.UserPermissionConfDao;
+import api_builder.app.conf.model.EntityConf;
+import api_builder.app.conf.model.UserConf;
 import api_builder.app.conf.model.UserPermissionConf;
 import api_builder.app.conf.service.UserPermissionConfService;
 
 @Service
 public class UserPermissionConfServiceImpl implements UserPermissionConfService{
 	
-	@Autowired
+	@Resource
 	private UserPermissionConfDao userpermissionconfDAO;
+	
+	@Resource
+	private EntityConfDao entityDAO;
 	
 	@Override
 	public synchronized boolean addUserPermissionConf(UserPermissionConf c) {
@@ -58,6 +67,30 @@ public class UserPermissionConfServiceImpl implements UserPermissionConfService{
 
 	public void setCondDAO(UserPermissionConfDao condDAO) {
 		this.userpermissionconfDAO = condDAO;
+	}
+
+	@Override
+	public void generateDefaultPermissions(UserConf user) {
+		List<EntityConf> entities = entityDAO.getAll();
+		for (EntityConf entityConf : entities) {
+			UserPermissionConf userPerm = new UserPermissionConf();
+			System.out.println(user.getId());
+			System.out.println(entityConf.getName());
+			userPerm.setIdEntityConf(entityConf);
+			userPerm.setIdUserConf(user);
+			userPerm.setCreation(true);
+			userPerm.setDeletion(true);
+			userPerm.setSelection(true);
+			userPerm.setDeletion(true);
+			userpermissionconfDAO.addUserPermissionConf(userPerm);
+		}	
+	}
+
+	@Transactional("tm2")
+	@Override
+	public List<UserPermissionConf> getAllUserPerm(UserConf user) {
+		// TODO Auto-generated method stub
+		return userpermissionconfDAO.getAllUserPerm(user);
 	}
 
 }

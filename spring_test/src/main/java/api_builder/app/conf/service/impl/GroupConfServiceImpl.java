@@ -60,4 +60,16 @@ public class GroupConfServiceImpl implements GroupConfService{
 		this.groupconfDAO = condDAO;
 	}
 
+	@Override
+	public GroupConf getGroupConfByName(String name) {
+		// TODO Auto-generated method stub
+		return groupconfDAO.getGroupByName(name);
+	}
+
+	@Override
+	public void updateGroupConf(GroupConf group, Integer id) {
+		this.groupconfDAO.updateGroupConf(group,id);
+		
+	}
+
 }
