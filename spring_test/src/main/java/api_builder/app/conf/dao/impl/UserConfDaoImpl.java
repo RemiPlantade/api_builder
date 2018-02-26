@@ -2,6 +2,7 @@ package api_builder.app.conf.dao.impl;
 
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -11,35 +12,31 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import api_builder.app.conf.dao.UserConfDao;
+import api_builder.app.conf.dao.UserPermissionConfDao;
 import api_builder.app.conf.model.UserConf;
+import api_builder.app.conf.model.UserPermissionConf;
 
 @Repository
 @Transactional("tm2")
-public class UserCondDaoImpl implements UserConfDao{
+public class UserConfDaoImpl implements UserConfDao{
 
 	@PersistenceContext(unitName="confEntityManager")
 	private final EntityManager entityManager;
+	
+	@Autowired
+	private UserPermissionConfDao userPermDAO;
 
 	@Autowired
-	public UserCondDaoImpl(JpaContext context) {
+	public UserConfDaoImpl(JpaContext context) {
 		this.entityManager = context.getEntityManagerByManagedType(UserConf.class);
 	}
 
-
 	@Override
-	public void addUserConf(UserConf c) {
+	public UserConf addUserConf(UserConf c) {
 		entityManager.persist(c);
+		return getUserConfById(c.getId());
 	}
 
-	@Override
-	public void updateUserConf(UserConf c) {
-		UserConf updConducter = getUserConfById(c.getId());
-		updConducter.setUsername(c.getUsername());
-		updConducter.setMail(c.getMail());
-		updConducter.setToken(c.getToken());
-		entityManager.flush();
-
-	}
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<UserConf> getAll() {
@@ -71,10 +68,11 @@ public class UserCondDaoImpl implements UserConfDao{
 
 	@Override
 	public boolean userConfExists(UserConf c) {
-		String hql = "FROM UserConf as userconf WHERE userconf.id = :id OR userconf.mail = :mail";
+		String hql = "FROM UserConf as userconf WHERE userconf.id = :id OR userconf.username = :username OR userconf.mail = :mail";
 		int count = entityManager.createQuery(hql)
 				.setParameter("id", c.getId())
 				.setParameter("mail", c.getMail())
+				.setParameter("username", c.getUsername())
 				.getResultList().size();
 		return count > 0 ? true : false;
 	}
@@ -87,5 +85,26 @@ public class UserCondDaoImpl implements UserConfDao{
 				.setParameter("token", token)
 				.getResultList().size();
 		return count > 0 ? true : false;
+	}
+
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<UserConf> getAllUsersNotINGroup() {
+		String hql = "FROM UserConf as userconf WHERE userconf.group = null";
+		return entityManager.createQuery(hql)
+				.getResultList();
+	}
+	
+	@Override
+	@Transactional("tm2")
+	public void updateUserConf(UserConf user, Integer id) {
+		UserConf original = entityManager.find(UserConf.class, id);
+		original.setMail(user.getMail());
+		original.setUsername(user.getUsername());
+		original.setGroup(user.getGroup());
+		original.setMaxquota(user.getMaxquota());
+		entityManager.merge(original);
+		entityManager.persist(original);
 	}
 }

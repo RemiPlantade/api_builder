@@ -5,15 +5,16 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import api_builder.app.conf.dao.UserConfDao;
 import api_builder.app.conf.model.UserConf;
 import api_builder.app.conf.service.UserConfService;
+import api_builder.app.conf.service.UserPermissionConfService;
 
 @Service
 public class UserConfServiceImpl implements UserConfService{
@@ -21,19 +22,23 @@ public class UserConfServiceImpl implements UserConfService{
 	@Resource
 	private UserConfDao userconfDAO;
 	
+	@Resource
+	private UserPermissionConfService userPermService;
+	
 	@Override
-	public synchronized boolean addUserConf(UserConf c) {
+	@Transactional("tm2")
+	public boolean addUserConf(UserConf c) {
 		if (userconfDAO.userConfExists(c)) {
             return false;
         } else {
-        	userconfDAO.addUserConf(c);
+        	generateDefaultPermissions(userconfDAO.addUserConf(c));
             return true;
         }
 	}
 
-	@Override
-	public void updateUserConf(UserConf c) {
-		this.userconfDAO.updateUserConf(c);
+	private void generateDefaultPermissions(UserConf c) {
+		userPermService.generateDefaultPermissions(c);
+		
 	}
 
 	@Override
@@ -69,5 +74,17 @@ public class UserConfServiceImpl implements UserConfService{
 	public boolean tokenExists(String token) {
 		// TODO Auto-generated method stub
 		return userconfDAO.tokenExists(token);
+	}
+
+	@Override
+	public List<UserConf> getAllUsersNotINGroup() {
+		// TODO Auto-generated method stub
+		return userconfDAO.getAllUsersNotINGroup();
+	}
+
+	@Override
+	public void updateUserConf(UserConf user, Integer id) {
+		userconfDAO.updateUserConf(user, id);
+		
 	}
 }
