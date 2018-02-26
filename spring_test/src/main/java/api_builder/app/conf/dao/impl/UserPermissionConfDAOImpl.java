@@ -1,17 +1,18 @@
 package api_builder.app.conf.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.jpa.repository.JpaContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import api_builder.app.conf.dao.UserPermissionConfDao;
+import api_builder.app.conf.model.UserConf;
 import api_builder.app.conf.model.UserPermissionConf;
 
 @Transactional("tm2")
@@ -74,11 +75,26 @@ public class UserPermissionConfDAOImpl implements UserPermissionConfDao{
 
 	@Override
 	public boolean userPermissionConfExists(UserPermissionConf c) {
-		String hql = "FROM UserPermissionConf as userpermissionconf WHERE userPermissionconf.id = :id";
+		String hql = "FROM UserPermissionConf as userpermissionconf "
+				+ "WHERE userPermissionconf.id = :id "
+				+ "OR userPermissionconf.idEntityConf = :entityconf "
+				+ "OR userPermissionconf.idUserConf = :userconf";
 		int count = entityManager.createQuery(hql)
 				.setParameter("id", c.getId())
+				.setParameter("entityconf", c.getIdEntityConf())
+				.setParameter("userconf", c.getIdUserConf())
 		        .getResultList().size();
 		return count > 0 ? true : false;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<UserPermissionConf> getAllUserPerm(UserConf c) {
+		String hql = "FROM UserPermissionConf as userpermissionconf WHERE userpermissionconf.idUserConf = :iduserconf";
+		List<UserPermissionConf> userPerm = entityManager.createQuery(hql,UserPermissionConf.class)
+				.setParameter("iduserconf", c)
+		        .getResultList();
+		return userPerm;
 	}
 
 }

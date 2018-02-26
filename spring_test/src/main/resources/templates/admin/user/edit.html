@@ -5,34 +5,34 @@
 	layout:decorate="~{fragments/layout}">
 <head>
 <meta charset="ISO-8859-1">
-<title>User Configuration</title>
+<title>User Modification</title>
 </head>
 <body>
 	<div layout:fragment="content">
-		<h1 class="title is-4 has-text-centered">User management</h1>
+		<h1 class="title is-4 has-text-centered">User modification</h1>
 		<div class="box">
 			<div class="columns is-centered">
 				<div class="column is-4 is-centered">
-					<h1 class="title is-5 has-text-centered">Adding User</h1>
-					<form name="login" th:action="@{adduser}" method="post"
-						th:object="${user}">
+					<form name="login" th:action="@{edit?id=__${user.id}__}"
+						method="post" th:object="${user}">
 						<div class="columns">
 							<div class="column is-centered">
 								<div class="field ">
 									<label class="label">Username</label>
 									<div class="control">
 										<input type="text" name="username" id="username"
-											class="input is-info" th:field="*{username}" /> <span
+											class="input is-info" th:value=${user.username}
+											th:field="*{username}" /> <span
 											th:if="${#fields.hasErrors('username')}"
 											th:errors="*{username}" style="color: red;"></span>
-
 									</div>
 								</div>
 								<div class="field ">
 									<label class="label">Email</label>
 									<div class="control">
 										<input type="email" name="mail" id="mail"
-											class="input is-info" th:field="*{mail}" /> <span
+											class="input is-info" th:value=${user.mail}
+											th:field="*{mail}" /> <span
 											th:if="${#fields.hasErrors('mail')}" class="help-block"
 											th:errors="*{mail}" style="color: red;"></span>
 									</div>
@@ -41,10 +41,10 @@
 									<label class="label">Max Quota</label>
 									<div class="control">
 										<input type="text" name="maxquota" id="username"
-											class="input is-info" th:field="*{maxquota}" /> <span
+											class="input is-info" th:value=${user.maxquota}
+											th:field="*{maxquota}" /> <span
 											th:if="${#fields.hasErrors('maxquota')}"
 											th:errors="*{maxquota}" style="color: red;"></span>
-
 									</div>
 								</div>
 								<div class="field is-grouped">
@@ -61,7 +61,9 @@
 											<select multiple size="5" th:field="*{group}">
 												<option th:value="null">No group</option>
 												<option th:each="group : ${groups}" th:text="${group.name}"
-													th:value="${{group}}"></option>
+													th:value="${{group}}"
+													th:selected="${user.group != null} and ${group.id} == ${user.group?.id} ? true : false"></option>
+
 											</select>
 										</div>
 									</div>
@@ -72,45 +74,34 @@
 				</div>
 			</div>
 			<div class="columns is-centered">
-				<div class="column is-8 is-centered">
-					<h1 class="title is-5 has-text-centered">Existing Users</h1>
+				<div class="column is-4 is-centered"></div>
+				<h1 class="title is-4 has-text-centered">User permission</h1>
+				<form name="login" th:action="@{edit/perm?id=__${user.id}__}"
+					method="post" th:object="${userpermwrapper}">
 					<table class="table is-fullwidth">
 						<thead>
 							<tr>
-								<th>ID</th>
-								<th>Username</th>
-								<th>Email</th>
-								<th>Token</th>
-								<th>Group</th>
-								<th>Max Quota</th>
-								<th>Actual Quota</th>
-								<th></th>
-
+								<th>Entity</th>
+								<th>Selection</th>
+								<th>Creation</th>
+								<th>Updating</th>
+								<th>Deletion</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:each="user : ${users}">
-								<td th:text="${user.id}"></td>
-								<td th:text="${user.username}"></td>
-								<td th:text="${user.mail}"></td>
-								<td th:text="${user.token}"></td>
-								<td th:text="${user.group!=null}?${user.group.name}:''"></td>
-								<td th:text="${user.maxquota}"></td>
-								<td th:text="${user.actualquota}"></td>
-								<td>
-									<p class="control has-text-centered">
-										<a class="bd-tw-button is-small button is-link"
-											th:href="@{/admin/user/edit?id=__${user.id}__}"> <span>Edit</span>
-										</a>
-									</p>
-								</td>
+							<tr th:each="userperm : ${userpermwrapper.userPermList}">
+								<td th:text="${userperm.idEntityConf}"></td>
+								<td><input type="checkbox" th:checked="${userperm.selection}"/></td>
+								<td><input type="checkbox" th:checked="${userperm.selection}"/></td>
+								<td><input type="checkbox" th:checked="${userperm.creation}"/></td>
+								<td><input type="checkbox" th:checked="${userperm.updating}"/></td>
+								<td><input type="checkbox" th:checked="${userperm.deletion}"/></td>
 							</tr>
 						</tbody>
 					</table>
-				</div>
+				</form>
 			</div>
 		</div>
 	</div>
-
 </body>
 </html>
