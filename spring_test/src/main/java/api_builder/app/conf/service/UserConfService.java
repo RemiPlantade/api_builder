@@ -11,5 +11,5 @@ public interface UserConfService {
 	public void deleteUserConf(int id);
 	public boolean tokenExists(String token);
 	public List<UserConf> getAllUsersNotINGroup();
-	public void updateUserConf(UserConf user, Integer id);
+	public void updateUserConf(UserConf user);
 }
