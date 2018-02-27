@@ -98,8 +98,8 @@ public class UserConfDaoImpl implements UserConfDao{
 	
 	@Override
 	@Transactional("tm2")
-	public void updateUserConf(UserConf user, Integer id) {
-		UserConf original = entityManager.find(UserConf.class, id);
+	public void updateUserConf(UserConf user) {
+		UserConf original = entityManager.find(UserConf.class, user.getId());
 		original.setMail(user.getMail());
 		original.setUsername(user.getUsername());
 		original.setGroup(user.getGroup());
