@@ -58,46 +58,11 @@ public class UserConfController {
 		}	
 	}
 
-	//	@GetMapping("/admin/user/edit")
-	//	public String displayUserConfEdit(@RequestParam Integer id,Model model) {
-	//		ApiUser user = userService.findById(id);
-	//		model.addAttribute("user",user);
-	//		model.addAttribute("groups",groupService.findAll());
-	//		ApiUserPermWrapper userPerWrapper = new ApiUserPermWrapper();
-	//		userPerWrapper.setUserPermList(userPermService.findByUser(user));
-	//		model.addAttribute("userpermwrapper",userPerWrapper);
-	//		return "admin/user/edit";
-	//	}
-	//
-	//	@PostMapping(value = "/admin/user/edit")
-	//	public String editUser(@Valid @ModelAttribute("user") ApiUser user,BindingResult errors, @RequestParam Integer id, Model model) {
-	//		if (errors.hasErrors()) {
-	//			return "admin/user/edit";
-	//		}else {		
-	//			try {
-	//				userService.update(user);
-	//			}catch(Exception e) {
-	//				model.addAttribute("error_title","Error on save");
-	//				model.addAttribute("error_message","Error occurs on saving user : <p>"+ e.getMessage() +"<\\p>");
-	//				model.addAttribute("redirect_url","/admin/users");
-	//				return "error";
-	//			}
-	//			return "redirect:/admin/users";
-	//		}	
-	//	}
-	//
-	//	@PostMapping(value = "/admin/user/edit/perm")
-	//	public String editUserPerm(@ModelAttribute("userpermwrapper") ApiUserPermWrapper userPermWrapper, @RequestParam Integer id, Model model) {
-	//		userPermService.updatePermFromWrapper(userPermWrapper);
-	//		return "redirect:/admin/users";
-	//	}
-
 	@GetMapping("/admin/user/edit")
 	public String displayUserForm(@RequestParam Integer id,Model model) {
 		ApiUser user = userService.findById(id);
 		ApiUserPermWrapper userPerWrapper = new ApiUserPermWrapper();
 		userPerWrapper.setUserPermList(userPermService.findByUser(user));
-
 		UserForm userForm = new UserForm();
 		userForm.setApiUser(user);
 		userForm.setApiUserPermWrapper(userPerWrapper);
@@ -111,16 +76,16 @@ public class UserConfController {
 		if (errors.hasErrors()) {
 			return "admin/user/edit";
 		}else {		
-			//			try {
-			userForm.getApiUser().setId(id);
-			userService.update(userForm.getApiUser());
-			userPermService.updatePermFromWrapper(userForm.getApiUserPermWrapper());
-			//			}catch(Exception e) {
-			//				model.addAttribute("error_title","Error on save");
-			//				model.addAttribute("error_message","Error occurs on saving user : <p>"+ e.getMessage() +"<\\p>");
-			//				model.addAttribute("redirect_url","/admin/users");
-			//				return "error";
-			//			}
+			try {
+				userForm.getApiUser().setId(id);
+				userService.update(userForm.getApiUser());
+				userPermService.updatePermFromWrapper(userForm.getApiUserPermWrapper());
+			}catch(Exception e) {
+				model.addAttribute("error_title","Error on edit");
+				model.addAttribute("error_message","Error occurs during user edition : <p>"+ e.getMessage() +"<\\p>");
+				model.addAttribute("redirect_url","/admin/user/edit");
+				return "error";
+			}
 			return "redirect:/admin/users";
 		}	
 	}

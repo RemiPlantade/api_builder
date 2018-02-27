@@ -17,7 +17,7 @@
 						th:action="@{edit?id=__${userForm.apiUser.id}__}" method="post"
 						th:object="${userForm}">
 						<div class="columns">
-							<div class="column is-half is-centered">
+							<div class="column is-third is-centered">
 								<div class="field ">
 									<label class="label">Username</label>
 									<div class="control">
@@ -28,7 +28,7 @@
 											th:errors="*{apiUser.username}" style="color: red;"></span>
 									</div>
 								</div>
-								<div class="field ">
+								<div class="field">
 									<label class="label">Email</label>
 									<div class="control">
 										<input type="email" name="mail" id="mail"
@@ -40,17 +40,45 @@
 									</div>
 								</div>
 								<div class="field ">
-									<label class="label">Max Quota</label>
+									<label class="label">Token</label>
 									<div class="control">
-										<input type="text" name="maxquota" id="username"
-											class="input is-info" th:value=${userForm.apiUser.maxquota}
-											th:field="*{apiUser.maxquota}" /> <span
-											th:if="${#fields.hasErrors('apiUser.maxquota')}"
-											th:errors="*{apiUser.maxquota}" style="color: red;"></span>
+										<input type="text" name="token" id="userForm.apiUser.token"
+											class="input is-info" th:field="*{apiUser.token}" /> <span
+											th:if="${#fields.hasErrors('apiUser.token')}"
+											th:errors="*{apiUser.token}" style="color: red;"></span>
 									</div>
 								</div>
 							</div>
-							<div class="column is-half">
+							<div class="column is-third">
+								<div class="field is-third">
+									<label class="label">Max Quota</label>
+									<div class="control">
+										<input type="text" name="maxquota" id="maxquota"
+											class="input is-info" th:value=${userForm.apiUser.maxquota}
+											th:field="*{apiUser.maxquota}" /> <span
+											th:if="${#fields.hasErrors('apiUser.maxquota')}"
+											th:errors="*{apiUser.maxquota}" ></span>
+									</div>
+								</div>
+								<div class="field ">
+									<label class="label">Actual Quota</label>
+									<div class="control">
+										<input type="text" name="actualquota" id="actualquota"
+											class="input is-info" th:field="*{apiUser.actualquota}" /> <span
+											th:if="${#fields.hasErrors('apiUser.actualquota')}"
+											th:errors="*{apiUser.actualquota}" style="color: red;"></span>
+									</div>
+								</div>
+								<div class="field">
+								<label class="label">Generate token</label>
+									<p class="control">
+										<a class="button is-danger is-outlined" th:href="@{/token/refresh?id=__${userForm.apiUser.id}__}"> 
+										<span>Reset token</span>
+										</a>
+									</p>
+								</div>
+							</div>
+							<div class="column is-third">
 								<div class="field ">
 									<label class="label">Group</label>
 									<div class="control">
@@ -70,7 +98,7 @@
 						<div class="columns is-centered">
 							<div class="column is-centered">
 								<h1 class="title is-4 has-text-centered">Edit permissions</h1>
-								<table class="table is-fullwidth">
+								<table class="table is-fullwidth is-scrollable">
 									<thead>
 										<tr>
 											<th style="display: none;"></th>
@@ -141,7 +169,7 @@
 		</div>
 	</div>
 	<th:block layout:fragment="script">
-            <script th:src="@{/js/chkbxall.js}"></script>
-       </th:block>
+		<script th:src="@{/js/chkbxall.js}"></script>
+	</th:block>
 </body>
 </html>
