@@ -9,47 +9,44 @@
 </head>
 <body>
 	<div layout:fragment="content">
-		<h1 class="title is-4 has-text-centered">User modification</h1>
+		<h1 class="title is-4 has-text-centered">Edit user</h1>
 		<div class="box">
 			<div class="columns is-centered">
 				<div class="column is-6 is-centered">
-					<form name="login" th:action="@{edit?id=__${user.id}__}"
-						method="post" th:object="${user}">
+					<form name="login"
+						th:action="@{edit?id=__${userForm.apiUser.id}__}" method="post"
+						th:object="${userForm}">
 						<div class="columns">
 							<div class="column is-half is-centered">
 								<div class="field ">
 									<label class="label">Username</label>
 									<div class="control">
 										<input type="text" name="username" id="username"
-											class="input is-info" th:value=${user.username}
-											th:field="*{username}" /> <span
-											th:if="${#fields.hasErrors('username')}"
-											th:errors="*{username}" style="color: red;"></span>
+											class="input is-info" th:value=${userForm.apiUser.username}
+											th:field="*{apiUser.username}" /> <span
+											th:if="${#fields.hasErrors('apiUser.username')}"
+											th:errors="*{apiUser.username}" style="color: red;"></span>
 									</div>
 								</div>
 								<div class="field ">
 									<label class="label">Email</label>
 									<div class="control">
 										<input type="email" name="mail" id="mail"
-											class="input is-info" th:value=${user.mail}
-											th:field="*{mail}" /> <span
-											th:if="${#fields.hasErrors('mail')}" class="help-block"
-											th:errors="*{mail}" style="color: red;"></span>
+											class="input is-info" th:value=${userForm.apiUser.mail}
+											th:field="*{apiUser.mail}" /> <span
+											th:if="${#fields.hasErrors('apiUser.mail')}"
+											class="help-block" th:errors="*{apiUser.mail}"
+											style="color: red;"></span>
 									</div>
 								</div>
 								<div class="field ">
 									<label class="label">Max Quota</label>
 									<div class="control">
 										<input type="text" name="maxquota" id="username"
-											class="input is-info" th:value=${user.maxquota}
-											th:field="*{maxquota}" /> <span
-											th:if="${#fields.hasErrors('maxquota')}"
-											th:errors="*{maxquota}" style="color: red;"></span>
-									</div>
-								</div>
-								<div class="field is-grouped">
-									<div class="control">
-										<input class="button is-link" type="submit" value="Submit" />
+											class="input is-info" th:value=${userForm.apiUser.maxquota}
+											th:field="*{apiUser.maxquota}" /> <span
+											th:if="${#fields.hasErrors('apiUser.maxquota')}"
+											th:errors="*{apiUser.maxquota}" style="color: red;"></span>
 									</div>
 								</div>
 							</div>
@@ -58,11 +55,11 @@
 									<label class="label">Group</label>
 									<div class="control">
 										<div class="select is-info is-3 is-fullwidth">
-											<select multiple size="5" th:field="*{group}">
+											<select multiple size="5" th:field="*{apiUser.group}">
 												<option th:value="null">No group</option>
 												<option th:each="group : ${groups}" th:text="${group.name}"
 													th:value="${{group}}"
-													th:selected="${user.group != null} and ${group.id} == ${user.group?.id} ? true : false"></option>
+													th:selected="${userForm.apiUser.group != null} and ${group.id} == ${userForm.apiUser.group?.id} ? true : false"></option>
 
 											</select>
 										</div>
@@ -70,49 +67,81 @@
 								</div>
 							</div>
 						</div>
-					</form>
-				</div>
-			</div>
-			<div class="columns is-centered">
-				<div class="column is-6 is-centered">
-					<h1 class="title is-4 has-text-centered">User permission</h1>
-					<form name="login" th:action="@{edit/perm?id=__${user.id}__}"
-						method="post" th:object="${userpermwrapper}">
-						<table class="table is-fullwidth">
-							<thead>
-								<tr>
-									<th style="display:none;"></th>
-									<th>Entity</th>
-									<th>Selection</th>
-									<th>Creation</th>
-									<th>Updating</th>
-									<th>Deletion</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr th:each="userperm,rowStat : *{userPermList}">
-									<td style="display:none;"><input type="hidden" th:field="*{userPermList[__${rowStat.index}__].id}" /></td>
-									<td th:text="${userperm.idEntityConf.name}" ></td>
-									<td><input type="checkbox"
-										th:checked="${userperm.selection}" th:field=*{userPermList[__${rowStat.index}__].selection} /></td>
-									<td><input type="checkbox"
-										th:checked="${userperm.creation}" th:field=*{userPermList[__${rowStat.index}__].creation}/></td>
-									<td><input type="checkbox"
-										th:checked="${userperm.updating}" th:field=*{userPermList[__${rowStat.index}__].updating}/></td>
-									<td><input type="checkbox"
-										th:checked="${userperm.deletion}" th:field=*{userPermList[__${rowStat.index}__].deletion}/></td>
-									
-								</tr>
-							</tbody>
-						</table>
-						<div class="field is-grouped">
-							<div class="control">
-								<input class="button is-link" type="submit" value="Submit" />
+						<div class="columns is-centered">
+							<div class="column is-centered">
+								<h1 class="title is-4 has-text-centered">Edit permissions</h1>
+								<table class="table is-fullwidth">
+									<thead>
+										<tr>
+											<th style="display: none;"></th>
+											<th>Entity</th>
+											<th>Selection</th>
+											<th>Creation</th>
+											<th>Updating</th>
+											<th>Deletion</th>
+										</tr>
+										<tr>
+											<th></th>
+											<th><input type="checkbox" class="chkbx_main_selection" /></th>
+											<th><input type="checkbox" class="chkbx_main_creation" /></th>
+											<th><input type="checkbox" class="chkbx_main_updating" /></th>
+											<th><input type="checkbox" class="chkbx_main_deletion" /></th>
+										</tr>
+
+									</thead>
+									<tbody>
+										<tr
+											th:each="userperm,rowStat : *{apiUserPermWrapper.userPermList}">
+											<td style="display: none;"><input type="hidden"
+												th:field="*{apiUserPermWrapper.userPermList[__${rowStat.index}__].id}" /></td>
+											<td th:text="${userperm.apiBean.name}"></td>
+											<td><input type="checkbox" class="chkbx_selection"
+												th:checked="${userperm.selection}"
+												th:field=*{apiUserPermWrapper.userPermList[__${rowStat.index}__].selection} /></td>
+											<td><input type="checkbox" class="chkbx_creation"
+												th:checked="${userperm.creation}"
+												th:field=*{apiUserPermWrapper.userPermList[__${rowStat.index}__].creation} /></td>
+											<td><input type="checkbox" class="chkbx_updating"
+												th:checked="${userperm.updating}"
+												th:field=*{apiUserPermWrapper.userPermList[__${rowStat.index}__].updating} /></td>
+											<td><input type="checkbox" class="chkbx_deletion"
+												th:checked="${userperm.deletion}"
+												th:field=*{apiUserPermWrapper.userPermList[__${rowStat.index}__].deletion} /></td>
+
+										</tr>
+									</tbody>
+									<tfoot>
+										<tr>
+											<th></th>
+											<th><input type="checkbox" /></th>
+											<th><input type="checkbox" /></th>
+											<th><input type="checkbox" /></th>
+											<th><input type="checkbox" /></th>
+										</tr>
+										<tr>
+											<th style="display: none;"></th>
+											<th>Entity</th>
+											<th>Selection</th>
+											<th>Creation</th>
+											<th>Updating</th>
+											<th>Deletion</th>
+										</tr>
+									</tfoot>
+								</table>
+								<div class="field is-grouped">
+									<div class="control">
+										<input class="button is-link" type="submit" value="Submit" />
+									</div>
+								</div>
 							</div>
 						</div>
 					</form>
 				</div>
 			</div>
 		</div>
+	</div>
+	<th:block layout:fragment="script">
+            <script th:src="@{/js/chkbxall.js}"></script>
+       </th:block>
 </body>
 </html>

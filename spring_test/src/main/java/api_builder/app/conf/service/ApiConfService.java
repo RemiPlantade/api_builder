@@ -4,10 +4,10 @@ import java.util.List;
 
 import api_builder.app.conf.model.ApiConf;
 public interface ApiConfService {
-	public boolean addApiConf(ApiConf c);
-	public void updateApiConf(ApiConf c);
-	public List<ApiConf> getAll();
-	public ApiConf getApiConfById(int id);
-	public List<ApiConf> getApiConfByAttr(String attrName,String value);
-	public void deleteApiConf(int id);
+	public boolean save(ApiConf c);
+	public void update(ApiConf c);
+	public List<ApiConf> findAll();
+	public ApiConf findById(int id);
+	public List<ApiConf> findByAttr(String attrName,String value);
+	public void delete(int id);
 }
