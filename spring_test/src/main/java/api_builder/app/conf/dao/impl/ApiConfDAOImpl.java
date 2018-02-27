@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import api_builder.app.conf.dao.ApiConfDao;
 import api_builder.app.conf.model.ApiConf;
-import api_builder.app.conf.model.UserConf;
+import api_builder.app.conf.model.ApiUser;
 
 @Transactional("tm2")
 @Repository
@@ -28,13 +28,13 @@ public class ApiConfDAOImpl implements ApiConfDao{
 	}
 
 	@Override
-	public void addApiConf(ApiConf c) {
+	public void save(ApiConf c) {
 		entityManager.persist(c);
 	}
 
 	@Override
-	public void updateApiConf(ApiConf c) {
-		ApiConf updConducter = getApiConfById(c.getId());
+	public void update(ApiConf c) {
+		ApiConf updConducter = findById(c.getId());
 		updConducter.setParamName(c.getParamName());
 		updConducter.setParamValue(c.getParamValue());
 		updConducter.setParamType(c.getParamType());
@@ -43,18 +43,18 @@ public class ApiConfDAOImpl implements ApiConfDao{
 	}
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<ApiConf> getAll() {
+	public List<ApiConf> findAll() {
 		String hql = "FROM ApiConf as apiconf ORDER BY apiconf.id";
 		return (List<ApiConf>) entityManager.createQuery(hql).getResultList();
 	}
 
 	@Override
-	public ApiConf getApiConfById(int id) {
+	public ApiConf findById(int id) {
 		return entityManager.find(ApiConf.class, id);
 	}
 
 	@Override
-	public List<ApiConf> getApiConfByAttr(String attrName, String value) {
+	public List<ApiConf> findByAttr(String attrName, String value) {
 		List<ApiConf> conducteurList = entityManager.createQuery("from ApiConf where :attrNAme = :value",ApiConf.class)
 				.setParameter("attrName", attrName)
 				.setParameter("value", value)
@@ -63,15 +63,15 @@ public class ApiConfDAOImpl implements ApiConfDao{
 	}
 
 	@Override
-	public void deleteApiConf(int id) {
-		ApiConf c = getApiConfById(id);
+	public void delete(int id) {
+		ApiConf c = findById(id);
 		if(c != null) {
 			entityManager.remove(c);
 		}
 	}
 
 	@Override
-	public boolean apiConfExists(ApiConf c) {
+	public boolean exists(ApiConf c) {
 		String hql = "FROM ApiConf as apiconf WHERE apiconf.id = :id";
 		int count = entityManager.createQuery(hql)
 				.setParameter("id", c.getId())
