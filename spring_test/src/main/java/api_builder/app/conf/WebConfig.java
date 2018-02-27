@@ -5,8 +5,8 @@ import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import api_builder.app.conf.model.formatter.GroupConfFormatter;
-import api_builder.app.conf.model.formatter.UserConfFormatter;
+import api_builder.app.conf.model.formatter.ApiGroupFormatter;
+import api_builder.app.conf.model.formatter.ApiUserFormatter;
 @Configuration
 public class WebConfig extends WebMvcConfigurerAdapter {
 	 @Override
@@ -16,7 +16,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
      }
 	 @Override
      public void addFormatters(FormatterRegistry registry) {
-         registry.addFormatter(new GroupConfFormatter());
-         registry.addFormatter(new UserConfFormatter());
+         registry.addFormatter(new ApiGroupFormatter());
+         registry.addFormatter(new ApiUserFormatter());
      }
 }
