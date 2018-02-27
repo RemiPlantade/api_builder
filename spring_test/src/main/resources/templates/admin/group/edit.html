@@ -13,20 +13,84 @@
 		<div class="box">
 			<div class="columns is-centered">
 				<div class="column is-4 is-centered">
-					<form name="group_edit" th:action="@{edit?id=__${group.id}__}"
-						method="post" th:object="${group}">
+					<form name="group_edit" th:action="@{edit?id=__${groupForm.apiGroup.id}__}"
+						method="post" th:object="${groupForm}">
 						<div class="columns">
 							<div class="column is-centered">
 								<div class="field ">
 									<label class="label">Name</label>
 									<div class="control">
 										<input type="text" name="name" id="name"
-											class="input is-info" th:value=${group.name}
-											th:field="*{name}" /> <span
-											th:if="${#fields.hasErrors('name')}"
-											th:errors="*{name}" style="color: red;"></span>
+											class="input is-info" th:value=${groupForm.apiGroup.name}
+											th:field="*{apiGroup.name}" /> <span
+											th:if="${#fields.hasErrors('apiGroup.name')}"
+											th:errors="*{apiGroup.name}" style="color: red;"></span>
 									</div>
 								</div>
+								
+							</div>
+						</div>
+					<div class="columns is-centered">
+						<div class="column is-centered">
+								<h1 class="title is-4 has-text-centered">Edit permissions</h1>
+								<table class="table is-fullwidth is-scrollable">
+									<thead>
+										<tr>
+											<th style="display: none;"></th>
+											<th>Entity</th>
+											<th>Selection</th>
+											<th>Creation</th>
+											<th>Updating</th>
+											<th>Deletion</th>
+										</tr>
+										<tr>
+											<th></th>
+											<th><input type="checkbox" class="chkbx_main_selection" /></th>
+											<th><input type="checkbox" class="chkbx_main_creation" /></th>
+											<th><input type="checkbox" class="chkbx_main_updating" /></th>
+											<th><input type="checkbox" class="chkbx_main_deletion" /></th>
+										</tr>
+
+									</thead>
+									<tbody>
+										<tr
+											th:each="grouperm,rowStat : *{apiGroupPermWrapper.groupPermList}">
+											<td style="display: none;"><input type="hidden"
+												th:field="*{apiGroupPermWrapper.groupPermList[__${rowStat.index}__].id}" /></td>
+											<td th:text="${grouperm.apiBean.name}"></td>
+											<td><input type="checkbox" class="chkbx_selection"
+												th:checked="${grouperm.selection}"
+												th:field=*{apiGroupPermWrapper.groupPermList[__${rowStat.index}__].selection} /></td>
+											<td><input type="checkbox" class="chkbx_creation"
+												th:checked="${grouperm.creation}"
+												th:field=*{apiGroupPermWrapper.groupPermList[__${rowStat.index}__].creation} /></td>
+											<td><input type="checkbox" class="chkbx_updating"
+												th:checked="${grouperm.updating}"
+												th:field=*{apiGroupPermWrapper.groupPermList[__${rowStat.index}__].updating} /></td>
+											<td><input type="checkbox" class="chkbx_deletion"
+												th:checked="${grouperm.deletion}"
+												th:field=*{apiGroupPermWrapper.groupPermList[__${rowStat.index}__].deletion} /></td>
+
+										</tr>
+									</tbody>
+									<tfoot>
+										<tr>
+											<th></th>
+											<th><input type="checkbox" /></th>
+											<th><input type="checkbox" /></th>
+											<th><input type="checkbox" /></th>
+											<th><input type="checkbox" /></th>
+										</tr>
+										<tr>
+											<th style="display: none;"></th>
+											<th>Entity</th>
+											<th>Selection</th>
+											<th>Creation</th>
+											<th>Updating</th>
+											<th>Deletion</th>
+										</tr>
+									</tfoot>
+								</table>
 								<div class="field is-grouped">
 									<div class="control">
 										<input class="button is-link" type="submit" value="Submit" />

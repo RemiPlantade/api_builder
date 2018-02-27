@@ -52,15 +52,13 @@
 				<div class="navbar-item">
 					<div class="field is-grouped">
 						<p class="control" sec:authorize="isAnonymous()">
-							<a class="bd-tw-button button" th:href="@{/login}"> <span
-								class="icon"> <i class="fab fa-twitter"></i>
-							</span> <span> Sign in </span>
+							<a class="bd-tw-button button" th:href="@{/login}"> 
+							<span> Sign in </span>
 							</a>
 						</p>
 						<p class="control" sec:authorize="isAuthenticated()">
-							<a class="button is-link" th:href="@{/logout}"> <span
-								class="icon"> <i class="fas fa-download"></i>
-							</span> <span class="has-text-centered"> Sign out</span>
+							<a class="button is-link" th:href="@{/logout}"> 
+							<span class="has-text-centered"> Sign out</span>
 							</a>
 						</p>
 					</div>
