@@ -1,6 +1,5 @@
 package api_builder.app.conf.dao.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -86,7 +85,6 @@ public class ApiUserPermDAOImpl implements ApiUserPermDao{
 		return count > 0 ? true : false;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<ApiUserPerm> findByUser(ApiUser c) {
 		String hql = "FROM ApiUserPerm as apiuserperm WHERE apiuserperm.apiUser = :apiuser";

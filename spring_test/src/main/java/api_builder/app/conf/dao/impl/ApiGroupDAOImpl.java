@@ -29,8 +29,9 @@ public class ApiGroupDAOImpl implements ApiGroupDao{
 	}
 
 	@Override
-	public void save(ApiGroup c) {
+	public ApiGroup save(ApiGroup c) {
 		entityManager.persist(c);
+		return findById(c.getId());
 	}
 
 	@Override

@@ -1,6 +1,8 @@
 package api_builder.app.conf.dao;
 
 import java.util.List;
+
+import api_builder.app.conf.model.ApiGroup;
 import api_builder.app.conf.model.ApiGroupPerm;
 
 public interface ApiGroupPermDao {
@@ -11,4 +13,5 @@ public interface ApiGroupPermDao {
 	public List<ApiGroupPerm> findByAttr(String attrName,String value);
 	public void delete(int id);
 	public boolean exists(ApiGroupPerm c);
+	public List<ApiGroupPerm> findByGroup(ApiGroup group);
 }

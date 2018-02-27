@@ -1,5 +1,6 @@
 package api_builder.app.conf.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -13,7 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import api_builder.app.conf.dao.ApiGroupPermDao;
 import api_builder.app.conf.model.ApiConf;
+import api_builder.app.conf.model.ApiGroup;
 import api_builder.app.conf.model.ApiGroupPerm;
+import api_builder.app.conf.model.ApiUserPerm;
 
 @Transactional("tm2")
 @Repository
@@ -41,7 +44,8 @@ public class ApiGroupPermDAOImpl implements ApiGroupPermDao{
 		upd.setDeletion(c.getDeletion());
 		upd.setSelection(c.getSelection());
 		upd.setUpdating(c.getUpdating());
-		entityManager.flush();
+		entityManager.merge(upd);
+		entityManager.persist(upd);
 
 	}
 	@SuppressWarnings("unchecked")
@@ -85,6 +89,15 @@ public class ApiGroupPermDAOImpl implements ApiGroupPermDao{
 				.setParameter("apigroup", c.getApiGroup())
 		        .getResultList().size();
 		return count > 0 ? true : false;
+	}
+
+	@Override
+	public List<ApiGroupPerm> findByGroup(ApiGroup group) {
+		String hql = "FROM ApiGroupPerm as apigroupperm WHERE apigroupperm.apiGroup = :apigroup";
+		List<ApiGroupPerm> groupPerm = entityManager.createQuery(hql,ApiGroupPerm.class)
+				.setParameter("apigroup", group)
+		        .getResultList();
+		return groupPerm;
 	}
 
 }

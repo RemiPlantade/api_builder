@@ -1,18 +1,18 @@
 package api_builder.app.conf.model.form;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import api_builder.app.conf.model.ApiGroupPerm;
 
 public class ApiGroupPermWrapper {
-	private ArrayList<ApiGroupPerm> groupPermList;
+	private List<ApiGroupPerm> groupPermList;
 
-	public ArrayList<ApiGroupPerm> getGroupPermList() {
+	public List<ApiGroupPerm> getGroupPermList() {
 		return groupPermList;
 	}
 
-	public void setGroupPermList(ArrayList<ApiGroupPerm> groupPermList) {
-		this.groupPermList = groupPermList;
+	public void setGroupPermList(List<ApiGroupPerm> list) {
+		this.groupPermList = list;
 	}
 	
 	

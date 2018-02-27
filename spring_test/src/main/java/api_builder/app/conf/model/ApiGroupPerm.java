@@ -48,8 +48,8 @@ public class ApiGroupPerm {
 		this.id = id;
 	}
 	
-	@OneToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="id_entity_conf")
+	@OneToOne
+    @JoinColumn(name="api_bean")
 	public ApiBean getApiBean() {
 		return apiBean;
 	}
@@ -58,8 +58,8 @@ public class ApiGroupPerm {
 		this.apiBean = apiBean;
 	}
 	
-	@OneToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="id")
+	@OneToOne
+    @JoinColumn(name="api_group")
 	public ApiGroup getApiGroup() {
 		return apiGroup;
 	}

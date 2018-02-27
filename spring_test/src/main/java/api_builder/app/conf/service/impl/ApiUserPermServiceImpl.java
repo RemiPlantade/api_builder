@@ -20,54 +20,54 @@ import api_builder.app.conf.service.ApiUserPermService;
 @Service
 public class ApiUserPermServiceImpl implements ApiUserPermService{
 	
-	@Resource
-	private ApiUserPermDao userpermissionconfDAO;
+	@Autowired
+	private ApiUserPermDao apiUserPermDao;
 	
-	@Resource
+	@Autowired
 	private ApiBeanDao entityDAO;
 	
 	@Override
 	public synchronized boolean save(ApiUserPerm c) {
-		if (userpermissionconfDAO.exists(c)) {
+		if (apiUserPermDao.exists(c)) {
             return false;
         } else {
-        	userpermissionconfDAO.save(c);
+        	apiUserPermDao.save(c);
             return true;
         }
 	}
 
 	@Override
 	public void update(ApiUserPerm c) {
-		this.userpermissionconfDAO.update(c);
+		this.apiUserPermDao.update(c);
 	}
 
 	@Override
 	public List<ApiUserPerm> findAll() {
-		return this.userpermissionconfDAO.findAll();
+		return this.apiUserPermDao.findAll();
 	}
 
 	@Override
 	public ApiUserPerm findById(int id) {
-		return this.userpermissionconfDAO.findById(id);
+		return this.apiUserPermDao.findById(id);
 	}
 
 	@Override
 	public List<ApiUserPerm> findByAttr(String attrName, String value) {
-		return this.userpermissionconfDAO.findByAttr(attrName, value);
+		return this.apiUserPermDao.findByAttr(attrName, value);
 	}
 
 	@Override
 	public void delete(int id) {
-		this.userpermissionconfDAO.delete(id);
+		this.apiUserPermDao.delete(id);
 		
 	}
 
 	public ApiUserPermDao getCondDAO() {
-		return userpermissionconfDAO;
+		return apiUserPermDao;
 	}
 
 	public void setCondDAO(ApiUserPermDao condDAO) {
-		this.userpermissionconfDAO = condDAO;
+		this.apiUserPermDao = condDAO;
 	}
 
 	@Override
@@ -75,15 +75,13 @@ public class ApiUserPermServiceImpl implements ApiUserPermService{
 		List<ApiBean> entities = entityDAO.findAll();
 		for (ApiBean entityConf : entities) {
 			ApiUserPerm userPerm = new ApiUserPerm();
-			System.out.println(user.getId());
-			System.out.println(entityConf.getName());
 			userPerm.setApiBean(entityConf);
 			userPerm.setApiUser(user);
 			userPerm.setCreation(true);
 			userPerm.setDeletion(true);
 			userPerm.setSelection(true);
 			userPerm.setUpdating(true);
-			userpermissionconfDAO.save(userPerm);
+			apiUserPermDao.save(userPerm);
 		}	
 	}
 
@@ -91,13 +89,13 @@ public class ApiUserPermServiceImpl implements ApiUserPermService{
 	@Override
 	public List<ApiUserPerm> findByUser(ApiUser user) {
 		// TODO Auto-generated method stub
-		return userpermissionconfDAO.findByUser(user);
+		return apiUserPermDao.findByUser(user);
 	}
 
 	@Override
 	public void updatePermFromWrapper(ApiUserPermWrapper userPermWrapper) {
 		for(ApiUserPerm userPerm : userPermWrapper.getUserPermList()) {
-			userpermissionconfDAO.update(userPerm);
+			apiUserPermDao.update(userPerm);
 		}
 		
 	}
