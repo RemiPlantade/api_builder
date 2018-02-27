@@ -15,6 +15,6 @@ public interface UserConfDao  {
 	public boolean userConfExists(UserConf c);
 	public boolean tokenExists(String token);
 	public List<UserConf> getAllUsersNotINGroup();
-	public void updateUserConf(UserConf user, Integer id);
+	public void updateUserConf(UserConf user);
 	
 }

@@ -83,8 +83,8 @@ public class UserConfServiceImpl implements UserConfService{
 	}
 
 	@Override
-	public void updateUserConf(UserConf user, Integer id) {
-		userconfDAO.updateUserConf(user, id);
+	public void updateUserConf(UserConf user) {
+		userconfDAO.updateUserConf(user);
 		
 	}
 }

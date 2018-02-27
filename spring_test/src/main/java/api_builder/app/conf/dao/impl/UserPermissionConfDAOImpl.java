@@ -35,13 +35,12 @@ public class UserPermissionConfDAOImpl implements UserPermissionConfDao{
 	@Override
 	public void updateUserPermissionConf(UserPermissionConf c) {
 		UserPermissionConf updConducter = getUserPermissionConfById(c.getId());
-		updConducter.setIdEntityConf(c.getIdEntityConf());
-		updConducter.setIdUserConf(c.getIdUserConf());
 		updConducter.setCreation(c.getCreation());
 		updConducter.setDeletion(c.getDeletion());
 		updConducter.setSelection(c.getSelection());
 		updConducter.setUpdating(c.getUpdating());
-		entityManager.flush();
+		entityManager.merge(updConducter);
+		entityManager.persist(updConducter);
 
 	}
 	@SuppressWarnings("unchecked")
