@@ -19,10 +19,10 @@ import api_builder.app.conf.service.ApiUserPermService;
 @Service
 public class ApiUserServiceImpl implements ApiUserService{
 	
-	@Resource
+	@Autowired
 	private ApiUserDao apiUserDao;
 	
-	@Resource
+	@Autowired
 	private ApiUserPermService userPermService;
 	
 	@Override
