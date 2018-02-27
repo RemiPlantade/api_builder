@@ -17,38 +17,38 @@ public class ApiConfServiceImpl implements ApiConfService{
 	private ApiConfDao apiconfDAO;
 	
 	@Override
-	public synchronized boolean addApiConf(ApiConf c) {
-		if (apiconfDAO.apiConfExists(c)) {
+	public synchronized boolean save(ApiConf c) {
+		if (apiconfDAO.exists(c)) {
             return false;
         } else {
-        	apiconfDAO.addApiConf(c);
+        	apiconfDAO.save(c);
             return true;
         }
 	}
 
 	@Override
-	public void updateApiConf(ApiConf c) {
-		this.apiconfDAO.updateApiConf(c);
+	public void update(ApiConf c) {
+		this.apiconfDAO.update(c);
 	}
 
 	@Override
-	public List<ApiConf> getAll() {
-		return this.apiconfDAO.getAll();
+	public List<ApiConf> findAll() {
+		return this.apiconfDAO.findAll();
 	}
 
 	@Override
-	public ApiConf getApiConfById(int id) {
-		return this.apiconfDAO.getApiConfById(id);
+	public ApiConf findById(int id) {
+		return this.apiconfDAO.findById(id);
 	}
 
 	@Override
-	public List<ApiConf> getApiConfByAttr(String attrName, String value) {
-		return this.apiconfDAO.getApiConfByAttr(attrName, value);
+	public List<ApiConf> findByAttr(String attrName, String value) {
+		return this.apiconfDAO.findByAttr(attrName, value);
 	}
 
 	@Override
-	public void deleteApiConf(int id) {
-		this.apiconfDAO.deleteApiConf(id);
+	public void delete(int id) {
+		this.apiconfDAO.delete(id);
 		
 	}
 
