@@ -4,6 +4,7 @@ import java.util.List;
 
 import api_builder.app.conf.model.UserConf;
 import api_builder.app.conf.model.UserPermissionConf;
+import api_builder.app.conf.model.wrapper.UserPermissionsConfWrapper;
 public interface UserPermissionConfService {
 	public boolean addUserPermissionConf(UserPermissionConf c);
 	public void updateUserPermissionConf(UserPermissionConf c);
@@ -13,4 +14,5 @@ public interface UserPermissionConfService {
 	public void deleteUserPermissionConf(int id);
 	public void generateDefaultPermissions(UserConf c);
 	public List<UserPermissionConf> getAllUserPerm(UserConf user);
+	public void updatePermFromWrapper(UserPermissionsConfWrapper userPermWrapper);
 }

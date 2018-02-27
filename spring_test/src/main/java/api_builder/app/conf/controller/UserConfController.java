@@ -15,24 +15,26 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import api_builder.app.conf.model.GroupConf;
 import api_builder.app.conf.model.UserConf;
-import api_builder.app.conf.model.spring.UserPermissionsConfWrapper;
+import api_builder.app.conf.model.UserPermissionConf;
+import api_builder.app.conf.model.wrapper.UserPermissionWrapper;
+import api_builder.app.conf.model.wrapper.UserPermissionsConfWrapper;
 import api_builder.app.conf.service.GroupConfService;
 import api_builder.app.conf.service.UserConfService;
 import api_builder.app.conf.service.UserPermissionConfService;
 
 @Controller
 public class UserConfController {
-	
+
 	@Autowired
 	private UserConfService userService;
 	@Autowired
 	private GroupConfService groupService;
 	@Autowired
 	private UserPermissionConfService userPermService;
-	
+
 	private SecureRandom random = new SecureRandom();
 
-	
+
 	@GetMapping("/admin/users")
 	public String displayUserConf(Model model) {
 		model.addAttribute("user", new UserConf());
@@ -40,7 +42,7 @@ public class UserConfController {
 		model.addAttribute("groups",groupService.getAll());
 		return "admin/users";
 	}
-	
+
 
 	@PostMapping(value = "/admin/adduser")
 	public String addUser(@Valid @ModelAttribute("user") UserConf user,BindingResult errors, Model model) {
@@ -57,7 +59,7 @@ public class UserConfController {
 			return "redirect:/admin/users";
 		}	
 	}
-	
+
 	@GetMapping("/admin/user/edit")
 	public String displayUserConfEdit(@RequestParam Integer id,Model model) {
 		UserConf user = userService.getUserConfById(id);
@@ -68,25 +70,40 @@ public class UserConfController {
 		model.addAttribute("userpermwrapper",userPerWrapper);
 		return "admin/user/edit";
 	}
-	
+
 	@PostMapping(value = "/admin/user/edit")
 	public String editUser(@Valid @ModelAttribute("user") UserConf user,BindingResult errors, @RequestParam Integer id, Model model) {
 		if (errors.hasErrors()) {
 			return "admin/user/edit";
 		}else {		
 			try {
-				userService.updateUserConf(user,id);
-				}catch(Exception e) {
-					model.addAttribute("error_title","Error on save");
-					model.addAttribute("error_message","Error occurs on saving user : <p>"+ e.getMessage() +"<\\p>");
-					model.addAttribute("redirect_url","/admin/users");
-					return "error";
-				}
+				userService.updateUserConf(user);
+			}catch(Exception e) {
+				model.addAttribute("error_title","Error on save");
+				model.addAttribute("error_message","Error occurs on saving user : <p>"+ e.getMessage() +"<\\p>");
+				model.addAttribute("redirect_url","/admin/users");
+				return "error";
+			}
 			return "redirect:/admin/users";
 		}	
 	}
-	
-	
+
+	@PostMapping(value = "/admin/user/edit/perm")
+	public String editUserPerm(@ModelAttribute("userpermwrapper") UserPermissionsConfWrapper userPermWrapper, @RequestParam Integer id, Model model) {
+		userPermService.updatePermFromWrapper(userPermWrapper);
+		
+//		try {
+//			userPermService.updatePermFromWrapper(userPermWrapper);
+//		}catch(Exception e) {
+//			model.addAttribute("error_title","Error on save");
+//			model.addAttribute("error_message","Error occurs on saving user : <p>"+ e.getMessage() +"<\\p>");
+//			model.addAttribute("redirect_url","/admin/users");
+//			return "error";
+//		}
+		return "redirect:/admin/users";
+	}
+
+
 	public String createToken() {
 		boolean present = false;
 		String token = null;
@@ -96,10 +113,10 @@ public class UserConfController {
 		}while(present);
 		return token;
 	}
-	
+
 	public String generateToken() {
 		long longToken = Math.abs( random.nextLong() );
-        String random = Long.toString( longToken, 16 );
-        return random;
+		String random = Long.toString( longToken, 16 );
+		return random;
 	}
 }

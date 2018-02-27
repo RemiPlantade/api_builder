@@ -14,6 +14,7 @@ import api_builder.app.conf.dao.UserPermissionConfDao;
 import api_builder.app.conf.model.EntityConf;
 import api_builder.app.conf.model.UserConf;
 import api_builder.app.conf.model.UserPermissionConf;
+import api_builder.app.conf.model.wrapper.UserPermissionsConfWrapper;
 import api_builder.app.conf.service.UserPermissionConfService;
 
 @Service
@@ -81,7 +82,7 @@ public class UserPermissionConfServiceImpl implements UserPermissionConfService{
 			userPerm.setCreation(true);
 			userPerm.setDeletion(true);
 			userPerm.setSelection(true);
-			userPerm.setDeletion(true);
+			userPerm.setUpdating(true);
 			userpermissionconfDAO.addUserPermissionConf(userPerm);
 		}	
 	}
@@ -91,6 +92,14 @@ public class UserPermissionConfServiceImpl implements UserPermissionConfService{
 	public List<UserPermissionConf> getAllUserPerm(UserConf user) {
 		// TODO Auto-generated method stub
 		return userpermissionconfDAO.getAllUserPerm(user);
+	}
+
+	@Override
+	public void updatePermFromWrapper(UserPermissionsConfWrapper userPermWrapper) {
+		for(UserPermissionConf userPerm : userPermWrapper.getUserPermList()) {
+			userpermissionconfDAO.updateUserPermissionConf(userPerm);
+		}
+		
 	}
 
 }

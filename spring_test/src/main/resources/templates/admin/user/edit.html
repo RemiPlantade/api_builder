@@ -12,11 +12,11 @@
 		<h1 class="title is-4 has-text-centered">User modification</h1>
 		<div class="box">
 			<div class="columns is-centered">
-				<div class="column is-4 is-centered">
+				<div class="column is-6 is-centered">
 					<form name="login" th:action="@{edit?id=__${user.id}__}"
 						method="post" th:object="${user}">
 						<div class="columns">
-							<div class="column is-centered">
+							<div class="column is-half is-centered">
 								<div class="field ">
 									<label class="label">Username</label>
 									<div class="control">
@@ -53,11 +53,11 @@
 									</div>
 								</div>
 							</div>
-							<div class="column is-4">
+							<div class="column is-half">
 								<div class="field ">
 									<label class="label">Group</label>
 									<div class="control">
-										<div class="select is-info is-3">
+										<div class="select is-info is-3 is-fullwidth">
 											<select multiple size="5" th:field="*{group}">
 												<option th:value="null">No group</option>
 												<option th:each="group : ${groups}" th:text="${group.name}"
@@ -74,34 +74,45 @@
 				</div>
 			</div>
 			<div class="columns is-centered">
-				<div class="column is-4 is-centered"></div>
-				<h1 class="title is-4 has-text-centered">User permission</h1>
-				<form name="login" th:action="@{edit/perm?id=__${user.id}__}"
-					method="post" th:object="${userpermwrapper}">
-					<table class="table is-fullwidth">
-						<thead>
-							<tr>
-								<th>Entity</th>
-								<th>Selection</th>
-								<th>Creation</th>
-								<th>Updating</th>
-								<th>Deletion</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr th:each="userperm : ${userpermwrapper.userPermList}">
-								<td th:text="${userperm.idEntityConf}"></td>
-								<td><input type="checkbox" th:checked="${userperm.selection}"/></td>
-								<td><input type="checkbox" th:checked="${userperm.selection}"/></td>
-								<td><input type="checkbox" th:checked="${userperm.creation}"/></td>
-								<td><input type="checkbox" th:checked="${userperm.updating}"/></td>
-								<td><input type="checkbox" th:checked="${userperm.deletion}"/></td>
-							</tr>
-						</tbody>
-					</table>
-				</form>
+				<div class="column is-6 is-centered">
+					<h1 class="title is-4 has-text-centered">User permission</h1>
+					<form name="login" th:action="@{edit/perm?id=__${user.id}__}"
+						method="post" th:object="${userpermwrapper}">
+						<table class="table is-fullwidth">
+							<thead>
+								<tr>
+									<th style="display:none;"></th>
+									<th>Entity</th>
+									<th>Selection</th>
+									<th>Creation</th>
+									<th>Updating</th>
+									<th>Deletion</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="userperm,rowStat : *{userPermList}">
+									<td style="display:none;"><input type="hidden" th:field="*{userPermList[__${rowStat.index}__].id}" /></td>
+									<td th:text="${userperm.idEntityConf.name}" ></td>
+									<td><input type="checkbox"
+										th:checked="${userperm.selection}" th:field=*{userPermList[__${rowStat.index}__].selection} /></td>
+									<td><input type="checkbox"
+										th:checked="${userperm.creation}" th:field=*{userPermList[__${rowStat.index}__].creation}/></td>
+									<td><input type="checkbox"
+										th:checked="${userperm.updating}" th:field=*{userPermList[__${rowStat.index}__].updating}/></td>
+									<td><input type="checkbox"
+										th:checked="${userperm.deletion}" th:field=*{userPermList[__${rowStat.index}__].deletion}/></td>
+									
+								</tr>
+							</tbody>
+						</table>
+						<div class="field is-grouped">
+							<div class="control">
+								<input class="button is-link" type="submit" value="Submit" />
+							</div>
+						</div>
+					</form>
+				</div>
 			</div>
 		</div>
-	</div>
 </body>
 </html>

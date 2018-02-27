@@ -1,4 +1,4 @@
-package api_builder.app.conf.model.spring;
+package api_builder.app.conf.model.wrapper;
 
 import java.util.ArrayList;
 
