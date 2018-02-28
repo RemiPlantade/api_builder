@@ -48,6 +48,8 @@ public class UserConfController {
 			return "admin/users";
 		}else {
 			user.setToken(createToken());
+			System.out.println("============== Group : " + user.getGroup().getName() + "id :" + user.getGroup().getId());
+			user.setGroup(groupService.findById(user.getGroup().getId()));
 			if(!userService.save(user)) {
 				model.addAttribute("error_title","User connot be added");
 				model.addAttribute("error_message","User with this mail OR username already exists.");
@@ -88,6 +90,14 @@ public class UserConfController {
 			}
 			return "redirect:/admin/users";
 		}	
+	}
+	
+	@GetMapping("/admin/user/token")
+	public String resetToken(@RequestParam Integer id,Model model) {
+		ApiUser user = userService.findById(id);
+		user.setToken(createToken());
+		userService.update(user);
+		return "redirect:edit?id="+id;
 	}
 
 	public String createToken() {
