@@ -8,6 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
@@ -102,7 +103,7 @@ public class ApiUser {
 		this.actualquota = actualquota;
 	}
 	@OneToOne
-    @JoinColumn(name="id")
+    @JoinColumn(name="idgroup")
 	public ApiGroup getGroup() {
 		return group;
 	}
