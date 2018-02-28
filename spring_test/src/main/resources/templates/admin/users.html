@@ -56,7 +56,7 @@
 									<label class="label">Group</label>
 									<div class="control">
 										<div class="select is-info is-3">
-											<select multiple size="5" th:field="*{group}">
+											<select size="5" th:field="*{group}">
 												<option th:value="null">No group</option>
 												<option th:each="group : ${groups}" th:text="${group.name}"
 													th:value="${{group}}"></option>

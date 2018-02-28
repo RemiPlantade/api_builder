@@ -36,7 +36,7 @@ public class ApiUserDaoImpl implements ApiUserDao{
 
 	@Override
 	public List<ApiUser> findAll() {
-		String hql = "FROM ApiUser as apiuser ORDER BY apiuser.id";
+		String hql = "FROM ApiUser as apiuser";
 		return  entityManager.createQuery(hql,ApiUser.class).getResultList();
 	}
 
@@ -96,6 +96,7 @@ public class ApiUserDaoImpl implements ApiUserDao{
 	public void update(ApiUser user) {
 		ApiUser original = entityManager.find(ApiUser.class, user.getId());
 		original.setMail(user.getMail());
+		original.setToken(user.getToken());
 		original.setUsername(user.getUsername());
 		original.setGroup(user.getGroup());
 		original.setMaxquota(user.getMaxquota());
