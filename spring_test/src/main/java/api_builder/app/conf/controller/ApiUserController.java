@@ -1,6 +1,7 @@
 package api_builder.app.conf.controller;
 
 import java.security.SecureRandom;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -14,15 +15,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
+import org.springframework.web.bind.support.SessionStatus;
 import api_builder.app.conf.model.ApiUser;
 import api_builder.app.conf.model.form.ApiUserPermWrapper;
 import api_builder.app.conf.model.form.UserForm;
 import api_builder.app.conf.service.ApiGroupService;
 import api_builder.app.conf.service.ApiUserService;
 import api_builder.app.conf.service.ApiUserPermService;
-@SessionAttributes("userForm")
+@SessionAttributes({"userForm","groups","user","users"})
 @Controller
 public class ApiUserController {
 
@@ -35,6 +35,17 @@ public class ApiUserController {
 
 	private SecureRandom random = new SecureRandom();
 
+	@ModelAttribute("user")
+	public ApiUser addNewUser() {
+		return new ApiUser();
+	}
+	
+	@ModelAttribute("users")
+	public List<ApiUser> addAllUsers() {
+		return userService.findAll();
+	}
+	
+	
 
 	@GetMapping("/admin/users")
 	public String displayUserConf(Model model) {
@@ -60,41 +71,38 @@ public class ApiUserController {
 				model.addAttribute("redirect_url","/admin/users");
 				return "error";
 			}
+			
 			return "redirect:/admin/users";
 		}	
 	}
 	
 	@GetMapping("/admin/user/edit")
-	public String displayUserForm(@RequestParam Integer id,Model model) {
-		ApiUser user = userService.findById(id);
-		ApiUserPermWrapper userPerWrapper = new ApiUserPermWrapper();
-		userPerWrapper.setUserPermList(userPermService.findByUser(user));
-		UserForm userForm = new UserForm();
-		userForm.setApiUser(user);
-		userForm.setApiUserPermWrapper(userPerWrapper);
+	public String displayUserForm(HttpServletRequest request, @RequestParam Integer id,Model model) {
 		model.addAttribute("groups",groupService.findAll());
-		model.addAttribute("userForm",userForm);
+		model.addAttribute("userForm",createUserFormFromId(id));
 		return "admin/user/edit";
 	}
 
+
 	@PostMapping(value = "/admin/user/edit")
-	public String editUser(HttpServletRequest request,@Valid @ModelAttribute("userForm") UserForm userForm, BindingResult errors, @RequestParam Integer id, Model model) {
+	public String editUser(HttpServletRequest request,@Valid @ModelAttribute("userForm") UserForm userForm, BindingResult errors, @RequestParam Integer id, Model model,SessionStatus session) {
 		if (errors.hasErrors()) {
 			request.getSession().setAttribute("groups",groupService.findAll());
 			request.getSession().setAttribute( "userForm", userForm);
 			return "admin/user/edit";
 		}else {		
 			try {
-				userForm.getApiUser().setId(id);
 				userService.update(userForm.getApiUser());
 				userPermService.updatePermFromWrapper(userForm.getApiUserPermWrapper());
+				request.getSession().removeAttribute("userForm");
+				request.getSession().removeAttribute("groups");
 			}catch(Exception e) {
 				model.addAttribute("error_title","Error on edit");
 				model.addAttribute("error_message","Error occurs during user edition : <p>"+ e.getMessage() +"<\\p>");
 				model.addAttribute("redirect_url","/admin/user/edit.id="+id);
 				return "error";
 			}
-			return "admin/user/edit";
+			return "redirect:/admin/users";
 		}	
 	}
 	
@@ -120,5 +128,15 @@ public class ApiUserController {
 		long longToken = Math.abs( random.nextLong() );
 		String random = Long.toString( longToken, 16 );
 		return random;
+	}
+	
+	private UserForm createUserFormFromId(Integer id) {
+		ApiUser user = userService.findById(id);
+		ApiUserPermWrapper userPerWrapper = new ApiUserPermWrapper();
+		userPerWrapper.setUserPermList(userPermService.findByUser(user));
+		UserForm userForm = new UserForm();
+		userForm.setApiUser(user);
+		userForm.setApiUserPermWrapper(userPerWrapper);
+		return userForm;
 	}
 }

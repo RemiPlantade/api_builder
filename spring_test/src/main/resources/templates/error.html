@@ -4,8 +4,6 @@
 	layout:decorator="~{fragments/layout}">
 <head>
 <title>Error page</title>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css" />
 </head>
 <body>
 	<div layout:fragment="content">
@@ -17,7 +15,7 @@
 					<p class="has-text-centered" th:text="${error_message}">No
 						error message</p><br/>
 					<p class="control has-text-centered">
-						<a class="bd-tw-button button is-info" th:href="@{${redirect_url}}"> 
+						<a class="bd-tw-button button is-info" th:href="@{${redirect_url != null ? '__${redirect_url}__' : '/'}}"> 
 						 <span>Back</span>
 						</a>
 					</p>

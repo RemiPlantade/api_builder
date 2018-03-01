@@ -11,16 +11,21 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import api_builder.app.conf.model.ApiConf;
+import api_builder.app.conf.service.ApiConfService;
+
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+	@Autowired
+	private ApiConfService apiService;
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 		.authorizeRequests()
 		.antMatchers("/css/**").permitAll()
-		.antMatchers("/img/**").permitAll()
+		.antMatchers("/images/**").permitAll()
 		.antMatchers("/admin/**").hasRole("ADMIN")
 		.and()
 		.formLogin()
@@ -38,6 +43,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth.inMemoryAuthentication().withUser("user").password("user").roles("ADMIN");
+		ApiConf adminUserNameConf = apiService.findByParamName("admin_username");
+		ApiConf adminPasswordConf = apiService.findByParamName("admin_password");
+
+		String adminUsername = 
+				adminUserNameConf.getParamValue() != null 
+				&& !adminUserNameConf.getParamValue().equals("") ? 
+						adminUserNameConf.getParamValue() : "admin";
+		String adminPassword = 
+				adminPasswordConf.getParamValue() != null 
+				&& !adminPasswordConf.getParamValue().equals("") ? 
+						adminPasswordConf.getParamValue() : "defaultPassword";
+						
+		auth.inMemoryAuthentication().withUser(adminUsername).password(adminPassword).roles("ADMIN");
 	}
 }
