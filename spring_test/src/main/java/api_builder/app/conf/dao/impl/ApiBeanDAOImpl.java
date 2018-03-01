@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import api_builder.app.conf.dao.ApiBeanDao;
 import api_builder.app.conf.model.ApiBean;
 import api_builder.app.conf.model.ApiGroupPerm;
+import api_builder.app.conf.model.ApiUserPerm;
 
 @Transactional("tm2")
 @Repository
@@ -37,7 +38,8 @@ public class ApiBeanDAOImpl implements ApiBeanDao{
 		ApiBean updConducter = findById(c.getId());
 		updConducter.setName(c.getName());
 		updConducter.setManaged(c.getManaged());
-		entityManager.flush();
+		entityManager.merge(updConducter);
+		entityManager.persist(updConducter);
 
 	}
 	@SuppressWarnings("unchecked")

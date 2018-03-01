@@ -2,6 +2,7 @@ package api_builder.app.conf.controller;
 
 import java.security.SecureRandom;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import api_builder.app.conf.model.ApiUser;
 import api_builder.app.conf.model.form.ApiUserPermWrapper;
@@ -19,9 +22,9 @@ import api_builder.app.conf.model.form.UserForm;
 import api_builder.app.conf.service.ApiGroupService;
 import api_builder.app.conf.service.ApiUserService;
 import api_builder.app.conf.service.ApiUserPermService;
-
+@SessionAttributes("userForm")
 @Controller
-public class UserConfController {
+public class ApiUserController {
 
 	@Autowired
 	private ApiUserService userService;
@@ -42,14 +45,15 @@ public class UserConfController {
 	}
 
 
-	@PostMapping(value = "/admin/adduser")
+	@PostMapping(value = "/admin/users")
 	public String addUser(@Valid @ModelAttribute("user") ApiUser user,BindingResult errors, Model model) {
 		if (errors.hasErrors()) {
 			return "admin/users";
 		}else {
 			user.setToken(createToken());
-			System.out.println("============== Group : " + user.getGroup().getName() + "id :" + user.getGroup().getId());
-			user.setGroup(groupService.findById(user.getGroup().getId()));
+			if(user.getGroup() != null) {
+				user.setGroup(groupService.findById(user.getGroup().getId()));
+			}
 			if(!userService.save(user)) {
 				model.addAttribute("error_title","User connot be added");
 				model.addAttribute("error_message","User with this mail OR username already exists.");
@@ -59,7 +63,7 @@ public class UserConfController {
 			return "redirect:/admin/users";
 		}	
 	}
-
+	
 	@GetMapping("/admin/user/edit")
 	public String displayUserForm(@RequestParam Integer id,Model model) {
 		ApiUser user = userService.findById(id);
@@ -74,8 +78,10 @@ public class UserConfController {
 	}
 
 	@PostMapping(value = "/admin/user/edit")
-	public String editUser(@Valid @ModelAttribute("userForm") UserForm userForm, BindingResult errors, @RequestParam Integer id, Model model) {
+	public String editUser(HttpServletRequest request,@Valid @ModelAttribute("userForm") UserForm userForm, BindingResult errors, @RequestParam Integer id, Model model) {
 		if (errors.hasErrors()) {
+			request.getSession().setAttribute("groups",groupService.findAll());
+			request.getSession().setAttribute( "userForm", userForm);
 			return "admin/user/edit";
 		}else {		
 			try {
@@ -85,10 +91,10 @@ public class UserConfController {
 			}catch(Exception e) {
 				model.addAttribute("error_title","Error on edit");
 				model.addAttribute("error_message","Error occurs during user edition : <p>"+ e.getMessage() +"<\\p>");
-				model.addAttribute("redirect_url","/admin/user/edit");
+				model.addAttribute("redirect_url","/admin/user/edit.id="+id);
 				return "error";
 			}
-			return "redirect:/admin/users";
+			return "admin/user/edit";
 		}	
 	}
 	
