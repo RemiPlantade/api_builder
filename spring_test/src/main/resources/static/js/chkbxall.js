@@ -2,30 +2,30 @@
 $( document ).ready(function() {
 	$('.chkbx_main_selection').click(function() {
 		if ($(this).is(':checked')) {
-			$('.chkbx_selection').attr('checked', true);
+			$('.chkbx_selection:enabled').prop('checked',true);
 		} else {
-			$('.chkbx_selection').attr('checked', false);
+			$('.chkbx_selection:enabled').prop('checked',false);
 		}
 	});
 	$('.chkbx_main_creation').click(function() {
 		if ($(this).is(':checked')) {
-			$('.chkbx_creation').attr('checked', true);
+			$('.chkbx_creation:enabled').prop('checked', true);
 		} else {
-			$('.chkbx_creation').attr('checked', false);
+			$('.chkbx_creation:enabled').prop('checked', false);
 		}
 	});
 	$('.chkbx_main_updating').click(function() {
 		if ($(this).is(':checked')) {
-			$('.chkbx_updating').attr('checked', true);
+			$('.chkbx_updating:enabled').prop('checked', true);
 		} else {
-			$('.chkbx_updating').attr('checked', false);
+			$('.chkbx_updating:enabled').prop('checked', false);
 		}
 	});
 	$('.chkbx_main_deletion').click(function() {
 		if ($(this).is(':checked')) {
-			$('.chkbx_deletion').attr('checked', true);
+			$('.chkbx_deletion:enabled').prop('checked', true);
 		} else {
-			$('.chkbx_deletion').attr('checked', false);
+			$('.chkbx_deletion:enabled').prop('checked', false);
 		}
 	});
 });

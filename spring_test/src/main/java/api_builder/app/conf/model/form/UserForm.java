@@ -1,9 +1,11 @@
 package api_builder.app.conf.model.form;
 
+import javax.validation.Valid;
+
 import api_builder.app.conf.model.ApiUser;
 
 public class UserForm {
-	
+	@Valid
 	private ApiUser apiUser;
 	
 	private ApiUserPermWrapper apiUserPermWrapper;
