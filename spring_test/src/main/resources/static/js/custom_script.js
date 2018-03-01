@@ -28,4 +28,26 @@ $( document ).ready(function() {
 			$('.chkbx_deletion:enabled').prop('checked', false);
 		}
 	});
+	
+	function selectGroup() {
+		$("select.groupSelect > option").each(function() {
+			if($(this).parent().hasClass("nogroup")){
+				if($(this).hasClass("nogroup")){
+					$(this).prop('selected',true);
+				}else{
+					$(this).prop('selected',false);
+				}
+			}else{
+				if($(this).hasClass($(this).parent().attr('class').split(' ')[1])){
+					$(this).prop('selected',true);
+				}else{
+					$(this).prop('selected',false);
+				}
+			}
+		    
+		});
+	}
+	
+	selectGroup();
+	
 });

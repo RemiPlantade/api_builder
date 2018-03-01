@@ -26,7 +26,7 @@ public class ApiUser {
 	private  Integer id;
 	
 	@NotNull
-	@Size(min=1, max=32, message="Username must be between 1 and 32 characters")
+	@Size(min=1, max=32, message="Must be between 1 and 32 characters")
 	private String username;
 	
 	@NotNull
@@ -35,19 +35,20 @@ public class ApiUser {
 	
 	private String token;
 	
-	@Min(0)
-	@Max(Integer.MAX_VALUE)
-	private Integer maxquota = 0;
+	@Min(value=0, message="Minimum value : 0")
+	@Max(value=999999999,message="Maximum value : 999999999")
+	private Long maxquota = 0L;
 	
-	private Integer actualquota = 0;
+	private Long actualquota = 0L;
 	
+	@NotNull(message="You must select a group")
 	private ApiGroup group;
 
 	public ApiUser() {
 		super();
 	}
 	
-	public ApiUser(Integer id, String username, String mail, String token, Integer maxquota, Integer actualquota,
+	public ApiUser(Integer id, String username, String mail, String token, Long maxquota, Long actualquota,
 			ApiGroup group) {
 		super();
 		this.id = id;
@@ -89,17 +90,17 @@ public class ApiUser {
 		this.token = token;
 	}
 	@Column(name="maxquota")
-	public Integer getMaxquota() {
+	public Long getMaxquota() {
 		return maxquota;
 	}
-	public void setMaxquota(Integer maxquota) {
+	public void setMaxquota(Long maxquota) {
 		this.maxquota = maxquota;
 	}
 	@Column(name="actualquota")
-	public Integer getActualquota() {
+	public Long getActualquota() {
 		return actualquota;
 	}
-	public void setActualquota(Integer actualquota) {
+	public void setActualquota(Long actualquota) {
 		this.actualquota = actualquota;
 	}
 	@OneToOne
