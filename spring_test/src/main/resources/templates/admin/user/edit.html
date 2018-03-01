@@ -12,13 +12,12 @@
 		<h1 class="title is-4 has-text-centered">Edit user</h1>
 		<div class="box">
 			<div class="columns is-centered">
-				<div class="column is-6 is-centered">
+				<div class="column is-8 is-centered">
 					<form name="login"
 						th:action="@{edit?id=__${userForm.apiUser.id}__}" method="post"
 						th:object="${userForm}">
-						<span th:text="${userForm.apiUser.username}"></span>
-						<div class="columns">
-							<div class="column is-third is-centered">
+						<div class="columns is-centered">
+							<div class="column is-4">
 								<div class="field ">
 									<label class="label">Username</label>
 									<div class="control">
@@ -26,7 +25,7 @@
 											class="input is-info" th:value=${userForm.apiUser.username}
 											th:field="*{apiUser.username}" /> <span
 											th:if="${#fields.hasErrors('apiUser.username')}"
-											th:errors="*{apiUser.username}" style="color: red;"></span>
+											th:errors="*{apiUser.username}" class="help-block"></span>
 									</div>
 								</div>
 								<div class="field">
@@ -36,21 +35,30 @@
 											class="input is-info" th:value=${userForm.apiUser.mail}
 											th:field="*{apiUser.mail}" /> <span
 											th:if="${#fields.hasErrors('apiUser.mail')}"
-											class="help-block" th:errors="*{apiUser.mail}"
-											style="color: red;"></span>
+											class="help-block" th:errors="*{apiUser.mail}"></span>
 									</div>
 								</div>
-								<div class="field ">
+								<div class="field">
 									<label class="label">Token</label>
-									<div class="control">
-										<input type="text" name="token" id="userForm.apiUser.token"
-											class="input is-info" th:field="*{apiUser.token}" /> <span
-											th:if="${#fields.hasErrors('apiUser.token')}"
-											th:errors="*{apiUser.token}" style="color: red;"></span>
+									<div class="columns">
+										<div class="column is-two-thirds is-centered">
+											<div class="control">
+												<label id="userForm.apiUser.token" class="input is-info"
+													th:text="*{apiUser.token}"></label>
+											</div>
+										</div>
+										<div class="column is-third ">
+											<p class="control level-right">
+												<a class="button is-danger is-outlined"
+													th:href="@{/admin/user/token?id=__${userForm.apiUser.id}__}">
+													<span>Reset</span>
+												</a>
+											</p>
+										</div>
 									</div>
 								</div>
 							</div>
-							<div class="column is-third">
+							<div class="column is-4">
 								<div class="field is-third">
 									<label class="label">Max Quota</label>
 									<div class="control">
@@ -58,52 +66,55 @@
 											class="input is-info" th:value=${userForm.apiUser.maxquota}
 											th:field="*{apiUser.maxquota}" /> <span
 											th:if="${#fields.hasErrors('apiUser.maxquota')}"
-											th:errors="*{apiUser.maxquota}"></span>
+											th:errors="*{apiUser.maxquota}" class="help-block"></span>
 									</div>
 								</div>
 								<div class="field ">
 									<label class="label">Actual Quota</label>
-									<div class="control">
-										<input type="text" name="actualquota" id="actualquota"
-											class="input is-info" th:field="*{apiUser.actualquota}" /> <span
-											th:if="${#fields.hasErrors('apiUser.actualquota')}"
-											th:errors="*{apiUser.actualquota}" style="color: red;"></span>
+									<div class="columns">
+										<div class="column is-two-thirds is-centered">
+											<div class="control">
+												<label id="userForm.apiUser.token" class="input is-info"
+													th:text="*{apiUser.actualquota}"></label>
+											</div>
+										</div>
+										<div class="column is-third ">
+											<p class="control level-right">
+												<a class="button is-danger is-outlined"
+													th:href="@{/admin/user/token?id=__${userForm.apiUser.id}__}">
+													<span>Reset</span>
+												</a>
+											</p>
+										</div>
 									</div>
 								</div>
-								<div class="field">
-									<label class="label">Generate token</label>
-									<p class="control">
-										<a class="button is-danger is-outlined"
-											th:href="@{/admin/user/token?id=__${userForm.apiUser.id}__}">
-											<span>Reset token</span>
-										</a>
-									</p>
-								</div>
-							</div>
-							<div class="column is-third">
 								<div class="field ">
 									<label class="label">Group</label>
 									<div class="control">
-										<div class="select is-info is-3 is-fullwidth">
-											<select multiple size="5" th:field="*{apiUser.group}">
-												<option th:value="null">No group</option>
-												<option th:each="group : ${groups}" th:text="${group.name}"
-													th:value="${{group}}"
-													th:selected="${userForm.apiUser.group != null} and ${group.id} == ${userForm.apiUser.group?.id} ? true : false"></option>
-
-											</select>
+										<div class="select is-fullwidth is-info">
+											<select class="groupSelect" th:classappend="*{apiUser.group} != null ? group_+*{apiUser.group.id} : nogroup" th:field="*{apiUser.group}">
+												<option class="nogroup" th:value="null">No group</option>
+												<option th:classappend="group_+${grp.id}" th:each="grp : ${groups}" th:text="${grp.name}"
+													th:value="${{grp}}"
+													></option>
+											</select> 
+											<span
+											th:if="${#fields.hasErrors('apiUser.group')}"
+											th:errors="*{apiUser.group}" class="help-block"></span>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="columns is-centered">
+						<div class="columns">
 							<div class="column is-centered">
 								<h1 class="title is-4 has-text-centered">Edit permissions</h1>
 								<table class="table is-fullwidth">
 									<thead>
 										<tr>
+											<!-- 											<th style="display: none;"></th>
 											<th style="display: none;"></th>
+											<th style="display: none;"></th> -->
 											<th>Entity</th>
 											<th>Selection</th>
 											<th>Creation</th>
@@ -111,6 +122,10 @@
 											<th>Deletion</th>
 										</tr>
 										<tr>
+
+											<!-- 											<th style="display: none;"></th>
+											<th style="display: none;"></th>
+											<th style="display: none;"></th> -->
 											<th></th>
 											<th><input type="checkbox" class="chkbx_main_selection" /></th>
 											<th><input type="checkbox" class="chkbx_main_creation" /></th>
@@ -122,12 +137,12 @@
 									<tbody>
 										<tr
 											th:each="userperm,rowStat : ${userForm.apiUserPermWrapper.userPermList}">
-											<td style="display: none;"><input type="hidden"
+											<!-- 											<td style="display: none;"><input type="hidden"
 												th:field="*{apiUserPermWrapper.userPermList[__${rowStat.index}__].id}" /></td>
 											<td style="display: none;"><input type="hidden"
 												th:field="*{apiUserPermWrapper.userPermList[__${rowStat.index}__].apiBean}" /></td>
 											<td style="display: none;"><input type="hidden"
-												th:field="*{apiUserPermWrapper.userPermList[__${rowStat.index}__].apiUser}" /></td>
+												th:field="*{apiUserPermWrapper.userPermList[__${rowStat.index}__].apiUser}" /></td> -->
 											<td th:text="${userperm.apiBean.name}"></td>
 											<td><input th:disabled="!${userperm.apiBean.managed}"
 												type="checkbox" class="chkbx_selection"
@@ -178,8 +193,5 @@
 			</div>
 		</div>
 	</div>
-	<th:block layout:fragment="script">
-		<script th:src="@{/js/chkbxall.js}"></script>
-	</th:block>
 </body>
 </html>
