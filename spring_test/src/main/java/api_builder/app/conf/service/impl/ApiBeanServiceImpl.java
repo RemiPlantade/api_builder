@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import api_builder.app.conf.dao.ApiBeanDao;
 import api_builder.app.conf.model.ApiBean;
+import api_builder.app.conf.model.ApiUserPerm;
+import api_builder.app.conf.model.form.ApiBeanWrapper;
 import api_builder.app.conf.service.ApiBeanService;
 
 @Service
@@ -58,6 +60,14 @@ public class ApiBeanServiceImpl implements ApiBeanService{
 
 	public void setCondDAO(ApiBeanDao condDAO) {
 		this.entityconfDAO = condDAO;
+	}
+
+	@Override
+	public void updateGroupFromWrapper(ApiBeanWrapper beanWrapper) {
+		for(ApiBean apiBean : beanWrapper.getBeanList()) {
+			entityconfDAO.update(apiBean);
+		}
+		
 	}
 
 }

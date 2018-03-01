@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import api_builder.app.conf.model.ApiGroup;
+import api_builder.app.conf.model.ApiGroupPerm;
 import api_builder.app.conf.model.ApiUser;
 import api_builder.app.conf.model.form.ApiGroupPermWrapper;
 import api_builder.app.conf.model.form.ApiUserPermWrapper;
@@ -24,7 +25,7 @@ import api_builder.app.conf.service.ApiGroupService;
 import api_builder.app.conf.service.ApiUserService;
 
 @Controller
-public class GroupConfController {
+public class ApiGroupController {
 	
 	@Autowired
 	private ApiUserService userService;
@@ -72,11 +73,15 @@ public class GroupConfController {
 	@PostMapping(value = "/admin/group/edit")
 	public String editUser(@Valid @ModelAttribute("groupForm") GroupForm groupForm,BindingResult errors, @RequestParam Integer id, Model model) {
 		if (errors.hasErrors()) {
+			System.out.println("Yolo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 			return "admin/group/edit";
 		}else {		
 //			try {
 				groupForm.getApiGroup().setId(id);
 				groupService.update(groupForm.getApiGroup());
+				for (ApiGroupPerm groupPerm  : groupForm.getApiGroupPermWrapper().getGroupPermList()) {
+					groupPerm.setApiGroup(groupForm.getApiGroup());
+				}
 				groupPermService.updatePermFromWrapper(groupForm.getApiGroupPermWrapper());
 //				}catch(Exception e) {
 //					model.addAttribute("error_title","Error on save");
