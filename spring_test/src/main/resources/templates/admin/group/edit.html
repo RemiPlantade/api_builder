@@ -37,6 +37,8 @@
 									<thead>
 										<tr>
 											<th style="display: none;"></th>
+											<th style="display: none;"></th>
+											<th style="display: none;"></th>
 											<th>Entity</th>
 											<th>Selection</th>
 											<th>Creation</th>
@@ -57,17 +59,21 @@
 											th:each="grouperm,rowStat : *{apiGroupPermWrapper.groupPermList}">
 											<td style="display: none;"><input type="hidden"
 												th:field="*{apiGroupPermWrapper.groupPermList[__${rowStat.index}__].id}" /></td>
+												<td style="display: none;"><input type="hidden"
+												th:field="*{{apiGroupPermWrapper.groupPermList[__${rowStat.index}__].apiBean}}" th:value="${{grouperm.apiBean}}"/></td>
+												<td style="display: none;"><input type="hidden"
+												th:field="*{{apiGroupPermWrapper.groupPermList[__${rowStat.index}__].apiGroup}}"  th:value="${{grouperm.apiGroup}}"/></td>
 											<td th:text="${grouperm.apiBean.name}"></td>
-											<td><input type="checkbox" class="chkbx_selection"
+											<td><input th:disabled="!${grouperm.apiBean.managed}" type="checkbox" class="chkbx_selection"
 												th:checked="${grouperm.selection}"
 												th:field=*{apiGroupPermWrapper.groupPermList[__${rowStat.index}__].selection} /></td>
-											<td><input type="checkbox" class="chkbx_creation"
+											<td><input th:disabled="!${grouperm.apiBean.managed}" type="checkbox" class="chkbx_creation"
 												th:checked="${grouperm.creation}"
 												th:field=*{apiGroupPermWrapper.groupPermList[__${rowStat.index}__].creation} /></td>
-											<td><input type="checkbox" class="chkbx_updating"
+											<td><input th:disabled="!${grouperm.apiBean.managed}" type="checkbox" class="chkbx_updating"
 												th:checked="${grouperm.updating}"
 												th:field=*{apiGroupPermWrapper.groupPermList[__${rowStat.index}__].updating} /></td>
-											<td><input type="checkbox" class="chkbx_deletion"
+											<td><input th:disabled="!${grouperm.apiBean.managed}" type="checkbox" class="chkbx_deletion"
 												th:checked="${grouperm.deletion}"
 												th:field=*{apiGroupPermWrapper.groupPermList[__${rowStat.index}__].deletion} /></td>
 
@@ -76,10 +82,10 @@
 									<tfoot>
 										<tr>
 											<th></th>
-											<th><input type="checkbox" /></th>
-											<th><input type="checkbox" /></th>
-											<th><input type="checkbox" /></th>
-											<th><input type="checkbox" /></th>
+											<th><input type="checkbox" class="chkbx_main_selection" /></th>
+											<th><input type="checkbox" class="chkbx_main_creation" /></th>
+											<th><input type="checkbox" class="chkbx_main_updating" /></th>
+											<th><input type="checkbox" class="chkbx_main_deletion" /></th>
 										</tr>
 										<tr>
 											<th style="display: none;"></th>
@@ -103,5 +109,8 @@
 			</div>
 		</div>
 	</div>
+	<th:block layout:fragment="script">
+		<script th:src="@{/js/chkbxall.js}"></script>
+	</th:block>
 </body>
 </html>
