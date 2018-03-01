@@ -60,4 +60,10 @@ public class ApiConfServiceImpl implements ApiConfService{
 		this.apiconfDAO = condDAO;
 	}
 
+	@Override
+	public ApiConf findByParamName(String paramName) {
+		// TODO Auto-generated method stub
+		return apiconfDAO.findByParamName(paramName);
+	}
+
 }

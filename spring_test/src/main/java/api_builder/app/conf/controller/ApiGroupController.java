@@ -1,7 +1,5 @@
 package api_builder.app.conf.controller;
 
-import java.util.ArrayList;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import api_builder.app.conf.model.ApiGroup;
 import api_builder.app.conf.model.ApiGroupPerm;
-import api_builder.app.conf.model.ApiUser;
 import api_builder.app.conf.model.form.ApiGroupPermWrapper;
-import api_builder.app.conf.model.form.ApiUserPermWrapper;
 import api_builder.app.conf.model.form.GroupForm;
-import api_builder.app.conf.model.form.UserForm;
 import api_builder.app.conf.service.ApiGroupPermService;
 import api_builder.app.conf.service.ApiGroupService;
 import api_builder.app.conf.service.ApiUserService;
@@ -60,20 +55,13 @@ public class ApiGroupController {
 	
 	@GetMapping("/admin/group/edit")
 	public String displayGroupForm(@RequestParam Integer id,Model model) {
-		ApiGroup group = groupService.findById(id);
-		ApiGroupPermWrapper groupPerWrapper = new ApiGroupPermWrapper();
-		groupPerWrapper.setGroupPermList(groupPermService.findByGroup(group));
-		GroupForm userForm = new GroupForm();
-		userForm.setApiGroup(group);
-		userForm.setApiGroupPermWrapper(groupPerWrapper);
-		model.addAttribute("groupForm",userForm);
+		model.addAttribute("groupForm",createGroupFormFromId(id));
 		return "admin/group/edit";
 	}
-	
+
 	@PostMapping(value = "/admin/group/edit")
 	public String editUser(@Valid @ModelAttribute("groupForm") GroupForm groupForm,BindingResult errors, @RequestParam Integer id, Model model) {
 		if (errors.hasErrors()) {
-			System.out.println("Yolo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 			return "admin/group/edit";
 		}else {		
 //			try {
@@ -92,4 +80,15 @@ public class ApiGroupController {
 			return "redirect:/admin/groups";
 		}	
 	}
+	
+	private GroupForm createGroupFormFromId(Integer id) {
+		ApiGroup group = groupService.findById(id);
+		ApiGroupPermWrapper groupPerWrapper = new ApiGroupPermWrapper();
+		groupPerWrapper.setGroupPermList(groupPermService.findByGroup(group));
+		GroupForm userForm = new GroupForm();
+		userForm.setApiGroup(group);
+		userForm.setApiGroupPermWrapper(groupPerWrapper);
+		return userForm;
+	}
+
 }

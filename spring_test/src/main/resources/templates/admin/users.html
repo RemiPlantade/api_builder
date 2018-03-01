@@ -12,7 +12,7 @@
 		<h1 class="title is-4 has-text-centered">User management</h1>
 		<div class="box">
 			<div class="columns is-centered">
-				<div class="column is-4 is-centered">
+				<div class="column is-5 is-centered">
 					<h1 class="title is-5 has-text-centered">Adding User</h1>
 					<form name="login" th:action="@{users}" method="post"
 						th:object="${user}">
@@ -33,16 +33,7 @@
 										<input type="email" name="mail" id="mail"
 											class="input is-info" th:field="*{mail}" /> <span
 											th:if="${#fields.hasErrors('mail')}" class="help-block"
-											th:errors="*{mail}" style="color: red;"></span>
-									</div>
-								</div>
-								<div class="field ">
-									<label class="label">Token</label>
-									<div class="control">
-										<input type="text" name="maxquota" id="username"
-											class="input is-info" th:field="*{maxquota}" /> <span
-											th:if="${#fields.hasErrors('maxquota')}"
-											th:errors="*{maxquota}" style="color: red;"></span>
+											th:errors="*{mail}"></span>
 									</div>
 								</div>
 								<div class="field is-grouped">
@@ -53,10 +44,19 @@
 							</div>
 							<div class="column is-half">
 								<div class="field ">
+									<label class="label">Quota Maximum</label>
+									<div class="control">
+										<input type="text" name="maxquota" id="maxquota"
+											class="input is-info" th:field="*{maxquota}" /> <span
+											th:if="${#fields.hasErrors('maxquota')}"
+											th:errors="*{maxquota}" class="help-block"></span>
+									</div>
+								</div>
+								<div class="field ">
 									<label class="label">Group</label>
 									<div class="control">
-										<div class="select is-info is-3">
-											<select size="5" th:field="*{group}">
+										<div class="select is-fullwidth is-info">
+											<select th:field="*{group}">
 												<option th:value="null">No group</option>
 												<option th:each="group : ${groups}" th:text="${group.name}"
 													th:value="${{group}}"></option>
@@ -86,7 +86,7 @@
 								<th></th>
 							</tr>
 						</thead>
-						<tbody>
+						<tbody class="yolo">
 							<tr th:each="user : ${users}">
 								<td th:text="${user.id}"></td>
 								<td th:text="${user.username}"></td>

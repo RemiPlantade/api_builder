@@ -10,4 +10,5 @@ public interface ApiConfService {
 	public ApiConf findById(int id);
 	public List<ApiConf> findByAttr(String attrName,String value);
 	public void delete(int id);
+	public ApiConf findByParamName(String paramName);
 }

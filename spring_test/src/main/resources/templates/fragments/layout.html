@@ -5,6 +5,8 @@
 <meta charset="utf-8" />
 <link type="text/css" rel="stylesheet" th:href="@{/css/bulma.css}"
 	href="/css/bulma.css" />
+<link type="text/css" rel="stylesheet" th:href="@{/css/dataTables.bulma.min.css}"
+	href="/css/bulma.css" />
 <link type="text/css" rel="stylesheet" th:href="@{/css/style.css}"
 	href="/css/style.css" />
 <title>Spring Security Thymeleaf</title>
@@ -21,7 +23,14 @@
 		</div>
 	</section>
 	<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+	<script th:src="@{/js/custom_script.js}"></script>
+	<script th:src="@{/js/datatables.min.js}"></script>
+	<script th:src="@{/js/dataTables.bulma.min.js}"></script>
+	<script>
+	$(document).ready(function(){
+	    $('table').DataTable();
+	});
+	</script>
 	<th:block th:replace="fragments/footer :: footer" />
-	<th:block layout:fragment="script"></th:block>
 </body>
 </html>
