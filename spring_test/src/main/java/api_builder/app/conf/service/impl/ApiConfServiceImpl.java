@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import api_builder.app.conf.dao.ApiConfDao;
 import api_builder.app.conf.model.ApiConf;
+import api_builder.app.conf.model.form.ApiConfWrapper;
 import api_builder.app.conf.service.ApiConfService;
 
 @Service
@@ -64,6 +65,14 @@ public class ApiConfServiceImpl implements ApiConfService{
 	public ApiConf findByParamName(String paramName) {
 		// TODO Auto-generated method stub
 		return apiconfDAO.findByParamName(paramName);
+	}
+
+	@Override
+	public void updateConfFromWrapper(ApiConfWrapper apiConfWrapper) {
+		for (ApiConf apiConf : apiConfWrapper.getApiConfList()) {
+			apiconfDAO.update(apiConf);
+		}
+		
 	}
 
 }

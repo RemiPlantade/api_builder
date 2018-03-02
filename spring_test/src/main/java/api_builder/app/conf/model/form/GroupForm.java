@@ -1,8 +1,11 @@
 package api_builder.app.conf.model.form;
 
+import javax.validation.Valid;
+
 import api_builder.app.conf.model.ApiGroup;
 
 public class GroupForm {
+	@Valid
 	private ApiGroup apiGroup;
 	
 	private ApiGroupPermWrapper apiGroupPermWrapper;
