@@ -34,11 +34,12 @@ public class ApiConfDAOImpl implements ApiConfDao{
 
 	@Override
 	public void update(ApiConf c) {
-		ApiConf updConducter = findById(c.getId());
-		updConducter.setParamName(c.getParamName());
-		updConducter.setParamValue(c.getParamValue());
-		updConducter.setParamType(c.getParamType());
-		entityManager.flush();
+		ApiConf original = findById(c.getId());
+		original.setParamName(c.getParamName());
+		original.setParamValue(c.getParamValue());
+		original.setParamType(c.getParamType());
+		entityManager.merge(original);
+		entityManager.persist(original);
 
 	}
 	@SuppressWarnings("unchecked")

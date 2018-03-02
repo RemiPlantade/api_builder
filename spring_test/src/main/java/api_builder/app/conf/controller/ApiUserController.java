@@ -62,9 +62,6 @@ public class ApiUserController {
 			return "admin/users";
 		}else {
 			user.setToken(createToken());
-			if(user.getGroup() != null) {
-				user.setGroup(groupService.findById(user.getGroup().getId()));
-			}
 			if(!userService.save(user)) {
 				model.addAttribute("error_title","User connot be added");
 				model.addAttribute("error_message","User with this mail OR username already exists.");
@@ -77,7 +74,7 @@ public class ApiUserController {
 	}
 	
 	@GetMapping("/admin/user/edit")
-	public String displayUserForm(HttpServletRequest request, @RequestParam Integer id,Model model) {
+	public String displayUserForm(@RequestParam Integer id,Model model) {
 		model.addAttribute("groups",groupService.findAll());
 		model.addAttribute("userForm",createUserFormFromId(id));
 		return "admin/user/edit";
@@ -110,6 +107,15 @@ public class ApiUserController {
 	public String resetToken(@RequestParam Integer id,Model model) {
 		ApiUser user = userService.findById(id);
 		user.setToken(createToken());
+		userService.update(user);
+		return "redirect:edit?id="+id;
+	}
+	
+	@GetMapping("/admin/user/quota")
+	public String resetQuota(@RequestParam Integer id,Model model) {
+		System.out.println(model.toString());
+		ApiUser user = userService.findById(id);
+		user.setActualquota(0L);
 		userService.update(user);
 		return "redirect:edit?id="+id;
 	}

@@ -39,6 +39,7 @@ public class ApiUser {
 	@Max(value=999999999,message="Maximum value : 999999999")
 	private Long maxquota = 0L;
 	
+	@Min(value=0, message="Minimum value : 0")
 	private Long actualquota = 0L;
 	
 	@NotNull(message="You must select a group")
@@ -96,7 +97,7 @@ public class ApiUser {
 	public void setMaxquota(Long maxquota) {
 		this.maxquota = maxquota;
 	}
-	@Column(name="actualquota")
+	@Column(name="actquota")
 	public Long getActualquota() {
 		return actualquota;
 	}
@@ -112,4 +113,12 @@ public class ApiUser {
 	public void setGroup(ApiGroup group) {
 		this.group = group;
 	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return username;
+	}
+	
+	
 }
