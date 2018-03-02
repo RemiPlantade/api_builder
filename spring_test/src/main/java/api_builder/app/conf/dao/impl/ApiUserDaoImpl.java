@@ -100,6 +100,7 @@ public class ApiUserDaoImpl implements ApiUserDao{
 		original.setUsername(user.getUsername());
 		original.setGroup(user.getGroup());
 		original.setMaxquota(user.getMaxquota());
+		original.setActualquota(user.getActualquota());
 		entityManager.merge(original);
 		entityManager.persist(original);
 	}
