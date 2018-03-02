@@ -74,14 +74,14 @@
 									<div class="columns">
 										<div class="column is-two-thirds is-centered">
 											<div class="control">
-												<label id="userForm.apiUser.token" class="input is-info"
+												<label id="userForm.apiUser.actualquota" class="input is-info"
 													th:text="*{apiUser.actualquota}"></label>
 											</div>
 										</div>
 										<div class="column is-third ">
 											<p class="control level-right">
 												<a class="button is-danger is-outlined"
-													th:href="@{/admin/user/token?id=__${userForm.apiUser.id}__}">
+													th:href="@{/admin/user/quota?id=__${userForm.apiUser.id}__}">
 													<span>Reset</span>
 												</a>
 											</p>
@@ -112,37 +112,16 @@
 								<table class="table is-fullwidth">
 									<thead>
 										<tr>
-											<!-- 											<th style="display: none;"></th>
-											<th style="display: none;"></th>
-											<th style="display: none;"></th> -->
 											<th>Entity</th>
-											<th>Selection</th>
-											<th>Creation</th>
-											<th>Updating</th>
-											<th>Deletion</th>
+											<th><input type="checkbox" class="chkbx_main_selection" /> Selection</th>
+											<th><input type="checkbox" class="chkbx_main_creation" /> Creation</th>
+											<th><input type="checkbox" class="chkbx_main_updating" /> Updating</th>
+											<th><input type="checkbox" class="chkbx_main_deletion" /> Deletion</th>
 										</tr>
-										<tr>
-
-											<!-- 											<th style="display: none;"></th>
-											<th style="display: none;"></th>
-											<th style="display: none;"></th> -->
-											<th></th>
-											<th><input type="checkbox" class="chkbx_main_selection" /></th>
-											<th><input type="checkbox" class="chkbx_main_creation" /></th>
-											<th><input type="checkbox" class="chkbx_main_updating" /></th>
-											<th><input type="checkbox" class="chkbx_main_deletion" /></th>
-										</tr>
-
 									</thead>
 									<tbody>
 										<tr
 											th:each="userperm,rowStat : ${userForm.apiUserPermWrapper.userPermList}">
-											<!-- 											<td style="display: none;"><input type="hidden"
-												th:field="*{apiUserPermWrapper.userPermList[__${rowStat.index}__].id}" /></td>
-											<td style="display: none;"><input type="hidden"
-												th:field="*{apiUserPermWrapper.userPermList[__${rowStat.index}__].apiBean}" /></td>
-											<td style="display: none;"><input type="hidden"
-												th:field="*{apiUserPermWrapper.userPermList[__${rowStat.index}__].apiUser}" /></td> -->
 											<td th:text="${userperm.apiBean.name}"></td>
 											<td><input th:disabled="!${userperm.apiBean.managed}"
 												type="checkbox" class="chkbx_selection"
@@ -163,23 +142,6 @@
 
 										</tr>
 									</tbody>
-									<tfoot>
-										<tr>
-											<th></th>
-											<th><input type="checkbox" class="chkbx_main_selection" /></th>
-											<th><input type="checkbox" class="chkbx_main_creation" /></th>
-											<th><input type="checkbox" class="chkbx_main_updating" /></th>
-											<th><input type="checkbox" class="chkbx_main_deletion" /></th>
-										</tr>
-										<tr>
-											<th style="display: none;"></th>
-											<th>Entity</th>
-											<th>Selection</th>
-											<th>Creation</th>
-											<th>Updating</th>
-											<th>Deletion</th>
-										</tr>
-									</tfoot>
 								</table>
 								<div class="field is-grouped">
 									<div class="control">
