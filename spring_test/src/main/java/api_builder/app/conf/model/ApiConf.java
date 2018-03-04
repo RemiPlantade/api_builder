@@ -17,6 +17,7 @@ public class ApiConf {
 	private String paramName;
 	private String paramValue;
 	private String paramType;
+	private String paramKey;
 	
 	
 	public ApiConf() {
@@ -55,5 +56,15 @@ public class ApiConf {
 
 	public void setParamType(String paramType) {
 		this.paramType = paramType;
+	}
+
+	@Column(name="param_key")
+	public String getParamKey() {
+		return paramKey;
+	}
+
+
+	public void setParamKey(String paramKey) {
+		this.paramKey = paramKey;
 	}
 }

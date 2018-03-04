@@ -87,4 +87,11 @@ public class ApiConfDAOImpl implements ApiConfDao{
 				.setParameter("paramName", paramName).getSingleResult();
 	}
 
+	@Override
+	public ApiConf findByKey(String paramKey) {
+		String hql = "FROM ApiConf as apiconf WHERE apiconf.paramKey = :paramKey";
+		return entityManager.createQuery(hql,ApiConf.class)
+				.setParameter("paramKey", paramKey).getSingleResult();
+	}
+
 }

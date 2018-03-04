@@ -6,6 +6,8 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Entities Configuration</title>
+<meta th:name="_csrf" th:content="${_csrf.token}" />
+<meta th:name="_csrf_header" th:content="${_csrf.headerName}" />
 </head>
 <body>
 	<div layout:fragment="content">
@@ -48,40 +50,40 @@
 											</tr>
 										</tbody>
 									</table>
-									<div class="field is-grouped">
+									<div class="field ">
 										<div class="control">
 											<input class="button is-link" type="submit" value="Submit" />
 										</div>
 									</div>
-
-
+									<div class="field">
+										<div class="control">
+											<input class="button is-link" value="Restart"
+												id="restart_button" />
+										</div>
+									</div>
 								</div>
 							</div>
+						</div>
+					</form>
+					<div class="modal">
+						<div class="modal-background"></div>
+						<div class="modal-content" style="width :350px;">
+							<div class="box box-background-color-white has-text-centered">
+								<div class="level">
+									<div class="level-left">
+										<h1 class="title is-5 has-text-centered">Server is
+											restarting ...</h1>
+									</div>
+									<div class="level-right">
+										<figure class="image is-64x64">
+											<img src="/images/ajax_loader.gif">
+										</figure>
+									</div>
+								</div>
 
-						</div>
-					</form>
-					<form name="login" th:action="@{/env}" method="post">
-						<div class="field is-grouped">
-							<div class="control">
-								<input class="button is-link" type="submit" value="Env" />
 							</div>
 						</div>
-
-					</form>
-					<form name="login" th:action="@{/refresh}" method="post">
-						<div class="field is-grouped">
-							<div class="control">
-								<input class="button is-link" type="submit" value="Refresh" />
-							</div>
-						</div>
-					</form>
-					<form name="login" th:action="@{/restart}" method="post">
-						<div class="field is-grouped">
-							<div class="control">
-								<input class="button is-link" type="submit" value="Restart" />
-							</div>
-						</div>
-					</form>
+					</div>
 				</div>
 			</div>
 		</div>
