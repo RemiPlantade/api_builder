@@ -28,7 +28,7 @@ $( document ).ready(function() {
 			$('.chkbx_deletion:enabled').prop('checked', false);
 		}
 	});
-	
+
 	function selectGroup() {
 		$("select.groupSelect > option").each(function() {
 			if($(this).parent().hasClass("nogroup")){
@@ -44,10 +44,59 @@ $( document ).ready(function() {
 					$(this).prop('selected',false);
 				}
 			}
-		    
+
 		});
 	}
-	
 	selectGroup();
-	
+
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	$(document).ajaxSend(function(e, xhr, options) {
+		if (options.type == "POST") {
+			xhr.setRequestHeader(header, token);
+		}
+	});
+
+	$('#restart_button').click(function(){
+//		$.post("/refresh", function(data, status){
+//			console.log($(".modal"));
+//			$(".modal").addClass("is-active");
+//			tryLoadHomePage();
+//		});
+		$.post("/restart", function(data, status){
+			console.log($(".modal"));
+			$(".modal").addClass("is-active");
+			tryLoadHomePage();
+		});
+	});
+
+	function tryLoadHomePage(){
+		$.ajax({
+			url : '/',
+			type : 'HEAD',
+			success : function(json) {
+				window.location = '/';
+			},
+			error : function(xhr, textStatus, errorThrown ) {
+				if (textStatus == 'timeout') {
+					console.log("timeout");
+					setTimeout(function () {
+						tryLoadHomePage()
+					}, 1000);
+				}            
+				if (xhr.status == 500) {
+					console.log("500");
+					setTimeout(function () {
+						tryLoadHomePage();
+					}, 1000);
+
+				} else {
+					console.log("In else");
+					setTimeout(function () {
+						tryLoadHomePage();
+					}, 1000);
+				}
+			}
+		});
+	}
 });
