@@ -1,8 +1,12 @@
 package api_builder.app.conf.controller;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.core.env.MutablePropertySources;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,13 +20,16 @@ import api_builder.app.conf.service.ApiConfService;
 
 @Controller
 @SessionAttributes("apiConfWrapper")
-//@RefreshScope
+@RefreshScope
 public class ApiConfController {
 	
-//	@Value("${server.port}")
-//	private String value;
+	//@Value("${server.port}")
+	private String port;
 	
 	
+	@Value("${security.require-ssl}")
+	private String https;
+
 	@Autowired
 	private ApiConfService apiConfService;	
 	
@@ -42,7 +49,8 @@ public class ApiConfController {
 	public String addUser(HttpSession session, @ModelAttribute("apiConfWrapper") ApiConfWrapper apiConfWrapper, Model model, SessionStatus sa) {
 		apiConfService.updateConfFromWrapper(apiConfWrapper);
 		session.removeAttribute("apiConfWrapper");
-		//value = apiConfService.findByParamName("Port").getParamValue();
+		port = apiConfService.findByParamName("Port").getParamValue();
+		https = apiConfService.findByParamName("Protocol HTTPS").getParamValue();
 		sa.setComplete();
 		return "admin/general";
 	}
