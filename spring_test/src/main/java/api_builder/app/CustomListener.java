@@ -12,7 +12,6 @@ import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.MutablePropertySources;
 import org.springframework.core.env.PropertiesPropertySource;
 import org.springframework.stereotype.Component;
-@Component
 public class CustomListener implements ApplicationListener<ApplicationPreparedEvent > {
 //
 //	@Override
