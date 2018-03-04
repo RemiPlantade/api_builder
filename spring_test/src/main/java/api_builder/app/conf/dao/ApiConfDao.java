@@ -12,4 +12,5 @@ public interface ApiConfDao {
 	public void delete(int id);
 	public boolean exists(ApiConf c);
 	public ApiConf findByParamName(String paramName);
+	public ApiConf findByKey(String paramName);
 }

@@ -1,18 +1,13 @@
 package api_builder.app.conf;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.actuate.endpoint.Endpoint;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.security.web.util.matcher.RequestMatcher;
-
 import api_builder.app.conf.model.ApiConf;
 import api_builder.app.conf.service.ApiConfService;
 
@@ -21,9 +16,13 @@ import api_builder.app.conf.service.ApiConfService;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private ApiConfService apiService;
+	@Autowired 
+	private SecurityProperties securityProperties;
+
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		if (securityProperties.isRequireSsl()) http.requiresChannel().anyRequest().requiresSecure();
 		http
 		.authorizeRequests()
 		.antMatchers("/css/**").permitAll()
