@@ -81,4 +81,9 @@ public class ApiConfServiceImpl implements ApiConfService{
 		return apiconfDAO.findByKey(paramName);
 	}
 
+	@Override
+	public List<ApiConf> findAllModifiable() {
+		return this.apiconfDAO.findAllModifiable();
+	}
+
 }

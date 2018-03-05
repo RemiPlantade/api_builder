@@ -8,6 +8,7 @@ public interface ApiConfService {
 	public boolean save(ApiConf c);
 	public void update(ApiConf c);
 	public List<ApiConf> findAll();
+	public List<ApiConf> findAllModifiable();
 	public ApiConf findById(int id);
 	public List<ApiConf> findByAttr(String attrName,String value);
 	public void delete(int id);
