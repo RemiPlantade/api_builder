@@ -94,4 +94,10 @@ public class ApiConfDAOImpl implements ApiConfDao{
 				.setParameter("paramKey", paramKey).getSingleResult();
 	}
 
+	@Override
+	public List<ApiConf> findAllModifiable() {
+		String hql = "FROM ApiConf as apiconf WHERE apiconf.modifiable = true";
+		return entityManager.createQuery(hql,ApiConf.class).getResultList();
+	}
+
 }

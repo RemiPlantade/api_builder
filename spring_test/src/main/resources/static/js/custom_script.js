@@ -58,42 +58,39 @@ $( document ).ready(function() {
 	});
 
 	$('#restart_button').click(function(){
-//		$.post("/refresh", function(data, status){
-//			console.log($(".modal"));
-//			$(".modal").addClass("is-active");
-//			tryLoadHomePage();
-//		});
+		$port = $(".serverPort").text();
+		$homeUrl = location.protocol+'//'+location.hostname + ":" +$port;
 		$.post("/restart", function(data, status){
 			console.log($(".modal"));
 			$(".modal").addClass("is-active");
-			tryLoadHomePage();
+			tryLoadHomePage($homeUrl);
 		});
 	});
 
-	function tryLoadHomePage(){
+	function tryLoadHomePage($homeUrl){
 		$.ajax({
-			url : '/',
+			url : $homeUrl,
 			type : 'HEAD',
 			success : function(json) {
-				window.location = '/';
+				window.location = $homeUrl;
 			},
 			error : function(xhr, textStatus, errorThrown ) {
 				if (textStatus == 'timeout') {
 					console.log("timeout");
 					setTimeout(function () {
-						tryLoadHomePage()
+						tryLoadHomePage($homeUrl)
 					}, 1000);
 				}            
 				if (xhr.status == 500) {
 					console.log("500");
 					setTimeout(function () {
-						tryLoadHomePage();
+						tryLoadHomePage($homeUrl);
 					}, 1000);
 
 				} else {
 					console.log("In else");
 					setTimeout(function () {
-						tryLoadHomePage();
+						tryLoadHomePage($homeUrl);
 					}, 1000);
 				}
 			}
