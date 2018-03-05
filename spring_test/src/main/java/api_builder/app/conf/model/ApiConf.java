@@ -18,6 +18,7 @@ public class ApiConf {
 	private String paramValue;
 	private String paramType;
 	private String paramKey;
+	private boolean modifiable;
 	
 	
 	public ApiConf() {
@@ -66,5 +67,15 @@ public class ApiConf {
 
 	public void setParamKey(String paramKey) {
 		this.paramKey = paramKey;
+	}
+
+	@Column(name="modifiable")
+	public boolean isModifiable() {
+		return modifiable;
+	}
+
+
+	public void setModifiable(boolean modifiable) {
+		this.modifiable = modifiable;
 	}
 }

@@ -13,4 +13,5 @@ public interface ApiConfDao {
 	public boolean exists(ApiConf c);
 	public ApiConf findByParamName(String paramName);
 	public ApiConf findByKey(String paramName);
+	public List<ApiConf> findAllModifiable();
 }
