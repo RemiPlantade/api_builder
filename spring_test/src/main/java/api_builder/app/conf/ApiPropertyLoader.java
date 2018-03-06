@@ -37,7 +37,7 @@ public class ApiPropertyLoader {
                 .driverClassName(DRIVER)
                 .build();
 		Connection connection = ds.getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM api_conf ORDER BY param_name ASC");
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM api_conf WHERE added = 1");
         ResultSet rs = preparedStatement.executeQuery();
 
         // Populate all properties into the property source

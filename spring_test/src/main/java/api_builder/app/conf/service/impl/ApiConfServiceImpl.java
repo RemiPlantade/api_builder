@@ -62,9 +62,9 @@ public class ApiConfServiceImpl implements ApiConfService{
 	}
 
 	@Override
-	public ApiConf findByParamName(String paramName) {
+	public ApiConf findByParamKey(String paramName) {
 		// TODO Auto-generated method stub
-		return apiconfDAO.findByParamName(paramName);
+		return apiconfDAO.findByParamKey(paramName);
 	}
 
 	@Override
