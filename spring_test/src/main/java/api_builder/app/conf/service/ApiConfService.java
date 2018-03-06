@@ -12,7 +12,7 @@ public interface ApiConfService {
 	public ApiConf findById(int id);
 	public List<ApiConf> findByAttr(String attrName,String value);
 	public void delete(int id);
-	public ApiConf findByParamName(String paramName);
+	public ApiConf findByParamKey(String paramName);
 	public ApiConf findByKey(String paramName);
 	public void updateConfFromWrapper(ApiConfWrapper apiConfWrapper);
 }

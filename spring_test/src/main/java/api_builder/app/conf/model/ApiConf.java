@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name="api_conf")
@@ -19,6 +18,8 @@ public class ApiConf {
 	private String paramType;
 	private String paramKey;
 	private boolean modifiable;
+	private boolean added;
+	private String paramCategory;
 	
 	
 	public ApiConf() {
@@ -77,5 +78,36 @@ public class ApiConf {
 
 	public void setModifiable(boolean modifiable) {
 		this.modifiable = modifiable;
+	}
+
+
+
+	@Column(name="param_category")
+	public String getParamCategory() {
+		return paramCategory;
+	}
+
+
+	public void setParamCategory(String paramCategory) {
+		this.paramCategory = paramCategory;
+	}
+	
+
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		return obj instanceof ApiConf 
+				&& ((ApiConf)obj).getParamKey().equals(this.getParamKey())
+				&&  ((ApiConf)obj).getParamKey().equals(this.getParamValue());
+	}
+
+	@Column(name="added")
+	public boolean isAdded() {
+		return added;
+	}
+
+
+	public void setAdded(boolean added) {
+		this.added = added;
 	}
 }
