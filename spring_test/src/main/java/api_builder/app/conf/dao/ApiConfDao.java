@@ -11,7 +11,7 @@ public interface ApiConfDao {
 	public List<ApiConf> findByAttr(String attrName,String value);
 	public void delete(int id);
 	public boolean exists(ApiConf c);
-	public ApiConf findByParamName(String paramName);
 	public ApiConf findByKey(String paramName);
 	public List<ApiConf> findAllModifiable();
+	public ApiConf findByParamKey(String paramName);
 }
