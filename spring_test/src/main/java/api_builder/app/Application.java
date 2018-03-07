@@ -89,19 +89,18 @@ public class Application {
 		return pspc;
 	}
 
-	@Bean
-	public WebMvcConfigurer corsConfigurer() {
-		return new WebMvcConfigurerAdapter() {
-			@Override
-			public void addCorsMappings(CorsRegistry registry) {
-				if(!actualServerPort.equals(previousServerPort)) {
-					System.out.println(">>>>>> Previous server Port : " + previousServerPort);
-					registry.addMapping("/").allowedOrigins("http://localhost:" + previousServerPort);
-					registry.addMapping("/").allowedOrigins("https://localhost:" + previousServerPort);
-				}
-			}
-		};
-	}
+//	@Bean
+//	public WebMvcConfigurer corsConfigurer() {
+//		return new WebMvcConfigurerAdapter() {
+//			@Override
+//			public void addCorsMappings(CorsRegistry registry) {
+//				if(!actualServerPort.equals(previousServerPort)) {
+//					System.out.println(">>>>>> Previous server Port : " + previousServerPort);
+//					registry.addMapping("/").allowedOrigins("http://localhost:" + previousServerPort,"https://localhost:" + previousServerPort);
+//				}
+//			}
+//		};
+//	}
 
 	@Bean
 	public EmbeddedServletContainerFactory servletContainer() {

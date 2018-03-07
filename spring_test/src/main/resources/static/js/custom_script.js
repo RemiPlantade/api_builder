@@ -58,42 +58,48 @@ $( document ).ready(function() {
 	});
 
 	$('#restart_button').click(function(){
-		$port = $(".serverPort").text();
+		$port = $("#serverPort").text();
 		$homeUrl = location.protocol+'//'+location.hostname + ":" +$port;
 		$.post("/restart", function(data, status){
-			console.log($(".modal"));
 			$(".modal").addClass("is-active");
-			tryLoadHomePage($homeUrl);
+			$nbTest = 10;
+			tryLoadHomePage($homeUrl,$nbTest);
+			//$(".modal").removeClass("is-active");
 		});
 	});
 
-	function tryLoadHomePage($homeUrl){
-		$.ajax({
-			url : $homeUrl,
-			type : 'HEAD',
-			success : function(json) {
-				window.location = $homeUrl;
-			},
-			error : function(xhr, textStatus, errorThrown ) {
-				if (textStatus == 'timeout') {
-					console.log("timeout");
-					setTimeout(function () {
-						tryLoadHomePage($homeUrl)
-					}, 1000);
-				}            
-				if (xhr.status == 500) {
-					console.log("500");
-					setTimeout(function () {
-						tryLoadHomePage($homeUrl);
-					}, 1000);
+	function tryLoadHomePage($homeUrl,$nbTest){
+		if($nbTest > 0){
+			$.ajax({
+				url : $homeUrl,
+				type : 'HEAD',
+				success : function(json) {
+					window.location = $homeUrl;
+				},
+				error : function(xhr, textStatus, errorThrown ) {
+					if (textStatus == 'timeout') {
+						console.log("timeout");
+						setTimeout(function () {
+							$nbTest = $nbTest-1;
+							tryLoadHomePage($homeUrl,$nbTest)
+						}, 1000);
+					}            
+					if (xhr.status == 500) {
+						console.log("500");
+						setTimeout(function () {
+							$nbTest = $nbTest-1;
+							tryLoadHomePage($homeUrl,$nbTest);
+						}, 1000);
 
-				} else {
-					console.log("In else");
-					setTimeout(function () {
-						tryLoadHomePage($homeUrl);
-					}, 1000);
+					} else {
+						console.log("In else");
+						setTimeout(function () {
+							$nbTest = $nbTest-1;
+							tryLoadHomePage($homeUrl,$nbTest);
+						}, 1000);
+					}
 				}
-			}
-		});
+			});
+		}
 	}
 });
