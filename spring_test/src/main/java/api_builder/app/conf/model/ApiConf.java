@@ -20,6 +20,7 @@ public class ApiConf {
 	private boolean modifiable;
 	private boolean added;
 	private String paramCategory;
+	private String description;
 	
 	
 	public ApiConf() {
@@ -109,5 +110,15 @@ public class ApiConf {
 
 	public void setAdded(boolean added) {
 		this.added = added;
+	}
+
+	@Column(name="description")
+	public String getDescription() {
+		return description;
+	}
+
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 }
