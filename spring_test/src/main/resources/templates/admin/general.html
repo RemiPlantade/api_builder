@@ -37,7 +37,8 @@
 															<span th:text="${apiConf.paramName}"></span>
 														</div>
 														<div class="level-left">
-															<figure class="image is-24x24 tooltip" th:attr="data-tooltip=${apiConf.description}">
+															<figure class="image is-24x24 tooltip"
+																th:attr="data-tooltip=${apiConf.description}">
 																<img src="/images/help_icon.png">
 															</figure>
 														</div>
@@ -68,7 +69,6 @@
 											</tr>
 										</tbody>
 									</table>
-
 								</div>
 							</div>
 							<div class="column is-centered">
@@ -90,7 +90,8 @@
 															<span th:text="${apiConf.paramName}"></span>
 														</div>
 														<div class="level-left">
-															<figure class="image is-24x24 tooltip" th:attr="data-tooltip=${apiConf.description}">
+															<figure class="image is-24x24 tooltip"
+																th:attr="data-tooltip=${apiConf.description}">
 																<img src="/images/help_icon.png">
 															</figure>
 														</div>
@@ -145,7 +146,8 @@
 															<span th:text="${apiConf.paramName}"></span>
 														</div>
 														<div class="level-left">
-															<figure class="image is-24x24 tooltip" th:attr="data-tooltip=${apiConf.description}">
+															<figure class="image is-24x24 tooltip"
+																th:attr="data-tooltip=${apiConf.description}">
 																<img src="/images/help_icon.png">
 															</figure>
 														</div>
@@ -197,7 +199,171 @@
 															<span th:text="${apiConf.paramName}"></span>
 														</div>
 														<div class="level-left">
-															<figure class="image is-24x24 tooltip" th:attr="data-tooltip=${apiConf.description}" >
+															<figure class="image is-24x24 tooltip"
+																th:attr="data-tooltip=${apiConf.description}">
+																<img src="/images/help_icon.png">
+															</figure>
+														</div>
+
+													</div>
+												</td>
+												<td th:if="${apiConf.paramType == 'text'}"><input
+													type="text" class="input is-info"
+													th:field="*{apiConfList[__${rowStat.index}__].paramValue}"
+													th:value="${apiConf.paramValue}" /></td>
+												<td th:if="${apiConf.paramType == 'number'}"><span
+													class="serverPort"
+													th:if="*{apiConfList[__${rowStat.index}__].paramKey} == 'server.port'"
+													style="display: none;"
+													th:text="*{apiConfList[__${rowStat.index}__].paramValue}"></span>
+													<input type="number" class="input is-info"
+													th:field="*{apiConfList[__${rowStat.index}__].paramValue}"
+													th:value="${apiConf.paramValue}" /></td>
+												<td th:if="${apiConf.paramType == 'boolean'}">
+													<div class="select is-info">
+														<select
+															th:field="*{apiConfList[__${rowStat.index}__].paramValue}">
+															<option th:text="yes" th:value="true"></option>
+															<option th:text="no" th:value="false"></option>
+														</select>
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+
+								</div>
+							</div>
+							<div class="column is-centered">
+								<h1 class="title is-5 has-text-centered">Security</h1>
+								<div class="field ">
+									<table class="table is-fullwidth">
+										<thead>
+											<tr>
+												<th>Name</th>
+												<th>Value</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="apiConf,rowStat : *{apiConfList}"
+												th:if="${apiConf.paramCategory} == 'security'">
+												<td>
+													<div class="level">
+														<div class="level-left">
+															<span th:text="${apiConf.paramName}"></span>
+														</div>
+														<div class="level-left">
+															<figure class="image is-24x24 tooltip"
+																th:attr="data-tooltip=${apiConf.description}">
+																<img src="/images/help_icon.png">
+															</figure>
+														</div>
+
+													</div>
+												</td>
+												<td th:if="${apiConf.paramType == 'text'}"><input
+													type="text" class="input is-info"
+													th:field="*{apiConfList[__${rowStat.index}__].paramValue}"
+													th:value="${apiConf.paramValue}" /></td>
+												<td th:if="${apiConf.paramType == 'number'}"><span
+													class="serverPort"
+													th:if="*{apiConfList[__${rowStat.index}__].paramKey} == 'server.port'"
+													style="display: none;"
+													th:text="*{apiConfList[__${rowStat.index}__].paramValue}"></span>
+													<input type="number" class="input is-info"
+													th:field="*{apiConfList[__${rowStat.index}__].paramValue}"
+													th:value="${apiConf.paramValue}" /></td>
+												<td th:if="${apiConf.paramType == 'boolean'}">
+													<div class="select is-info">
+														<select
+															th:field="*{apiConfList[__${rowStat.index}__].paramValue}">
+															<option th:text="yes" th:value="true"></option>
+															<option th:text="no" th:value="false"></option>
+														</select>
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						<div class="columns">
+
+							<div class="column is-centered">
+								<h1 class="title is-5 has-text-centered">Web Server</h1>
+								<div class="field ">
+									<table class="table is-fullwidth">
+										<thead>
+											<tr>
+												<th>Name</th>
+												<th>Value</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="apiConf,rowStat : *{apiConfList}"
+												th:if="${apiConf.paramCategory} == 'web_server'">
+												<td>
+													<div class="level">
+														<div class="level-left">
+															<span th:text="${apiConf.paramName}"></span>
+														</div>
+														<div class="level-left">
+															<figure class="image is-24x24 tooltip"
+																th:attr="data-tooltip=${apiConf.description}">
+																<img src="/images/help_icon.png">
+															</figure>
+														</div>
+
+													</div>
+												</td>
+												<td th:if="${apiConf.paramType == 'text'}"><input
+													type="text" class="input is-info"
+													th:field="*{apiConfList[__${rowStat.index}__].paramValue}"
+													th:value="${apiConf.paramValue}" /></td>
+												<td th:if="${apiConf.paramType == 'number'}"><span
+													class="serverPort"
+													th:if="*{apiConfList[__${rowStat.index}__].paramKey} == 'server.port'"
+													style="display: none;"
+													th:text="*{apiConfList[__${rowStat.index}__].paramValue}"></span>
+													<input type="number" class="input is-info"
+													th:field="*{apiConfList[__${rowStat.index}__].paramValue}"
+													th:value="${apiConf.paramValue}" /></td>
+												<td th:if="${apiConf.paramType == 'boolean'}">
+													<div class="select is-info">
+														<select
+															th:field="*{apiConfList[__${rowStat.index}__].paramValue}">
+															<option th:text="yes" th:value="true"></option>
+															<option th:text="no" th:value="false"></option>
+														</select>
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<div class="column is-centered">
+								<h1 class="title is-5 has-text-centered">Datasource</h1>
+								<div class="field ">
+									<table class="table is-fullwidth">
+										<thead>
+											<tr>
+												<th>Name</th>
+												<th>Value</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="apiConf,rowStat : *{apiConfList}"
+												th:if="${apiConf.paramCategory} == 'datasource'">
+												<td>
+													<div class="level">
+														<div class="level-left">
+															<span th:text="${apiConf.paramName}"></span>
+														</div>
+														<div class="level-left">
+															<figure class="image is-24x24 tooltip"
+																th:attr="data-tooltip=${apiConf.description}">
 																<img src="/images/help_icon.png">
 															</figure>
 														</div>
@@ -260,7 +426,6 @@
 										</figure>
 									</div>
 								</div>
-
 							</div>
 						</div>
 					</div>
