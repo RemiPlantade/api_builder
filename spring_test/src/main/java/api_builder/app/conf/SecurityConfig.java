@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import api_builder.app.conf.model.ApiConf;
 import api_builder.app.conf.service.ApiConfService;
@@ -17,9 +18,8 @@ import api_builder.app.conf.service.ApiConfService;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private ApiConfService apiService;
-//	@Autowired 
-//	private SecurityProperties securityProperties;
-	@Value("${security.require-ssl}")
+
+	@Value("${server.ssl.enabled}")
 	private String requireSSL;
 
 	@Override
@@ -28,10 +28,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		if (requireSSL.equals("true")) { 
 			http.requiresChannel().anyRequest().requiresSecure();
 		}
+
+		http.sessionManagement()
+        .sessionCreationPolicy(SessionCreationPolicy.NEVER);
+
 		http
 		.authorizeRequests()
 		.antMatchers("/css/**").permitAll()
 		.antMatchers("/images/**").permitAll()
+		.antMatchers("/js/**").permitAll()
 		.antMatchers("/admin/**").hasRole("ADMIN")
 		.antMatchers("/actuator/**").hasRole("ADMIN")
 		.and()
@@ -65,7 +70,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 						String adminPassword = 
 								adminPasswordConf.getParamValue() != null 
 								&& !adminPasswordConf.getParamValue().equals("") ? 
-										adminPasswordConf.getParamValue() : "defaultPassword";
+										adminPasswordConf.getParamValue() : "admin";
 
 										auth.inMemoryAuthentication().withUser(adminUsername).password(adminPassword).roles("ADMIN");
 	}

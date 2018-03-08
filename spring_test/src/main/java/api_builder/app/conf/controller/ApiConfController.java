@@ -26,69 +26,30 @@ public class ApiConfController {
 
 	@ModelAttribute("apiConfWrapper")
 	public ApiConfWrapper addNewRapperConf() {
-		return getApiConfWrapper();
+		return apiConfService.getApiConfWrapper();
 	}
 
 	@GetMapping("/admin/general")
-	public String displayUserConf(Model model) {
-		model.addAttribute("apiConfWrapper", getApiConfWrapper());
-		model.addAttribute("serverPort", apiConfService.findByKey("server.port"));
+	public String displayApiConf(Model model) {
+		model.addAttribute("apiConfWrapper", apiConfService.getApiConfWrapper());
+		model.addAttribute("serverPort", apiConfService.findByKey("server.port").getParamValue());
+		model.addAttribute("httpsEnabled", apiConfService.findByKey("server.ssl.enabled").getParamValue());
 		return "admin/general";
 	}
 
 
 	@PostMapping(value = "/admin/general")
-	public String addUser(HttpSession session, @ModelAttribute("apiConfWrapper") ApiConfWrapper apiConfWrapper, Model model, SessionStatus sa) {
-		ApiConf serverPort = updateServerPort(apiConfWrapper);
-		saveActualPorts(apiConfWrapper);
+	public String updateConf(HttpSession session, @ModelAttribute("apiConfWrapper") ApiConfWrapper apiConfWrapper, Model model, SessionStatus sa) {
+		ApiConf serverPort = apiConfService.updateServerPort(apiConfWrapper);
+		apiConfService.saveActualPorts(apiConfWrapper);
+		apiConfService.manageHTTPSConfig(apiConfWrapper);
 		apiConfService.updateConfFromWrapper(apiConfWrapper);
 		session.removeAttribute("apiConfWrapper");
 		sa.setComplete();
-		model.addAttribute("serverPort",serverPort);
-		return "admin/general";
+		model.addAttribute("serverPort",serverPort.getParamValue());
+		model.addAttribute("httpsEnabled", apiConfService.findByKey("server.ssl.enabled").getParamValue());
+		return "redirect:/admin/general";
 	}
 
-	private ApiConf updateServerPort(ApiConfWrapper apiConfWrapper) {
-		ApiConf httpsEnable = null;
-		ApiConf newHttpPort = null;
-		ApiConf newHttpsPort = null;
-		ApiConf serverPort = apiConfService.findByKey("server.port");
-
-		for (ApiConf apiConf : apiConfWrapper.getApiConfList()) {
-			httpsEnable = apiConf.getParamKey().equals("server.ssl.enabled") ? apiConf : httpsEnable;
-			newHttpPort = apiConf.getParamKey().equals("api.port.http") ? apiConf : newHttpPort;
-			newHttpsPort = apiConf.getParamKey().equals("api.port.https") ? apiConf : newHttpsPort;
-		}
-		if(httpsEnable.getParamValue().equals("true")) {
-			serverPort.setParamValue(newHttpsPort.getParamValue());
-		}else if(httpsEnable.getParamValue().equals("false")) {
-			serverPort.setParamValue(newHttpPort.getParamValue());
-		}
-		apiConfWrapper.getApiConfList().add(serverPort);
-		return serverPort;
-		
-	}
-
-	private void saveActualPorts(ApiConfWrapper apiConfWrapper) {
-		// Get actual port values
-		String actualServerPort = apiConfService.findByParamKey("server.port").getParamValue();
-		// Get new port values
-		ApiConf newServerPort = null;
-		for (ApiConf apiConf : apiConfWrapper.getApiConfList()) {
-			newServerPort = apiConf.getParamKey().equals("server.port") ? apiConf : newServerPort;
-		}
-		// If they are changed on form update old port value with actual
-		if(!newServerPort.equals(actualServerPort)) {
-			ApiConf prevServerPort = apiConfService.findByKey("previous.api.port");
-			prevServerPort.setParamValue(actualServerPort);
-			apiConfWrapper.getApiConfList().add(prevServerPort);
-		}
-
-	}
-
-	public ApiConfWrapper getApiConfWrapper() {
-		ApiConfWrapper apiconfWrapper = new ApiConfWrapper();
-		apiconfWrapper.setApiConfList(apiConfService.findAllModifiable());
-		return apiconfWrapper;
-	}
+	
 }

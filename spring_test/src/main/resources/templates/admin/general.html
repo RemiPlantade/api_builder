@@ -15,7 +15,9 @@
 		<div class="box">
 			<div class="columns is-centered">
 				<div class="column is-10 is-centered">
-				<span style="display:none;" th:text="${serverPort.paramValue}" id="serverPort"></span>
+					<span style="display: none;" th:text="${serverPort}"
+						id="serverPort"></span> <span style="display: none;"
+						th:text="${httpsEnabled}" id="httpsEnabled"></span>
 					<form name="login" th:action="@{/admin/general}" method="post"
 						th:object="${apiConfWrapper}">
 						<div class="columns">
@@ -50,8 +52,8 @@
 													type="text" class="input is-info"
 													th:field="*{apiConfList[__${rowStat.index}__].paramValue}"
 													th:value="${apiConf.paramValue}" /></td>
-												<td th:if="${apiConf.paramType == 'number'}">
-													<input type="number" class="input is-info"
+												<td th:if="${apiConf.paramType == 'number'}"><input
+													type="number" class="input is-info"
 													th:field="*{apiConfList[__${rowStat.index}__].paramValue}"
 													th:value="${apiConf.paramValue}" /></td>
 												<td th:if="${apiConf.paramType == 'boolean'}">
@@ -99,8 +101,8 @@
 													type="text" class="input is-info"
 													th:field="*{apiConfList[__${rowStat.index}__].paramValue}"
 													th:value="${apiConf.paramValue}" /></td>
-												<td th:if="${apiConf.paramType == 'number'}">
-													<input type="number" class="input is-info"
+												<td th:if="${apiConf.paramType == 'number'}"><input
+													type="number" class="input is-info"
 													th:field="*{apiConfList[__${rowStat.index}__].paramValue}"
 													th:value="${apiConf.paramValue}" /></td>
 												<td th:if="${apiConf.paramType == 'boolean'}">
@@ -151,8 +153,8 @@
 													type="text" class="input is-info"
 													th:field="*{apiConfList[__${rowStat.index}__].paramValue}"
 													th:value="${apiConf.paramValue}" /></td>
-												<td th:if="${apiConf.paramType == 'number'}">
-													<input type="number" class="input is-info"
+												<td th:if="${apiConf.paramType == 'number'}"><input
+													type="number" class="input is-info"
 													th:field="*{apiConfList[__${rowStat.index}__].paramValue}"
 													th:value="${apiConf.paramValue}" /></td>
 												<td th:if="${apiConf.paramType == 'boolean'}">
@@ -200,8 +202,8 @@
 													type="text" class="input is-info"
 													th:field="*{apiConfList[__${rowStat.index}__].paramValue}"
 													th:value="${apiConf.paramValue}" /></td>
-												<td th:if="${apiConf.paramType == 'number'}">
-													<input type="number" class="input is-info"
+												<td th:if="${apiConf.paramType == 'number'}"><input
+													type="number" class="input is-info"
 													th:field="*{apiConfList[__${rowStat.index}__].paramValue}"
 													th:value="${apiConf.paramValue}" /></td>
 												<td th:if="${apiConf.paramType == 'boolean'}">
@@ -240,17 +242,11 @@
 						<div class="modal-background"></div>
 						<div class="modal-content" style="width: 350px;">
 							<div class="box box-background-color-white has-text-centered">
-								<div class="level">
-									<div class="level-left">
-										<h1 class="title is-5 has-text-centered">Server is
-											restarting ...</h1>
-									</div>
-									<div class="level-right">
-										<figure class="image is-64x64">
-											<img src="/images/ajax_loader.gif">
-										</figure>
-									</div>
-								</div>
+								<h1 class="title is-5 has-text-centered">Server is
+									restarting ...</h1>
+
+								<p id="restart_redirect_modal"></p>
+
 							</div>
 						</div>
 					</div>
@@ -258,6 +254,5 @@
 			</div>
 		</div>
 	</div>
-
 </body>
 </html>

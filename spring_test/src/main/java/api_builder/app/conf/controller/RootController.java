@@ -27,4 +27,9 @@ public class RootController {
 	public String displayAdminHome() {
 		return "admin/admin";
 	}
+	
+	@GetMapping("/error")
+	public String displayError() {
+		return "error";
+	}
 }

@@ -28,6 +28,10 @@ $( document ).ready(function() {
 			$('.chkbx_deletion:enabled').prop('checked', false);
 		}
 	});
+	
+	$('#linkToNewPage').click(function(){
+		window.top.close();
+	});
 
 	function selectGroup() {
 		$("select.groupSelect > option").each(function() {
@@ -58,13 +62,19 @@ $( document ).ready(function() {
 	});
 
 	$('#restart_button').click(function(){
+		$newProtocol = "http:";
+		if($("#httpsEnabled").text() == "true"){
+			$newProtocol = "https:";
+		}
 		$port = $("#serverPort").text();
-		$homeUrl = location.protocol+'//'+location.hostname + ":" +$port;
+		$homeUrl = $newProtocol + '//' + location.hostname + ":" +$port;
+		console.log($homeUrl);
 		$.post("/restart", function(data, status){
 			$(".modal").addClass("is-active");
-			$nbTest = 10;
-			tryLoadHomePage($homeUrl,$nbTest);
+//			$nbTest = 10;
+//			tryLoadHomePage($homeUrl,$nbTest);
 			//$(".modal").removeClass("is-active");
+			$("#restart_redirect_modal").append('Home page will be available in few seconds on url : <a id="linkToNewPage" href="' + $homeUrl + '" target="blank">' + $homeUrl +'</a>');
 		});
 	});
 
@@ -74,7 +84,9 @@ $( document ).ready(function() {
 				url : $homeUrl,
 				type : 'HEAD',
 				success : function(json) {
-					window.location = $homeUrl;
+					document.cookie = 'JSESSIONID=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+					$("#restart_redirect_modal").append('The page is now available on url : <a href="' + $homeUrl + '" target="blank">' + $homeUrl +'</a>');
+					//window.location = $homeUrl;
 				},
 				error : function(xhr, textStatus, errorThrown ) {
 					if (textStatus == 'timeout') {
@@ -101,5 +113,6 @@ $( document ).ready(function() {
 				}
 			});
 		}
+		//window.location = $homeUrl;
 	}
 });

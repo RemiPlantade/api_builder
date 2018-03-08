@@ -15,4 +15,8 @@ public interface ApiConfService {
 	public ApiConf findByParamKey(String paramName);
 	public ApiConf findByKey(String paramName);
 	public void updateConfFromWrapper(ApiConfWrapper apiConfWrapper);
+	public ApiConf updateServerPort(ApiConfWrapper apiConfWrapper);
+	public void saveActualPorts(ApiConfWrapper apiConfWrapper);
+	public ApiConfWrapper getApiConfWrapper();
+	public void manageHTTPSConfig(ApiConfWrapper apiConfWrapper);
 }

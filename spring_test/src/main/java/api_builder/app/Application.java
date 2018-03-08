@@ -40,7 +40,7 @@ import nz.net.ultraq.thymeleaf.LayoutDialect;
 @SpringBootApplication
 public class Application {
 
-	@Value("${security.require-ssl}")
+	@Value("${server.ssl.enabled}")
 	private String requireSSL;
 
 	@Value("${server.port}")
@@ -48,6 +48,12 @@ public class Application {
 
 	@Value("${previous.api.port}")
 	private String previousServerPort;
+
+	@Value("${api.port.http}")
+	private String userHttpPort;
+
+	@Value("${api.port.https}")
+	private String userhttpsPort;
 
 
 	public static void main(String[] args) {
@@ -81,7 +87,7 @@ public class Application {
 		MutablePropertySources propertySources = new MutablePropertySources();
 		ApiPropertyLoader propLoader = ApiPropertyLoader.getInstance();
 
-		final PropertiesPropertySource propertySource = new PropertiesPropertySource("pspc", propLoader.getAllPropertiesFromDatabase());
+		final PropertiesPropertySource propertySource = new PropertiesPropertySource("dataBasePropertySource", propLoader.getAllPropertiesFromDatabase());
 		propertySources.addFirst(propertySource);
 		pspc.setPropertySources(propertySources);
 
@@ -89,50 +95,58 @@ public class Application {
 		return pspc;
 	}
 
-//	@Bean
-//	public WebMvcConfigurer corsConfigurer() {
-//		return new WebMvcConfigurerAdapter() {
-//			@Override
-//			public void addCorsMappings(CorsRegistry registry) {
-//				if(!actualServerPort.equals(previousServerPort)) {
-//					System.out.println(">>>>>> Previous server Port : " + previousServerPort);
-//					registry.addMapping("/").allowedOrigins("http://localhost:" + previousServerPort,"https://localhost:" + previousServerPort);
-//				}
-//			}
-//		};
-//	}
+	@Bean
+	public WebMvcConfigurer corsConfigurer() {
+		return new WebMvcConfigurerAdapter() {
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				if(!actualServerPort.equals(previousServerPort)) {
+					System.out.println(">>>>>> Previous server Port : " + previousServerPort);
+					registry.addMapping("/").allowedOrigins("http://localhost:" + previousServerPort,"https://localhost:" + previousServerPort);
+				}
+			}
+		};
+	}
 
 	@Bean
 	public EmbeddedServletContainerFactory servletContainer() {
 		TomcatEmbeddedServletContainerFactory tomcat = new TomcatEmbeddedServletContainerFactory() {
 			@Override
 			protected void postProcessContext(Context context) {
+
+
+				SecurityConstraint securityConstraint = new SecurityConstraint();
 				if(requireSSL.equals("true")) {
-					System.out.println(">>>>> HTTPS Enabled");
-					SecurityConstraint securityConstraint = new SecurityConstraint();
 					securityConstraint.setUserConstraint("CONFIDENTIAL");
-					SecurityCollection collection = new SecurityCollection();
-					collection.addPattern("/*");
-					securityConstraint.addCollection(collection);
-					context.addConstraint(securityConstraint);
 				}else {
-					System.out.println(">>>>> HTTPS not enabled");
+					securityConstraint.setUserConstraint("NONE");
 				}
+				SecurityCollection collection = new SecurityCollection();
+				collection.addPattern("/*");
+				securityConstraint.addCollection(collection);
+				context.addConstraint(securityConstraint);
+
 			}
 
 		};
-		if(requireSSL.equals("true")) {
-			tomcat.addAdditionalTomcatConnectors(initiateHttpConnector());
-		}
+		tomcat.addAdditionalTomcatConnectors(initiateHttpConnector());
 		return tomcat;
 	}
 
 	private Connector initiateHttpConnector() {
 		Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
-		connector.setScheme("http");
-		connector.setPort(8080);
-		connector.setSecure(false);
-		connector.setRedirectPort(8443);
+		if(requireSSL.equals("true")) {
+			connector.setScheme("http");
+			connector.setSecure(false);
+			connector.setPort(Integer.parseInt(userHttpPort));
+			connector.setRedirectPort(Integer.parseInt(userhttpsPort));
+		}else {
+			connector.setScheme("http");
+			connector.setSecure(false);
+			connector.setPort(Integer.parseInt(userhttpsPort));
+			connector.setRedirectPort(Integer.parseInt(userHttpPort));
+
+		}
 
 		return connector;
 	}

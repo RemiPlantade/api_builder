@@ -37,7 +37,8 @@ public class ApiConfDAOImpl implements ApiConfDao{
 		ApiConf original = findById(c.getId());
 		original.setParamName(c.getParamName());
 		original.setParamValue(c.getParamValue());
-		original.setParamType(c.getParamType());
+		original.setAdded(c.isAdded());
+		original.setDescription(c.getDescription());		
 		entityManager.merge(original);
 		entityManager.persist(original);
 
