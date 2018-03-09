@@ -71,48 +71,7 @@ $( document ).ready(function() {
 		console.log($homeUrl);
 		$.post("/restart", function(data, status){
 			$(".modal").addClass("is-active");
-//			$nbTest = 10;
-//			tryLoadHomePage($homeUrl,$nbTest);
-			//$(".modal").removeClass("is-active");
 			$("#restart_redirect_modal").append('Home page will be available in few seconds on url : <a id="linkToNewPage" href="' + $homeUrl + '" target="blank">' + $homeUrl +'</a>');
 		});
 	});
-
-	function tryLoadHomePage($homeUrl,$nbTest){
-		if($nbTest > 0){
-			$.ajax({
-				url : $homeUrl,
-				type : 'HEAD',
-				success : function(json) {
-					document.cookie = 'JSESSIONID=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-					$("#restart_redirect_modal").append('The page is now available on url : <a href="' + $homeUrl + '" target="blank">' + $homeUrl +'</a>');
-					//window.location = $homeUrl;
-				},
-				error : function(xhr, textStatus, errorThrown ) {
-					if (textStatus == 'timeout') {
-						console.log("timeout");
-						setTimeout(function () {
-							$nbTest = $nbTest-1;
-							tryLoadHomePage($homeUrl,$nbTest)
-						}, 1000);
-					}            
-					if (xhr.status == 500) {
-						console.log("500");
-						setTimeout(function () {
-							$nbTest = $nbTest-1;
-							tryLoadHomePage($homeUrl,$nbTest);
-						}, 1000);
-
-					} else {
-						console.log("In else");
-						setTimeout(function () {
-							$nbTest = $nbTest-1;
-							tryLoadHomePage($homeUrl,$nbTest);
-						}, 1000);
-					}
-				}
-			});
-		}
-		//window.location = $homeUrl;
-	}
 });
