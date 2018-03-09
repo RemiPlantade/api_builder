@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import api_builder.app.conf.dao.ApiConfDao;
 import api_builder.app.conf.model.ApiConf;
@@ -12,39 +13,30 @@ import api_builder.app.conf.model.form.ApiConfWrapper;
 import api_builder.app.conf.service.ApiConfService;
 
 @Service
+@Transactional
 public class ApiConfServiceImpl implements ApiConfService{
 
 	@Autowired
 	private ApiConfDao apiconfDAO;
 
 	@Override
-	public synchronized boolean save(ApiConf c) {
-		if (apiconfDAO.exists(c)) {
-			return false;
-		} else {
+	public void save(ApiConf c) {
 			apiconfDAO.save(c);
-			return true;
-		}
 	}
 
 	@Override
 	public void update(ApiConf c) {
-		this.apiconfDAO.update(c);
+		this.apiconfDAO.save(c);
 	}
 
 	@Override
 	public List<ApiConf> findAll() {
-		return this.apiconfDAO.findAll();
+		return (List<ApiConf>) this.apiconfDAO.findAll();
 	}
 
 	@Override
 	public ApiConf findById(int id) {
-		return this.apiconfDAO.findById(id);
-	}
-
-	@Override
-	public List<ApiConf> findByAttr(String attrName, String value) {
-		return this.apiconfDAO.findByAttr(attrName, value);
+		return this.apiconfDAO.findOne(id);
 	}
 
 	@Override
@@ -64,14 +56,13 @@ public class ApiConfServiceImpl implements ApiConfService{
 	@Override
 	public ApiConf findByParamKey(String paramName) {
 		// TODO Auto-generated method stub
-		return apiconfDAO.findByParamKey(paramName);
+		return apiconfDAO.findByKey(paramName);
 	}
 
 	@Override
 	public void updateConfFromWrapper(ApiConfWrapper apiConfWrapper) {
 		for (ApiConf apiConf : apiConfWrapper.getApiConfList()) {
-			System.out.println("Update Conf : " + apiConf.getParamKey() + " = " + apiConf.getParamValue() + " added : " + apiConf.isAdded());
-			apiconfDAO.update(apiConf);
+			apiconfDAO.save(apiConf);
 		}
 
 	}

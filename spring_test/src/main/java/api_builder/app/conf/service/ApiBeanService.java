@@ -5,7 +5,7 @@ import java.util.List;
 import api_builder.app.conf.model.ApiBean;
 import api_builder.app.conf.model.form.ApiBeanWrapper;
 public interface ApiBeanService {
-	public boolean save(ApiBean c);
+	public void save(ApiBean c);
 	public void update(ApiBean c);
 	public List<ApiBean> findAll();
 	public ApiBean findById(int id);

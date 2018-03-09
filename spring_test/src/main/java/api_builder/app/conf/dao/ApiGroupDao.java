@@ -1,17 +1,17 @@
 package api_builder.app.conf.dao;
 
-import java.util.List;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import api_builder.app.conf.model.ApiGroup;
 
-public interface ApiGroupDao {
-	public ApiGroup save(ApiGroup c);
-	public void update(ApiGroup c);
-	public List<ApiGroup> findAll();
-	public ApiGroup findById(int id);
-	public List<ApiGroup> findByAttr(String attrName,String value);
-	public void delete(int id);
-	public boolean exists(ApiGroup c);
-	public ApiGroup findByName(String name);
-	public void updateById(ApiGroup group, Integer id);
+@Transactional("tm2")
+@Repository
+public interface ApiGroupDao extends CrudRepository<ApiGroup, Integer>{
+	
+	@Query("SELECT p FROM ApiGroup p WHERE name = :name")
+	public ApiGroup findByName(@Param("name")String name);
 }

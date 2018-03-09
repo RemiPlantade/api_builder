@@ -16,48 +16,39 @@ import api_builder.app.conf.model.form.ApiGroupPermWrapper;
 import api_builder.app.conf.service.ApiGroupPermService;
 
 @Service
+@Transactional
 public class ApiGroupPermServiceImpl implements ApiGroupPermService{
-	
+
 	@Autowired
 	private ApiGroupPermDao apiGroupPermDAO;
-	
+
 	@Autowired
 	private ApiBeanDao entityDAO;
-		
+
 	@Override
-	public synchronized boolean save(ApiGroupPerm c) {
-		if (apiGroupPermDAO.exists(c)) {
-            return false;
-        } else {
-        	apiGroupPermDAO.save(c);
-            return true;
-        }
+	public void save(ApiGroupPerm c) {
+		apiGroupPermDAO.save(c);
 	}
 
 	@Override
 	public void update(ApiGroupPerm c) {
-		this.apiGroupPermDAO.update(c);
+		this.apiGroupPermDAO.save(c);
 	}
 
 	@Override
 	public List<ApiGroupPerm> findAll() {
-		return this.apiGroupPermDAO.findAll();
+		return (List<ApiGroupPerm>) this.apiGroupPermDAO.findAll();
 	}
 
 	@Override
 	public ApiGroupPerm findById(int id) {
-		return this.apiGroupPermDAO.findById(id);
-	}
-
-	@Override
-	public List<ApiGroupPerm> findByAttr(String attrName, String value) {
-		return this.apiGroupPermDAO.findByAttr(attrName, value);
+		return this.apiGroupPermDAO.findOne(id);
 	}
 
 	@Override
 	public void delete(int id) {
 		this.apiGroupPermDAO.delete(id);
-		
+
 	}
 
 	public ApiGroupPermDao getCondDAO() {
@@ -71,9 +62,9 @@ public class ApiGroupPermServiceImpl implements ApiGroupPermService{
 	@Override
 	public void updatePermFromWrapper(ApiGroupPermWrapper apiGroupPermWrapper) {
 		for(ApiGroupPerm groupPerm : apiGroupPermWrapper.getGroupPermList()) {
-			apiGroupPermDAO.update(groupPerm);
+			apiGroupPermDAO.save(groupPerm);
 		}
-		
+
 	}
 	@Transactional("tm2")
 	@Override
@@ -83,7 +74,7 @@ public class ApiGroupPermServiceImpl implements ApiGroupPermService{
 
 	@Override
 	public void genDefaultPerm(ApiGroup apiGroup) {
-		List<ApiBean> entities = entityDAO.findAll();
+		List<ApiBean> entities = (List<ApiBean>) entityDAO.findAll();
 		for (ApiBean entityConf : entities) {
 			ApiGroupPerm groupPerm = new ApiGroupPerm();
 			groupPerm.setApiBean(entityConf);

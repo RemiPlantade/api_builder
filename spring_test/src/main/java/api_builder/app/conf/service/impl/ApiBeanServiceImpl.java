@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import api_builder.app.conf.dao.ApiBeanDao;
 import api_builder.app.conf.model.ApiBean;
@@ -13,34 +14,30 @@ import api_builder.app.conf.model.form.ApiBeanWrapper;
 import api_builder.app.conf.service.ApiBeanService;
 
 @Service
+@Transactional
 public class ApiBeanServiceImpl implements ApiBeanService{
 	
 	@Autowired
 	private ApiBeanDao entityconfDAO;
 	
 	@Override
-	public synchronized boolean save(ApiBean c) {
-		if (entityconfDAO.exists(c)) {
-            return false;
-        } else {
+	public void save(ApiBean c) {
         	entityconfDAO.save(c);
-            return true;
-        }
 	}
 
 	@Override
 	public void update(ApiBean c) {
-		this.entityconfDAO.update(c);
+		this.entityconfDAO.save(c);
 	}
 
 	@Override
 	public List<ApiBean> findAll() {
-		return this.entityconfDAO.findAll();
+		return (List<ApiBean>) this.entityconfDAO.findAll();
 	}
 
 	@Override
 	public ApiBean findById(int id) {
-		return this.entityconfDAO.findById(id);
+		return this.entityconfDAO.findOne(id);
 	}
 
 	@Override
@@ -65,7 +62,7 @@ public class ApiBeanServiceImpl implements ApiBeanService{
 	@Override
 	public void updateGroupFromWrapper(ApiBeanWrapper beanWrapper) {
 		for(ApiBean apiBean : beanWrapper.getBeanList()) {
-			entityconfDAO.update(apiBean);
+			entityconfDAO.save(apiBean);
 		}
 		
 	}

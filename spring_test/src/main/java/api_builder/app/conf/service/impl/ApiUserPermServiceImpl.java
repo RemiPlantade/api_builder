@@ -18,48 +18,39 @@ import api_builder.app.conf.model.form.ApiUserPermWrapper;
 import api_builder.app.conf.service.ApiUserPermService;
 
 @Service
+@Transactional
 public class ApiUserPermServiceImpl implements ApiUserPermService{
-	
+
 	@Autowired
 	private ApiUserPermDao apiUserPermDao;
-	
+
 	@Autowired
 	private ApiBeanDao entityDAO;
-	
+
 	@Override
-	public synchronized boolean save(ApiUserPerm c) {
-		if (apiUserPermDao.exists(c)) {
-            return false;
-        } else {
-        	apiUserPermDao.save(c);
-            return true;
-        }
+	public void save(ApiUserPerm c) {
+		apiUserPermDao.save(c);
 	}
 
 	@Override
 	public void update(ApiUserPerm c) {
-		this.apiUserPermDao.update(c);
+		this.apiUserPermDao.save(c);
 	}
 
 	@Override
 	public List<ApiUserPerm> findAll() {
-		return this.apiUserPermDao.findAll();
+		return (List<ApiUserPerm>) this.apiUserPermDao.findAll();
 	}
 
 	@Override
 	public ApiUserPerm findById(int id) {
-		return this.apiUserPermDao.findById(id);
-	}
-
-	@Override
-	public List<ApiUserPerm> findByAttr(String attrName, String value) {
-		return this.apiUserPermDao.findByAttr(attrName, value);
+		return this.apiUserPermDao.findOne(id);
 	}
 
 	@Override
 	public void delete(int id) {
 		this.apiUserPermDao.delete(id);
-		
+
 	}
 
 	public ApiUserPermDao getCondDAO() {
@@ -72,7 +63,7 @@ public class ApiUserPermServiceImpl implements ApiUserPermService{
 
 	@Override
 	public void genDefaultPerm(ApiUser user) {
-		List<ApiBean> entities = entityDAO.findAll();
+		List<ApiBean> entities = (List<ApiBean>) entityDAO.findAll();
 		for (ApiBean entityConf : entities) {
 			ApiUserPerm userPerm = new ApiUserPerm();
 			userPerm.setApiBean(entityConf);
@@ -95,9 +86,9 @@ public class ApiUserPermServiceImpl implements ApiUserPermService{
 	@Override
 	public void updatePermFromWrapper(ApiUserPermWrapper userPermWrapper) {
 		for(ApiUserPerm userPerm : userPermWrapper.getUserPermList()) {
-			apiUserPermDao.update(userPerm);
+			apiUserPermDao.save(userPerm);
 		}
-		
+
 	}
 
 }

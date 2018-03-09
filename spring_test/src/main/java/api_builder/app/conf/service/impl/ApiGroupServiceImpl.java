@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import api_builder.app.conf.dao.ApiGroupDao;
 import api_builder.app.conf.model.ApiGroup;
@@ -15,6 +16,7 @@ import api_builder.app.conf.service.ApiGroupService;
 import api_builder.app.conf.service.ApiUserPermService;
 
 @Service
+@Transactional
 public class ApiGroupServiceImpl implements ApiGroupService{
 	
 	@Autowired
@@ -24,13 +26,8 @@ public class ApiGroupServiceImpl implements ApiGroupService{
 	private ApiGroupPermService userGroupService;
 	
 	@Override
-	public synchronized boolean save(ApiGroup c) {
-		if (groupconfDAO.exists(c)) {
-            return false;
-        } else {
-        	generateDefaultPermissions(groupconfDAO.save(c));
-            return true;
-        }
+	public void save(ApiGroup c) {
+       	generateDefaultPermissions(groupconfDAO.save(c));
 	}
 
 	private void generateDefaultPermissions(ApiGroup apiGroup) {
@@ -40,22 +37,17 @@ public class ApiGroupServiceImpl implements ApiGroupService{
 
 	@Override
 	public void update(ApiGroup c) {
-		this.groupconfDAO.update(c);
+		this.groupconfDAO.save(c);
 	}
 
 	@Override
 	public List<ApiGroup> findAll() {
-		return this.groupconfDAO.findAll();
+		return (List<ApiGroup>) this.groupconfDAO.findAll();
 	}
 
 	@Override
 	public ApiGroup findById(int id) {
-		return this.groupconfDAO.findById(id);
-	}
-
-	@Override
-	public List<ApiGroup> findByAttr(String attrName, String value) {
-		return this.groupconfDAO.findByAttr(attrName, value);
+		return this.groupconfDAO.findOne(id);
 	}
 
 	@Override
@@ -76,12 +68,6 @@ public class ApiGroupServiceImpl implements ApiGroupService{
 	public ApiGroup findByName(String name) {
 		// TODO Auto-generated method stub
 		return groupconfDAO.findByName(name);
-	}
-
-	@Override
-	public void updateById(ApiGroup group, Integer id) {
-		this.groupconfDAO.updateById(group,id);
-		
 	}
 
 }

@@ -17,6 +17,7 @@ import api_builder.app.conf.service.ApiUserService;
 import api_builder.app.conf.service.ApiUserPermService;
 
 @Service
+@Transactional
 public class ApiUserServiceImpl implements ApiUserService{
 	
 	@Autowired
@@ -26,14 +27,8 @@ public class ApiUserServiceImpl implements ApiUserService{
 	private ApiUserPermService userPermService;
 	
 	@Override
-	@Transactional("tm2")
-	public boolean save(ApiUser c) {
-		if (apiUserDao.exists(c)) {
-            return false;
-        } else {
-        	generateDefaultPermissions(apiUserDao.save(c));
-            return true;
-        }
+	public void save(ApiUser c) {
+		generateDefaultPermissions(apiUserDao.save(c));
 	}
 
 	private void generateDefaultPermissions(ApiUser c) {
@@ -43,17 +38,12 @@ public class ApiUserServiceImpl implements ApiUserService{
 
 	@Override
 	public List<ApiUser> findAll() {
-		return this.apiUserDao.findAll();
+		return (List<ApiUser>) this.apiUserDao.findAll();
 	}
 
 	@Override
 	public ApiUser findById(int id) {
-		return this.apiUserDao.findById(id);
-	}
-
-	@Override
-	public List<ApiUser> findByAttr(String attrName, String value) {
-		return this.apiUserDao.findByAttr(attrName, value);
+		return this.apiUserDao.findOne(id);
 	}
 
 	@Override
@@ -84,7 +74,7 @@ public class ApiUserServiceImpl implements ApiUserService{
 
 	@Override
 	public void update(ApiUser user) {
-		apiUserDao.update(user);
+		apiUserDao.save(user);
 		
 	}
 }

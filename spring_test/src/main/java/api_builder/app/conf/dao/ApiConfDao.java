@@ -1,17 +1,22 @@
 package api_builder.app.conf.dao;
 
 import java.util.List;
+
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import api_builder.app.conf.model.ApiConf;
 
-public interface ApiConfDao {
-	public void save(ApiConf c);
-	public void update(ApiConf c);
-	public List<ApiConf> findAll();
-	public ApiConf findById(int id);
-	public List<ApiConf> findByAttr(String attrName,String value);
-	public void delete(int id);
-	public boolean exists(ApiConf c);
-	public ApiConf findByKey(String paramName);
+@Transactional("tm2")
+@Repository
+public interface ApiConfDao extends CrudRepository<ApiConf, Integer>{
+
+	@Query("SELECT p FROM ApiConf p WHERE paramKey = :key")
+	public ApiConf findByKey(@Param("key")String key);
+	
+	@Query("SELECT p FROM ApiConf p WHERE modifiable = 1")
 	public List<ApiConf> findAllModifiable();
-	public ApiConf findByParamKey(String paramName);
 }

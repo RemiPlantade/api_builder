@@ -58,7 +58,9 @@ public class ApiGroupController {
 		if (errors.hasErrors()) {
 			return "admin/groups";
 		}else {			
-			if(!groupService.save(group)) {
+			try{
+				groupService.save(group);
+			}catch(Exception e){
 				model.addAttribute("error_title","Group cannot be added");
 				model.addAttribute("error_message","Group with this name already exists.");
 				model.addAttribute("redirect_url","/admin/groups");

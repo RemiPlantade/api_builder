@@ -61,8 +61,10 @@ public class ApiUserController {
 		if (errors.hasErrors()) {
 			return "admin/users";
 		}else {
-			user.setToken(createToken());
-			if(!userService.save(user)) {
+			try{
+				user.setToken(createToken());
+				userService.save(user);
+			}catch(Exception e) {
 				model.addAttribute("error_title","User connot be added");
 				model.addAttribute("error_message","User with this mail OR username already exists.");
 				model.addAttribute("redirect_url","/admin/users");
@@ -138,6 +140,8 @@ public class ApiUserController {
 	
 	private UserForm createUserFormFromId(Integer id) {
 		ApiUser user = userService.findById(id);
+		
+		System.out.println("Yala :" + id + " user :" + user);
 		ApiUserPermWrapper userPerWrapper = new ApiUserPermWrapper();
 		userPerWrapper.setUserPermList(userPermService.findByUser(user));
 		UserForm userForm = new UserForm();
