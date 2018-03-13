@@ -64,80 +64,79 @@
 						<id>hbm2java</id>
 						<phase>install</phase>
 						<configuration>
-
 							<target>
 								<echo message="Start generating entities .." />
 								<taskdef name="hibernatetool" classname="org.hibernate.tool.ant.HibernateToolTask" />
 								<hibernatetool>
-									<jdbcconfiguration packagename="api_builder.bean"
+									<jdbcconfiguration packagename="api_builder.gen.bean"
 										detectmanytomany="true" configurationfile="src/hibernate.cfg.xml"
 										propertyfile="hibernate.properties" />
 									<!-- <hbm2java destdir="src/main/java" jdk5="true" ejb3="true" /> -->
-									<hbmtemplate destdir="src/main/java/api_builder/bean"
+									<hbmtemplate destdir="src/main/java/api_builder/gen/bean"
 										templateprefix="pojo/" template="pojo/Pojo.ftl" filepattern="{class-name}.java">
 										<property key="jdk5" value="true" />
 										<property key="ejb3" value="true" />
 									</hbmtemplate>
-									<hbmtemplate destdir="src/main/java/api_builder/controller"
+									<hbmtemplate destdir="src/main/java/api_builder/gen/controller"
 										templateprefix="pojo/" template="api/controller.ftl"
 										filepattern="{class-name}Controller.java">
-										<property key="apipackage" value="api_builder.controller" />
+										<property key="apipackage" value="api_builder.gen.controller" />
 										<property key="jdk5" value="true" />
 										<property key="ejb3" value="true" />
 									</hbmtemplate>
-									<hbmtemplate destdir="src/main/java/api_builder/dao"
+									<hbmtemplate destdir="src/main/java/api_builder/gen/dao"
 										templateprefix="pojo/" template="api/dao.ftl" filepattern="{class-name}Dao.java">
-										<property key="apipackage" value="api_builder.dao" />
+										<property key="apipackage" value="api_builder.gen.dao" />
 										<property key="jdk5" value="true" />
 										<property key="ejb3" value="true" />
 									</hbmtemplate>
-									<hbmtemplate destdir="src/main/java/api_builder/dao/impl"
+<!-- 									<hbmtemplate destdir="src/main/java/api_builder/gen/dao/impl"
 										templateprefix="pojo/" template="api/daoImpl.ftl" filepattern="{class-name}DaoImpl.java">
-										<property key="apipackage" value="api_builder.dao.impl" />
+										<property key="apipackage" value="api_builder.gen.dao.impl" />
 										<property key="jdk5" value="true" />
 										<property key="ejb3" value="true" />
-									</hbmtemplate>
-									<hbmtemplate destdir="src/main/java/api_builder/service"
+									</hbmtemplate> -->
+									<hbmtemplate destdir="src/main/java/api_builder/gen/service"
 										templateprefix="pojo/" template="api/service.ftl" filepattern="{class-name}Service.java">
-										<property key="apipackage" value="api_builder.service" />
+										<property key="apipackage" value="api_builder.gen.service" />
 										<property key="jdk5" value="true" />
 										<property key="ejb3" value="true" />
 									</hbmtemplate>
-									<hbmtemplate destdir="src/main/java/api_builder/service/impl"
+									<hbmtemplate destdir="src/main/java/api_builder/gen/service/impl"
 										templateprefix="pojo/" template="api/serviceImpl.ftl"
 										filepattern="{class-name}ServiceImpl.java">
 										<property key="jdk5" value="true" />
 										<property key="ejb3" value="true" />
-										<property key="apipackage" value="api_builder.service.impl" />
+										<property key="apipackage" value="api_builder.gen.service.impl" />
 									</hbmtemplate>
-									<hbmtemplate destdir="src/main/java/api_builder/jackson/serializer"
+									<hbmtemplate destdir="src/main/java/api_builder/gen/jackson/serializer"
 										templateprefix="pojo/" template="api/serializer.ftl"
 										filepattern="{class-name}Serializer.java">
 										<property key="jdk5" value="true" />
 										<property key="ejb3" value="true" />
-										<property key="apipackage" value="api_builder.jackson.serializer" />
+										<property key="apipackage" value="api_builder.gen.jackson.serializer" />
 									</hbmtemplate>
-									<hbmtemplate destdir="src/main/java/api_builder/jackson/"
+									<hbmtemplate destdir="src/main/java/api_builder/gen/jackson/"
 										templateprefix="pojo/" template="api/views_single.ftl"
 										filepattern="Views.java">
 										<property key="jdk5" value="true" />
 										<property key="ejb3" value="true" />
-										<property key="apipackage" value="api_builder.jackson" />
+										<property key="apipackage" value="api_builder.gen.jackson" />
 									</hbmtemplate>
-									<hbmtemplate destdir="src/main/java/api_builder/jackson/"
+									<hbmtemplate destdir="src/main/java/api_builder/gen/jackson/"
 										templateprefix="pojo/" template="api/customSerializer_single.ftl"
 										filepattern="CustomBeanSerializerModifier.java">
 										<property key="jdk5" value="true" />
 										<property key="ejb3" value="true" />
-										<property key="apipackage" value="api_builder.jackson" />
+										<property key="apipackage" value="api_builder.gen.jackson" />
 									</hbmtemplate>
-									<hbmtemplate destdir="src/main/java/api_builder/"
+<!-- 									<hbmtemplate destdir="src/main/java/api_builder/"
 										templateprefix="pojo/" template="api/application_single.ftl"
 										filepattern="Application.java">
 										<property key="jdk5" value="true" />
 										<property key="ejb3" value="true" />
 										<property key="apipackage" value="api_builder" />
-									</hbmtemplate>
+									</hbmtemplate> -->
 								</hibernatetool>
 								<echo message="End generating entities" />
 							</target>
@@ -205,7 +204,7 @@
 					<dependency>
 						<groupId>fr.aboucorp</groupId>
 						<artifactId>hibernate-tools</artifactId>
-						<version>6.1.1-SNAPSHOT</version>
+						<version>6.1.2-SNAPSHOT</version>
 					</dependency>
 				</dependencies>
 				<configuration></configuration>
@@ -259,7 +258,7 @@
 		<dependency>
 			<groupId>fr.aboucorp</groupId>
 			<artifactId>hibernate-tools</artifactId>
-			<version>6.1.1-SNAPSHOT</version>
+			<version>6.1.2-SNAPSHOT</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations -->
 		<!-- <dependency> <groupId>com.fasterxml.jackson.core</groupId> <artifactId>jackson-annotations</artifactId> 

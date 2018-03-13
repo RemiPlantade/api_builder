@@ -1,9 +1,9 @@
 package api_builder.app.conf.service;
 
 import java.util.List;
-
 import api_builder.app.conf.model.ApiBean;
 import api_builder.app.conf.model.form.ApiBeanWrapper;
+
 public interface ApiBeanService {
 	public void save(ApiBean c);
 	public void update(ApiBean c);

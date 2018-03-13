@@ -3,13 +3,11 @@ package api_builder.app.conf.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import api_builder.app.conf.dao.ApiBeanDao;
 import api_builder.app.conf.model.ApiBean;
-import api_builder.app.conf.model.ApiUserPerm;
 import api_builder.app.conf.model.form.ApiBeanWrapper;
 import api_builder.app.conf.service.ApiBeanService;
 

@@ -29,16 +29,16 @@ public class ApiConfController {
 		return apiConfService.getApiConfWrapper();
 	}
 
-	@GetMapping("/admin/general")
+	@GetMapping("/admin/settings")
 	public String displayApiConf(Model model) {
 		model.addAttribute("apiConfWrapper", apiConfService.getApiConfWrapper());
 		model.addAttribute("serverPort", apiConfService.findByKey("server.port").getParamValue());
 		model.addAttribute("httpsEnabled", apiConfService.findByKey("server.ssl.enabled").getParamValue());
-		return "admin/general";
+		return "admin/settings";
 	}
 
 
-	@PostMapping(value = "/admin/general")
+	@PostMapping(value = "/admin/settings")
 	public String updateConf(HttpSession session, @ModelAttribute("apiConfWrapper") ApiConfWrapper apiConfWrapper, Model model, SessionStatus sa) {
 		ApiConf serverPort = apiConfService.updateServerPort(apiConfWrapper);
 		apiConfService.saveActualPorts(apiConfWrapper);
@@ -48,7 +48,7 @@ public class ApiConfController {
 		sa.setComplete();
 		model.addAttribute("serverPort",serverPort.getParamValue());
 		model.addAttribute("httpsEnabled", apiConfService.findByKey("server.ssl.enabled").getParamValue());
-		return "redirect:/admin/general";
+		return "redirect:/admin/settings";
 	}
 
 	

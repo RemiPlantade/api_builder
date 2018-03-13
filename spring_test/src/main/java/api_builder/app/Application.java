@@ -111,25 +111,25 @@ public class Application {
 	@Bean
 	public EmbeddedServletContainerFactory servletContainer() {
 		TomcatEmbeddedServletContainerFactory tomcat = new TomcatEmbeddedServletContainerFactory() {
+
 			@Override
 			protected void postProcessContext(Context context) {
 
-
-				SecurityConstraint securityConstraint = new SecurityConstraint();
 				if(requireSSL.equals("true")) {
-					securityConstraint.setUserConstraint("CONFIDENTIAL");
-				}else {
-					securityConstraint.setUserConstraint("NONE");
-				}
-				SecurityCollection collection = new SecurityCollection();
-				collection.addPattern("/*");
-				securityConstraint.addCollection(collection);
-				context.addConstraint(securityConstraint);
+					SecurityConstraint securityConstraint = new SecurityConstraint();
 
+					securityConstraint.setUserConstraint("CONFIDENTIAL");
+					SecurityCollection collection = new SecurityCollection();
+					collection.addPattern("/*");
+					securityConstraint.addCollection(collection);
+					context.addConstraint(securityConstraint);
+				}
 			}
 
 		};
+		if(requireSSL.equals("true")) {
 		tomcat.addAdditionalTomcatConnectors(initiateHttpConnector());
+		}
 		return tomcat;
 	}
 
@@ -140,7 +140,7 @@ public class Application {
 			connector.setSecure(false);
 			connector.setPort(Integer.parseInt(userHttpPort));
 			connector.setRedirectPort(Integer.parseInt(userhttpsPort));
-		}else {
+		}else if(requireSSL.equals("false")){
 			connector.setScheme("http");
 			connector.setSecure(false);
 			connector.setPort(Integer.parseInt(userhttpsPort));
