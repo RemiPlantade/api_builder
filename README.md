@@ -2,25 +2,22 @@
 
 
 
-The aim of this project is to create a web platform for automatic generation 
-of RESTFULL API from datamodel or datasource (commonly database).
-The generated API would be be link to the datasource to expose entity from it.
+The aim of this project is to create a java application for automatic generation 
+of RESTFULL API from various database.
+The generated API would be be link to the datasource to expose entities from it.
 
 
 This project can be divided into several parts :
 
 - Datamodel analyse from datasource
-    User give us the database schema and/or the access to his database, 
-    our system analyse data structure to deduct the list of entity / relation. 
+    With a custom implemetation of the Hibernate Tools library the program analyse the database and deduct the relations between entities from tables structure.
 - API generation 
-    From the list of entities and relations between entities our system generate differents API Request.
-- API Request management
-    The system updates itself to allow the management of request from the analysis of the datamodel.
-- API Request to SQL Request
-    This system will be able to transform an uri to a SQL query to get entities from user's data source.
+    With the list of entities / relations the program generate a full Spring Restfull API to expose data from provided database.
+- API management
+    A user management system is embedded to permit User creation, autorization and quota management.
 - Self-contained
-    User will be able to appropriate the system for itself and use it in his own system.
-
+    The program contains everything is needed to run, including the Java virtual machine, an Tomcat application server and all libraries in single one package.
+    
 Contributors :
 
 Plantade Rémi,
@@ -29,41 +26,6 @@ Lariau-Labree Joshua
 
 Tech :
     Langage : Java
-    Plateform : J2EE
+    Tech : Spring / JPA / JDBC
     IDE : Eclipse
     JDK version : Java 1.8
-
-##### This project can be divided into several parts :
-
-- Datamodel analyse from datasource
-
-User give us the database schema and/or the access to his database, 
-our system analyse data structure to deduct the list of entity / relation. 
-
-- API generation 
-
-From the list of entities and relations between entities our system generate differents API Request.
-
-- API Request management
-
-The system updates itself to allow the management of request from the analysis of the datamodel.
-
-- API Request to SQL Request
-
-This system will be able to transform an uri to a SQL query to get entities from user's data source.
-
-- Self-contained
-
-User will be able to appropriate the system for itself and use it in his own system.
-
-##### Contributors :
-
-- Plantade Rémi,
-- Lariau-Labree Joshua
-
-
-##### Tech :
-- Langage : Java
-- Plateform : J2EE
-- IDE : Eclipse
-- JDK version : Java 1.8
