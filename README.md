@@ -23,9 +23,7 @@ Contributors :
 Plantade Rémi,
 Lariau-Labree Joshua
 
-
-Tech :
-    Langage : Java
-    Tech : Spring / JPA / JDBC
-    IDE : Eclipse
-    JDK version : Java 1.8
+- Langage : Java
+- Tech : Spring / JPA / JDBC
+- IDE : Eclipse
+- JDK version : Java 1.8
