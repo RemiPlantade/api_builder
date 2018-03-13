@@ -20,9 +20,10 @@ This project can be divided into several parts :
     
 Contributors :
 
-Plantade Rémi,
-Lariau-Labree Joshua
+- Plantade Rémi,
+- Lariau-Labree Joshua
 
+Technologies
 - Langage : Java
 - Tech : Spring / JPA / JDBC
 - IDE : Eclipse
