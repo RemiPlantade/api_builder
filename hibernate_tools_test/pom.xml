@@ -70,7 +70,7 @@
 								<hibernatetool>
 									<jdbcconfiguration packagename="api_builder.gen.bean"
 										detectmanytomany="true" configurationfile="src/hibernate.cfg.xml"
-										propertyfile="hibernate.properties" />
+										propertyfile="hibernate.properties" revengfile="hibernate.reveng.xml" />
 									<!-- <hbm2java destdir="src/main/java" jdk5="true" ejb3="true" /> -->
 									<hbmtemplate destdir="src/main/java/api_builder/gen/bean"
 										templateprefix="pojo/" template="pojo/Pojo.ftl" filepattern="{class-name}.java">

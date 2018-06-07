@@ -2,14 +2,13 @@
 <!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.org/dtd/hibernate-reverse-engineering-3.0.dtd" >
 
 <hibernate-reverse-engineering>
-	<type-mapping>
-		<sql-type jdbc-type="BOOLEAN" hibernate-type="Boolean"
-			not-null="true"></sql-type>
-	</type-mapping>
-
-	<table catalog="api_builder" name="voiture">
-		<meta attribute="extra-import">
-			com.fasterxml.jackson.annotation.JsonBackReference
-		</meta>
+	<!-- <type-mapping> <sql-type jdbc-type="BOOLEAN" hibernate-type="Boolean" 
+		not-null="true"></sql-type> </type-mapping> <table catalog="api_builder" 
+		name="voiture"> <meta attribute="extra-import"> com.fasterxml.jackson.annotation.JsonBackReference 
+		</meta> </table> -->
+	<table name="voiture">
+		<foreign-key constraint-name="fk_conducteur">
+			<many-to-one property="Conducteur" exclude="true" />
+		</foreign-key>
 	</table>
 </hibernate-reverse-engineering>
