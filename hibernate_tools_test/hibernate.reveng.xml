@@ -6,9 +6,9 @@
 		not-null="true"></sql-type> </type-mapping> <table catalog="api_builder" 
 		name="voiture"> <meta attribute="extra-import"> com.fasterxml.jackson.annotation.JsonBackReference 
 		</meta> </table> -->
-	<table name="voiture">
+<!-- 	<table name="voiture">
 		<foreign-key constraint-name="fk_conducteur">
 			<many-to-one property="Conducteur" exclude="true" />
 		</foreign-key>
-	</table>
+	</table> -->
 </hibernate-reverse-engineering>
