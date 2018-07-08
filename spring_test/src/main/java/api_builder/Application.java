@@ -3,8 +3,6 @@ package api_builder;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import javax.annotation.PostConstruct;
-
 import org.apache.catalina.Context;
 import org.apache.catalina.connector.Connector;
 import org.apache.tomcat.util.descriptor.web.SecurityCollection;
@@ -24,7 +22,6 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.MutablePropertySources;
 import org.springframework.core.env.PropertiesPropertySource;
-import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.http.converter.json.SpringHandlerInstantiator;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -32,26 +29,13 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import com.fasterxml.jackson.databind.DeserializationConfig;
-import com.fasterxml.jackson.databind.JsonDeserializer;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.KeyDeserializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationConfig;
 import com.fasterxml.jackson.databind.cfg.HandlerInstantiator;
-import com.fasterxml.jackson.databind.cfg.MapperConfig;
-import com.fasterxml.jackson.databind.introspect.Annotated;
-import com.fasterxml.jackson.databind.jsontype.TypeIdResolver;
-import com.fasterxml.jackson.databind.jsontype.TypeResolverBuilder;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
 import api_builder.conf.ApiPropertyLoader;
-import api_builder.gen.bean.Conducteur;
 import api_builder.gen.jackson.CustomBeanDeserializerModifier;
 import api_builder.gen.jackson.CustomBeanSerializerModifier;
-import api_builder.gen.jackson.CustomHandlerInstantiator;
-import api_builder.gen.jackson.deserializer.ConducteurDeserializer;
-import api_builder.gen.service.VoitureService;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 
 //@PropertySource({"classpath:application.properties"})
@@ -76,10 +60,6 @@ public class Application {
 
 	@Value("${api.port.https}")
 	private String userhttpsPort;
-	
-	@Autowired
-	private HandlerInstantiator instanciator;
-	
 	
 	@Autowired
 	private CustomBeanDeserializerModifier modifDeser;

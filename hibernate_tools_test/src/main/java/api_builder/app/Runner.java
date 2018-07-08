@@ -26,7 +26,6 @@ public class Runner {
 		InvocationRequest request = new DefaultInvocationRequest();
 		request.setPomFile( new File( "pom.xml" ) );
 		request.setGoals( Arrays.asList("clean","install"," antrun:run@hbm2java -X" ) );
-		
 		Invoker invoker = new DefaultInvoker();
 		invoker.setMavenExecutable(new File("mvn.cmd"));
 		invoker.setMavenHome(new File("maven"));
